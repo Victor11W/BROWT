@@ -423,12 +423,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#état-vérifié-au-23-novembre-2026" id="toc-état-vérifié-au-23-novembre-2026" class="nav-link active" data-scroll-target="#état-vérifié-au-23-novembre-2026"><span class="header-section-number">3.1</span> État vérifié au 23 novembre 2026</a></li>
-  <li><a href="#cycle-dune-session" id="toc-cycle-dune-session" class="nav-link" data-scroll-target="#cycle-dune-session"><span class="header-section-number">3.2</span> Cycle d’une session</a></li>
-  <li><a href="#tickets-et-continuité" id="toc-tickets-et-continuité" class="nav-link" data-scroll-target="#tickets-et-continuité"><span class="header-section-number">3.3</span> Tickets et continuité</a></li>
-  <li><a href="#installation-et-premier-essai" id="toc-installation-et-premier-essai" class="nav-link" data-scroll-target="#installation-et-premier-essai"><span class="header-section-number">3.4</span> Installation et premier essai</a></li>
-  <li><a href="#ci-fusion-et-erreurs" id="toc-ci-fusion-et-erreurs" class="nav-link" data-scroll-target="#ci-fusion-et-erreurs"><span class="header-section-number">3.5</span> CI, fusion et erreurs</a></li>
-  <li><a href="#cadence-coût-et-messages" id="toc-cadence-coût-et-messages" class="nav-link" data-scroll-target="#cadence-coût-et-messages"><span class="header-section-number">3.6</span> Cadence, coût et messages</a></li>
-  <li><a href="#données-et-matériel" id="toc-données-et-matériel" class="nav-link" data-scroll-target="#données-et-matériel"><span class="header-section-number">3.7</span> Données et matériel</a></li>
+  <li><a href="#utiliser-les-crédits-disponibles" id="toc-utiliser-les-crédits-disponibles" class="nav-link" data-scroll-target="#utiliser-les-crédits-disponibles"><span class="header-section-number">3.2</span> Utiliser les crédits disponibles</a></li>
+  <li><a href="#cycle-dune-session" id="toc-cycle-dune-session" class="nav-link" data-scroll-target="#cycle-dune-session"><span class="header-section-number">3.3</span> Cycle d’une session</a></li>
+  <li><a href="#tickets-ci-et-continuité" id="toc-tickets-ci-et-continuité" class="nav-link" data-scroll-target="#tickets-ci-et-continuité"><span class="header-section-number">3.4</span> Tickets, CI et continuité</a></li>
+  <li><a href="#installation-et-premier-essai" id="toc-installation-et-premier-essai" class="nav-link" data-scroll-target="#installation-et-premier-essai"><span class="header-section-number">3.5</span> Installation et premier essai</a></li>
+  <li><a href="#cadence-arrêt-et-ressources" id="toc-cadence-arrêt-et-ressources" class="nav-link" data-scroll-target="#cadence-arrêt-et-ressources"><span class="header-section-number">3.6</span> Cadence, arrêt et ressources</a></li>
   </ul>
 </nav>
     </div>
@@ -439,7 +438,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Fil d'Ariane"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./roadmap.html">Le projet</a></li><li class="breadcrumb-item"><a href="./autonomy.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Travail autonome et notifications</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Travail autonome et notifications</span></h1>
-<p class="subtitle lead">Installation, preuves et limites de l’exécution hébergée</p>
+<p class="subtitle lead">Agent Responses API, tickets, preuves et financement</p>
 </div>
 
 
@@ -458,7 +457,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="état-vérifié-au-23-novembre-2026" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="état-vérifié-au-23-novembre-2026"><span class="header-section-number">3.1</span> État vérifié au 23 novembre 2026</h2>
-<p>Le socle de recherche est intégré dans main par la <a href="https://github.com/Victor11W/BROWT/pull/6">PR nº 6</a>. La <a href="https://github.com/Victor11W/BROWT/actions/runs/45234044946">CI de main</a> passe sur Ubuntu et Windows, Python 3.11 et 3.12, et rend le livre Quarto. La <a href="https://github.com/Victor11W/BROWT/actions/runs/45234045002">publication du livre</a> et le déploiement Pages ont réussi.</p>
+<p>Le socle est intégré par la <a href="https://github.com/Victor11W/BROWT/pull/6">PR nº 6</a>. Le contrôleur est installé par la <a href="https://github.com/Victor11W/BROWT/pull/7">PR nº 7</a> et corrigé par la <a href="https://github.com/Victor11W/BROWT/pull/9">PR nº 9</a>. Son <a href="https://github.com/Victor11W/BROWT/actions/runs/45243470554">démarrage corrigé</a> a réussi : état durable initialisé, pause levée, ticket de publication fermé et message Telegram envoyé. Zéro session de modèle a été réservée à ce stade. La CI de main, le rendu du livre et son déploiement Pages passent.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -472,43 +471,58 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Tickets de départ</td>
-<td>Quatre tickets publiés, nº 2 à 5</td>
+<td>Tickets et état</td>
+<td>Tickets nº 3 à 5 ouverts ; état dans l’issue nº 8 ; publication nº 2 close après contrôle</td>
 </tr>
 <tr class="even">
-<td>OpenAI</td>
-<td>Liste des modèles lue avec succès ; inférence Codex et financement encore non testés</td>
+<td>Clé API</td>
+<td>Liste des modèles lue ; génération Responses à vérifier</td>
 </tr>
 <tr class="odd">
 <td>Telegram</td>
-<td>Envoi distant réussi et réception confirmée par Victor</td>
+<td>Premier message reçu par Victor ; messages du contrôleur confirmés par l’API</td>
 </tr>
 <tr class="even">
-<td>Worker</td>
-<td>Installé par la PR nº 7 ; premier démarrage interrompu avant le modèle, correctif de comparaison dans cette révision à vérifier sur GitHub</td>
+<td>Nouveau moteur</td>
+<td>Responses API implémentée dans cette révision ; tests réels hébergés et sonde à effectuer</td>
 </tr>
 <tr class="odd">
-<td>Planification du modèle</td>
-<td>Désactivée tant que les conditions d’activation ne sont pas réunies</td>
+<td>Financement</td>
+<td>Crédits API promotionnels déclarés ; aucun plan API payant déclaré</td>
 </tr>
 <tr class="even">
-<td>Dataset brut, GPU, émulateur</td>
-<td>Archive encore locale ; NVIDIA et LDPlayer absents du runner</td>
+<td>Dépenses réelles autorisées</td>
+<td>10 € maximum par mois ; aucun achat effectué par le worker</td>
+</tr>
+<tr class="odd">
+<td>Sessions horaires de modèle</td>
+<td>Inactives tant que la recette et l’activation ne sont pas validées</td>
+</tr>
+<tr class="even">
+<td>Données et matériel</td>
+<td>Archive brute locale, NVIDIA et LDPlayer absents de l’environnement hébergé</td>
 </tr>
 </tbody>
 </table>
-<p>Les résultats de l’amorçage sont dans <a href="https://github.com/Victor11W/BROWT/actions/runs/45229580202">ce run</a>. Un contrôle de lecture OpenAI ne démontre pas une génération ou un budget disponible. Les tests du contrôleur utilisent une API simulée et ne prouvent pas une exécution Codex réelle. Les résultats scientifiques restent distincts de ces essais techniques.</p>
+<p>Les tests simulés ne prouvent pas une génération. Une API qui accepte une requête ne prouve pas à elle seule le solde ni la date d’expiration d’un crédit : ces informations restent dans la facturation du compte.</p>
 </section>
-<section id="cycle-dune-session" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="cycle-dune-session"><span class="header-section-number">3.2</span> Cycle d’une session</h2>
-<p><sub></sub>~{mermaid} flowchart TD S[“Déclenchement manuel ou horaire”] –&gt; E[“Relire l’état et les tickets”] E –&gt; G{“Budget et activation validés ?”} G –&gt;|non| A[“Aucun appel au modèle”] G –&gt;|oui| T[“Réserver une session et choisir un ticket”] T –&gt; C[“Codex : une petite étape, code et preuves”] C –&gt; V[“Contrôleur séparé : valider les fichiers retournés”] V –&gt; P[“Branche et PR”] P –&gt; I[“Research checks sur la révision exacte”] I –&gt;|succès| M[“Fusion si les règles GitHub l’autorisent”] I –&gt;|échec| R[“Réparation bornée ou pause”] M –&gt; J[“Mettre à jour le ticket et l’état”] R –&gt; J J –&gt; N[“Bref message Telegram si utile”] <sub></sub>~</p>
-<p>Le workflow Autonomous research worker est versionné dans <code>.github/workflows/autonomous-worker.yml</code>. Le contrôleur est dans <code>.github/autonomy/worker.py</code> ; les consignes et le schéma de résultat sont voisins.</p>
-<p>Le modèle travaille sur un runner sans droits d’écriture GitHub et sans secret Telegram. Il renvoie des fichiers texte complets dans un objet JSON. Un autre job, sur une machine fraîche, valide ces données et utilise l’API Git pour publier. Aucune commande issue du résultat n’est exécutée par le contrôleur. Codex est la dernière étape de son job, conformément aux <a href="https://github.com/openai/codex-action/blob/main/docs/security.md">recommandations de l’action officielle</a>.</p>
-<p>Les fichiers d’infrastructure, les consignes d’agents et les métadonnées gelées du dataset ne sont pas modifiables par ce worker. Une modification de ces fichiers nécessite une PR d’installation examinée séparément. Le format texte limite une session à douze fichiers et 60 Ko ; les tâches plus grandes sont découpées. Les figures scientifiques peuvent être reproduites par des scripts et exportées en SVG ; les images binaires ne transitent pas dans ce contrat de session.</p>
+<section id="utiliser-les-crédits-disponibles" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="utiliser-les-crédits-disponibles"><span class="header-section-number">3.2</span> Utiliser les crédits disponibles</h2>
+<p>Le mode de financement prévoit des crédits API promotionnels éligibles. L’offre liée à ChatGPT Pro/Business couvre notamment Responses, Agents et leurs outils facturés dans l’organisation liée ; elle exclut Codex utilisé avec une clé API. Le moteur est donc remplacé par un agent utilisant directement Responses API. Voir les <a href="https://help.openai.com/en/articles/20001626-api-credits-benefit-for-eligible-chatgpt-subscriptions">conditions de l’offre</a>.</p>
+<p>La politique est conservée dans <code>.github/autonomy/budget-policy.json</code>, avec le plafond de <strong>10 € par mois de dépenses réelles</strong>. Elle ne constitue pas un contrôle financier appliqué par le programme. La première sonde vérifiera l’inférence avec la clé existante ; le solde applicable doit appartenir à son organisation. Aucun nouvel achat n’est nécessaire avant cette vérification.</p>
+<p>Le worker n’achète et ne recharge jamais de crédits. Un refus API provoque une pause, sans tentative automatique répétée. Si un plan API payant est ajouté ultérieurement, vérifier d’abord un blocage de dépenses avec une marge pour la conversion, les taxes et le délai de propagation éventuel. Les alertes seules ne bloquent pas les requêtes. Voir les <a href="https://developers.openai.com/api/docs/guides/spend-limits">limites de dépense</a>.</p>
 </section>
-<section id="tickets-et-continuité" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="tickets-et-continuité"><span class="header-section-number">3.3</span> Tickets et continuité</h2>
-<p>Les tickets sont créés sans doublon grâce à des clés stables. Le contrôleur conserve les tickets fermés dans sa recherche de doublons. Il ne choisit que les tickets identifiés BROWT et écrits par le propriétaire ou GitHub Actions ; les issues publiques ordinaires ne lancent pas de session. Pour ajouter un ticket manuellement, le propriétaire peut utiliser le marqueur <code>&lt;!-- browt-task:cle-stable --&gt;</code> dans le corps et le label <code>browt:ready</code> ; la clé doit être stable et le ticket doit indiquer ses critères de fin.</p>
+<section id="cycle-dune-session" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cycle-dune-session"><span class="header-section-number">3.3</span> Cycle d’une session</h2>
+<p><sub></sub>~{mermaid} flowchart TD S[“Déclenchement manuel ou horaire”] –&gt; E[“Relire l’état et les tickets”] E –&gt; G{“Financement et activation validés ?”} G –&gt;|non| A[“Aucun appel au modèle”] G –&gt;|oui| T[“Réserver une session et choisir un ticket”] T –&gt; R[“Responses API”] R –&gt; C[“Conteneur isolé : code, tests et preuves”] C –&gt; J[“Résultat JSON : fichiers texte complets”] J –&gt; V[“Job GitHub distinct : valider et publier une PR”] V –&gt; I[“Research checks sur le SHA exact”] I –&gt;|succès| M[“Fusion si les règles GitHub l’autorisent”] I –&gt;|échec| F[“Réparation bornée ou pause”] M –&gt; P[“Publier le livre et mettre à jour le ticket”] F –&gt; N[“Bref message Telegram si utile”] P –&gt; N <sub></sub>~</p>
+<p>Le contrôleur est dans <code>.github/autonomy/worker.py</code> et le client du modèle dans <code>.github/autonomy/responses_agent.py</code>. La réservation précède l’appel au modèle. Les écritures GitHub, l’appel au modèle et Telegram restent dans des jobs séparés.</p>
+<p>La sonde et la planification n’ouvrent aucun conteneur. Pour une tâche de code, GitHub prépare un export de HEAD avec git archive et des wheels Python 3.11 pour les dépendances CPU. Les fichiers non suivis, l’archive brute, les poids et les secrets d’environnement ne sont pas inclus dans cet export. Un manifeste conserve les empreintes de la source et des wheels.</p>
+<p>Le paquet est temporairement envoyé à OpenAI, puis monté dans un conteneur de 1 Go avec réseau sortant désactivé. Les commandes du modèle s’exécutent dans ce conteneur, qui ne reçoit ni clé API ni jeton GitHub en écriture. Les dépendances s’installent hors réseau depuis les wheels. Quarto reste vérifié par la CI séparée. Voir le <a href="https://developers.openai.com/api/docs/guides/tools-shell">shell hébergé de Responses</a>.</p>
+<p>Le client récupère uniquement le résultat final structuré et valide son contrat. Un autre job sur une machine fraîche utilise l’API Git pour publier les fichiers ; il n’exécute aucune commande du résultat. Douze fichiers texte et 60 Ko de JSON au plus peuvent être publiés par session. Les consignes, l’infrastructure et les métadonnées gelées du dataset ne sont pas modifiables par le modèle. Les figures peuvent être reproduites par du code et exportées en SVG ; les fichiers binaires ne transitent pas dans ce contrat.</p>
+<p>Les ressources API créées par la session sont nettoyées. En cas d’interruption, l’upload est configuré pour expirer en une heure et le conteneur après vingt minutes d’inactivité. Un timeout connu demande l’annulation de la réponse ; si le réseau empêche sa confirmation, le contrôleur se met en pause.</p>
+</section>
+<section id="tickets-ci-et-continuité" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="tickets-ci-et-continuité"><span class="header-section-number">3.4</span> Tickets, CI et continuité</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -519,63 +533,49 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>browt:ready</code></td>
-<td>Travail autorisé et réalisable sur le runner</td>
+<td>Travail identifié BROWT et réalisable</td>
 </tr>
 <tr class="even">
 <td><code>browt:in-progress</code></td>
-<td>Une session ou une PR est en cours</td>
+<td>Session ou PR en cours</td>
 </tr>
 <tr class="odd">
 <td><code>browt:blocked</code></td>
-<td>Accès, matériel, décision ou preuve manquants</td>
+<td>Ressource, décision ou preuve manquante</td>
 </tr>
 <tr class="even">
 <td><code>browt:state</code></td>
-<td>Issue technique contenant l’état durable du worker</td>
+<td>État durable du contrôleur</td>
 </tr>
 </tbody>
 </table>
-<p>Le premier ticket scientifique sélectionnable est le nº 3, consacré aux groupes d’acquisition. Le ticket de publication nº 2 n’est fermé qu’après vérification de la présence du socle dans main et du succès de sa CI. Le ticket d’autonomie nº 5 attend un cycle réel réussi. La baseline nº 4 reste bloquée tant que son protocole, les données accessibles au runner et le calcul nécessaire manquent.</p>
-<p>Sans ticket prêt, une session de planification peut proposer au plus trois tâches. Elle ne se répète pas tant que le backlog suivi ne change pas. Les dépendances numériques sont vérifiées ; une tâche explicitement bloquée par une ressource ne devient pas prête simplement parce que ses autres dépendances sont closes.</p>
-<p>Une PR partielle fusionnée remet le ticket au statut prêt. Un ticket n’est fermé que si le worker déclare ses critères achevés et si la CI de sa révision passe. La CI vérifie le code et le rendu, pas la vérité de chaque conclusion scientifique : les mesures réelles, leurs entrées et leurs scripts doivent rester consultables. Un résultat absent n’est jamais remplacé par une métrique inventée.</p>
-<p>L’état est conservé dans une issue créée par le contrôleur, jamais dans le seul disque du runner. Il contient compteurs UTC, session réservée, PR, révision, CI, statut de la sonde et raisons de pause. Les jobs sont sérialisés. Après une interruption non finalisée, le worker se met en pause au lieu de répéter un appel potentiellement facturé. Les modifications non publiées d’un runner perdu ne sont pas récupérables ; le ticket et la réservation permettent de reprendre après examen du journal.</p>
+<p>Les tickets sont dédoublonnés par clé stable, en tenant compte des tickets fermés. Seuls les tickets identifiés et écrits par le propriétaire ou GitHub Actions sont sélectionnés. Pour en ajouter manuellement, utiliser le marqueur <code>&lt;!-- browt-task:cle-stable --&gt;</code> dans le corps, le label <code>browt:ready</code> et des critères de fin explicites. Les issues publiques ordinaires ne lancent aucune session. Sans tâche prête, une planification peut proposer trois tickets au plus ; elle ne se répète pas tant que le backlog suivi reste inchangé.</p>
+<p>Le premier travail scientifique disponible est le ticket nº 3 sur les groupes d’acquisition. Une étape partielle fusionnée laisse le ticket ouvert et prêt. Un blocage reste documenté. Seuls des critères déclarés achevés et une CI validée permettent une clôture automatique. La CI ne démontre pas la vérité d’une conclusion scientifique : les mesures et leurs entrées doivent rester consultables.</p>
+<p>Le contrôleur demande explicitement la CI sur la branche. Il attend le bon workflow, la bonne branche et le SHA exact, revérifie la PR, puis tente une fusion verrouillée sur ce SHA. Il ne contourne aucune règle de branche et ne force aucun push. Après fusion, il demande explicitement Publish docs sur main. Les événements d’une PR créée par GITHUB_TOKEN peuvent demander une approbation GitHub distincte ; le run demandé est une vérification réelle supplémentaire. Voir les <a href="https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow">règles de déclenchement GitHub</a>.</p>
+<p>L’état persiste dans l’issue nº 8 : compteurs UTC, réservation, PR, révision, CI, sonde et raisons de pause. Les jobs sont sérialisés. Une interruption non finalisée provoque une pause, sans répétition d’un appel potentiellement facturé. Les fichiers non publiés d’un conteneur perdu ne sont pas récupérables.</p>
+<p>Une PR en échec peut être réparée depuis sa dernière révision. Trois échecs de CI, un changement externe de la PR ou de main, ou une erreur de session API provoquent une pause. Après examen et correction, le mode resume efface la pause et la réservation incomplète, sans lancer de modèle. Une nouvelle exécution work est nécessaire. Une PR obsolète peut être fermée après conservation de son lien dans le ticket ; remettre le ticket prêt permet de repartir du nouveau main.</p>
+<p>Le premier défaut de comparaison BASE…HEAD a été corrigé dans la PR nº 9 et sa pause d’initialisation levée par le contrôleur. Cette migration ne supprime aucune pause liée à une session de modèle.</p>
 </section>
-<section id="installation-et-premier-essai" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="installation-et-premier-essai"><span class="header-section-number">3.4</span> Installation et premier essai</h2>
+<section id="installation-et-premier-essai" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="installation-et-premier-essai"><span class="header-section-number">3.5</span> Installation et premier essai</h2>
 <ol type="1">
-<li>La PR d’installation nº 7 est fusionnée, avec sa CI verte. Publier et vérifier le correctif du premier démarrage. Les pushes vers codex/autonomous-worker créent ou actualisent la PR d’infrastructure et ajoutent un lien sans doublon au ticket d’installation.</li>
-<li>Vérifier les trois secrets de dépôt déjà configurés : <code>OPENAI_API_KEY</code>, <code>TELEGRAM_BOT_TOKEN</code> et <code>TELEGRAM_CHAT_ID</code>. Aucune valeur ne doit apparaître dans le chat, un ticket, un commit ou un log.</li>
-<li>Dans Actions → Autonomous research worker → Run workflow, choisir main et le mode inspect. Cela initialise les statuts et l’état, sans appel au modèle.</li>
-<li>Le budget API approuvé est de <strong>10 € par mois</strong>. Vérifier le financement compatible et le blocage effectif des dépenses avant tout essai facturable. Une fois ces contrôles établis, ajouter la variable de dépôt <code>BROWT_API_BUDGET_CONFIRMED</code> avec la valeur true. Cette variable est une autorisation, pas un plafond financier imposé par OpenAI.</li>
-<li>Lancer manuellement le mode probe. Il demande uniquement une réponse Codex, sans changement de fichier. Un succès prouve l’inférence à cet instant ; une erreur de crédits, modèle ou authentification provoque une pause.</li>
-<li>Lancer manuellement le mode work. Suivre le ticket, la PR, la CI explicitement déclenchée sur la branche et la fusion. Ne pas activer la récurrence avant d’avoir observé ce cycle complet. Le succès met verified à true dans l’état.</li>
-<li>Ajouter enfin <code>BROWT_AUTONOMY_ENABLED</code>=true dans les variables de dépôt. Le modèle ne sera appelé aux horaires prévus que si la sonde et le premier cycle sont aussi enregistrés comme réussis.</li>
+<li>Publier cette version du moteur Responses, vérifier sa CI et fusionner sa PR. Les pushes vers codex/autonomous-worker actualisent la PR d’infrastructure et ajoutent un lien sans doublon au ticket d’installation.</li>
+<li>Les trois secrets existants sont réutilisés : <code>OPENAI_API_KEY</code>, <code>TELEGRAM_BOT_TOKEN</code> et <code>TELEGRAM_CHAT_ID</code>. Aucune nouvelle clé n’est à transmettre.</li>
+<li>La politique de cette révision autorise une sonde unique avec les crédits déclarés et sans plan API payant déclaré. Après une CI réussie sur le SHA exact de main, le contrôleur réserve cette petite sonde, sans conteneur ni envoi de code. Un refus, une pause existante ou un drapeau d’arrêt explicite empêche une répétition automatique. Aucun travail scientifique n’est lancé par ce test.</li>
+<li>Vérifier le job de sonde, les tokens rapportés et probe_ok dans l’état durable. Le solde et l’origine du crédit restent vérifiables dans le compte. La sonde manuelle reste disponible via Actions → Autonomous research worker → Run workflow → main → probe, après configuration du drapeau de financement.</li>
+<li>Une fois l’accès établi, ajouter <code>BROWT_API_BUDGET_CONFIRMED</code>=true pour les sessions de travail. Pour le compte actuel, cette décision s’appuie sur les crédits éligibles et l’absence de plan API payant déclarés. Ce drapeau ne crée pas de plafond fournisseur. Un financement payant exige son propre contrôle de dépenses avant activation.</li>
+<li>Lancer manuellement le mode work. Vérifier la tâche, les commandes exécutées, la PR, sa CI et sa fusion. Ce cycle réel réussi met verified à true dans l’état.</li>
+<li>Ajouter enfin <code>BROWT_AUTONOMY_ENABLED</code>=true. Les appels horaires commencent seulement si la sonde et le premier cycle sont enregistrés comme réussis.</li>
 </ol>
-<p>Les variables ordinaires se créent dans <a href="https://github.com/Victor11W/BROWT/settings/variables/actions">Settings → Secrets and variables → Actions → Variables</a>. Les clés restent dans l’onglet <a href="https://github.com/Victor11W/BROWT/settings/secrets/actions">Secrets</a>. La variable facultative <code>BROWT_CODEX_MODEL</code> choisit le modèle ; vide, elle laisse le choix par défaut à Codex. Le modèle doit être disponible pour la clé configurée.</p>
-<p>Les droits du connecteur GitHub du chat et ceux du GITHUB_TOKEN des workflows sont distincts. Le premier refuse actuellement les écritures. Cela ne démontre pas que le workflow manque de droits.</p>
+<p>Les variables ordinaires se créent dans <a href="https://github.com/Victor11W/BROWT/settings/variables/actions">Settings → Secrets and variables → Actions → Variables</a>. La variable facultative <code>BROWT_API_MODEL</code> choisit le modèle ; le défaut est <code>gpt-6.2-sol</code>. Sa disponibilité dépend de la clé. Les secrets restent dans <a href="https://github.com/Victor11W/BROWT/settings/secrets/actions">l’onglet Secrets</a>. Les droits du connecteur GitHub du chat et du jeton des workflows sont distincts.</p>
+<p>La CI du nouveau moteur vérifie aussi le paquet exact de source et de dépendances dans une image Debian/Python 3.11, sans réseau et sans clé API. Les tests unitaires simulent les réponses ; ils n’utilisent aucun crédit du compte.</p>
 </section>
-<section id="ci-fusion-et-erreurs" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="ci-fusion-et-erreurs"><span class="header-section-number">3.5</span> CI, fusion et erreurs</h2>
-<p>Une écriture faite avec GITHUB_TOKEN ne déclenche pas les mêmes événements qu’un push utilisateur. Le contrôleur appelle donc explicitement workflow_dispatch sur ci.yml. Il attend un run du bon dépôt, de la bonne branche et du SHA exact, puis vérifie à nouveau les fichiers et la cible de la PR avant fusion. La fusion utilise un SHA attendu et ne contourne aucune règle de branche. Après une fusion vérifiée du worker, le contrôleur déclenche explicitement Publish docs sur main pour actualiser le livre public. Le résultat de cette publication reste consultable dans son propre run. Voir les <a href="https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow">règles GitHub sur les déclenchements</a>.</p>
-<p>La CI de l’événement pull_request d’une PR créée par le bot peut rester en attente d’une approbation GitHub. Le run explicitement demandé est une vérification supplémentaire réelle, pas une approbation de ce bandeau. Si les règles du dépôt exigent une revue ou un autre contrôle, la fusion automatique s’arrête et le contrôleur signale la pause. Le premier cycle sert aussi à vérifier ce comportement.</p>
-<p>Un échec de CI permet de reprendre la même PR depuis sa dernière révision. Après trois échecs distincts, la réparation se met en pause. Un changement externe de la PR ou de main provoque aussi une pause. Aucun force-push n’est utilisé. Une erreur de session Codex n’est pas relancée automatiquement.</p>
-<p>Le premier démarrage réel a révélé une validation trop stricte qui rejetait les URL de comparaison GitHub contenant BASE…HEAD. Le correctif distingue ces noms des segments de traversée. Il lève automatiquement cette seule pause d’initialisation si aucune session de modèle, réservation ou PR n’a commencé, après succès des vérifications de configuration. Les autres pauses conservent la procédure manuelle.</p>
-<p>Après examen et correction de la cause, lancer le mode resume efface la pause et la réservation incomplète ; ce mode ne lance aucun modèle. Une nouvelle exécution work est nécessaire. Une PR dont la base a changé exige une revue et une remise en cohérence avant reprise ; resume ne la rebase pas. Après revue, fermer la PR devenue obsolète libère son suivi ; conserver son lien dans le ticket, remettre ce ticket au statut prêt si nécessaire, puis utiliser resume et un nouveau work permet de repartir du nouveau main.</p>
-</section>
-<section id="cadence-coût-et-messages" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="cadence-coût-et-messages"><span class="header-section-number">3.6</span> Cadence, coût et messages</h2>
-<p>Le budget autorisé par Victor le 23 novembre 2026 est de <strong>10 € par mois pour l’API du worker BROWT</strong>. Il est consigné dans <code>.github/autonomy/budget-policy.json</code>. Ce fichier conserve la décision ; il ne mesure pas les coûts et n’impose pas de plafond au fournisseur. Le contrôle financier reste à vérifier dans le compte avant de passer <code>BROWT_API_BUDGET_CONFIRMED</code> à true. Si le compte utilise une autre devise, la conversion et une marge doivent être prises en compte. Même un blocage de dépense OpenAI peut présenter un léger dépassement pendant sa propagation : le seuil technique doit donc rester en dessous du budget autorisé.</p>
-<p>Deux sessions quotidiennes sont un maximum ; le budget peut arrêter le travail plus tôt dans le mois. Aucun dépassement n’est autorisé par le choix de cette cadence.</p>
-<p>La cadence préparée est 07:17 et 19:17 UTC. GitHub peut retarder un déclenchement. Le contrôleur autorise au plus deux sessions de modèle par jour UTC, en comptant les sondes, la planification, les réparations et les sessions interrompues. L’étape Codex est limitée à douze minutes. Relancer le même run n’autorise pas une seconde session ; il faut un nouveau déclenchement. Ces bornes limitent le travail effectué, sans garantir un montant maximal en euros ou dollars.</p>
-<p>Victor confirme le 23 novembre 2026 qu’aucun plan de facturation API payant n’est encore activé. Les captures précédentes n’affichaient pas de contrôle de dépense. Il reste à vérifier un financement compatible avec Codex avant l’essai. Des crédits liés à un abonnement ChatGPT peuvent avoir des restrictions : le <a href="https://help.openai.com/en/articles/20001626-api-credits-benefit-for-eligible-chatgpt-subscriptions">bénéfice de crédits API</a> ne couvre pas les usages Codex par clé API. Ne pas confondre accès au chat, accès à la liste des modèles, génération et financement du worker.</p>
-<p>Un niveau de débit ou une alerte ne constitue pas un plafond de dépense. Consulter les <a href="https://developers.openai.com/api/docs/guides/spend-limits">limites de dépense OpenAI</a> et vérifier le contrôle effectivement disponible dans le compte. Le GPU et les services externes demandent un budget distinct.</p>
-<p>Telegram reçoit au plus deux messages utiles par jour UTC, en français, en une ou deux lignes : avancée intégrée, tâches préparées ou blocage. Le worker ne répète pas la même notification. Une notification différée peut attendre le jour suivant lorsque le quota est épuisé. Pour éviter les doublons après interruption, l’envoi est réservé avant la requête : un envoi perdu à cet instant n’est pas répété automatiquement. Telegram reste un résumé ; GitHub conserve les preuves et les détails.</p>
-<p>Pour arrêter les nouvelles sessions horaires, passer <code>BROWT_AUTONOMY_ENABLED</code> à false. Pour suspendre aussi les appels manuels et les fusions automatiques, passer <code>BROWT_API_BUDGET_CONFIRMED</code> à false, puis annuler un run déjà lancé si nécessaire. La suppression d’une variable équivaut à false. Une variable ne peut pas annuler une requête déjà partie ; inspect reste disponible sans appel modèle.</p>
-</section>
-<section id="données-et-matériel" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="données-et-matériel"><span class="header-section-number">3.7</span> Données et matériel</h2>
-<p>L’archive Roboflow de 2 551 images demeure hors Git, sur le PC de Victor. Le runner peut développer et tester des outils sur fixtures, mais ne peut pas réévaluer ces images ou entraîner un détecteur dessus sans un accès supplémentaire. Un stockage persistant avec empreintes et un protocole de récupération seront nécessaires. Aucun transfert de données, achat de calcul ou service payant supplémentaire n’est installé implicitement par le worker.</p>
-<p>Les expériences NVIDIA et les essais LDPlayer nécessiteront ensuite une machine adaptée. Les tickets doivent rendre cette dépendance visible tout en permettant au travail CPU, aux analyses et aux visualisations reproductibles d’avancer.</p>
+<section id="cadence-arrêt-et-ressources" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="cadence-arrêt-et-ressources"><span class="header-section-number">3.6</span> Cadence, arrêt et ressources</h2>
+<p>La cadence préparée est 07:17 et 19:17 UTC. GitHub peut retarder un déclenchement. Deux sessions de modèle par jour UTC sont autorisées au plus, sondes, planification, erreurs et réparations comprises. Le client borne les réponses en tokens et les appels d’outils ; son étape est limitée à douze minutes. Ces bornes ne garantissent pas un montant monétaire. Le crédit peut être épuisé ou expirer avant un renouvellement ; les erreurs ne déclenchent aucun achat.</p>
+<p>Telegram reçoit au plus deux résumés utiles par jour UTC, en français, en une ou deux lignes. Le même message n’est pas répété. Un message peut attendre le jour suivant si le quota est épuisé. L’envoi est réservé avant la requête pour limiter les doublons ; un envoi interrompu à cet instant n’est pas répété automatiquement. GitHub conserve les détails et les preuves.</p>
+<p><code>BROWT_AUTONOMY_ENABLED</code>=false arrête les nouvelles sessions horaires. <code>BROWT_API_BUDGET_CONFIRMED</code>=false suspend aussi les appels manuels et les fusions automatiques. Un false explicite bloque aussi la sonde initiale. En dehors de cette sonde autorisée par la politique, l’absence de drapeau équivaut à false. Annuler un run déjà lancé peut rester nécessaire ; un drapeau ne peut annuler une requête partie. inspect reste utilisable sans appel au modèle.</p>
+<p>L’archive réelle de 2 551 images reste locale. L’agent peut développer des outils sur fixtures, sans prétendre réévaluer ces images ou entraîner un détecteur dessus. Les données, poids, expériences NVIDIA et essais LDPlayer nécessiteront ensuite un environnement et un stockage adaptés, avec leurs propres preuves et budget.</p>
 
 
 </section>
