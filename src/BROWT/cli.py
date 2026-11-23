@@ -54,6 +54,12 @@ def main() -> None:
         "--splits", nargs="+", choices=["train", "valid", "test"], default=["train", "valid"]
     )
     data_report.add_argument("--seed", type=int, default=0)
+    grouped = commands.add_parser(
+        "grouped-split", help="Derive a candidate train/valid split by nominal acquisition time"
+    )
+    grouped.add_argument("--dataset", type=Path, required=True)
+    grouped.add_argument("--output", type=Path, required=True)
+    grouped.add_argument("--expected-source-sha256")
     args = parser.parse_args()
     if args.command == "doctor":
         from BROWT.research.doctor import show_doctor
@@ -90,6 +96,16 @@ def main() -> None:
                 provenance=args.provenance,
             )
         )
+    elif args.command == "grouped-split":
+        from BROWT.data.grouped_split import write_grouped_manifest
+
+        try:
+            write_grouped_manifest(
+                args.dataset, args.output, expected_source_sha256=args.expected_source_sha256
+            )
+        except (OSError, ValueError) as error:
+            parser.exit(1, f"grouped-split: {error}\n")
+        print(args.output)
     elif args.command == "audit":
         from BROWT.data.audit import audit_dataset
         from BROWT.research.provenance import write_json
