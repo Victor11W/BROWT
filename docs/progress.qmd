@@ -186,3 +186,50 @@ Le code suivi et des wheels CPU sont regroupés avant tout appel au modèle. Le 
 Une petite sonde unique sans conteneur est autorisée après validation CI du SHA exact de main, uniquement pour ce dépôt et avec la politique de crédits explicitement déclarée. Elle consomme une réservation quotidienne et ne lance aucune tâche scientifique. Une pause, un arrêt explicite ou une sonde déjà réussie empêchent sa répétition automatique. Les tâches et les horaires gardent leurs conditions d’activation et de recette.
 
 Les **254 tests locaux passent**, ainsi que Ruff, le format et les contrôles de source YAML/Quarto. Ils couvrent le client Responses simulé, les erreurs et annulations, l’isolation des ressources, une archive Git réelle excluant les fichiers non suivis et les garde-fous de la sonde. Un nouveau job CI doit encore vérifier le paquet de dépendances dans Debian/Python 3.11 sans réseau. Les générations réelles et le premier cycle de travail restent à valider après publication.
+
+## Candidat de découpage groupé (ticket nº 3)
+
+La commande `grouped-split` audite les lots publics `train` et `valid`, puis
+trie ensemble leurs images par horodatage nominal et par chemin relatif. Deux
+images consécutives à dix secondes ou moins appartiennent au même groupe par
+chaînage, y compris de part et d’autre de minuit. Dix secondes reprennent le
+seuil du diagnostic publié : la règle empêche les paires nominalement aussi
+proches de traverser la coupure, sans prétendre délimiter une partie. Un
+horodatage absent, invalide ou ambigu arrête la génération plutôt que de faire
+passer la frame pour une acquisition isolée.
+
+La validation prend les groupes les plus récents. Parmi les coupures entre
+groupes laissant les deux lots non vides et aucun hash d’image identique entre
+lots, le programme choisit celle dont l’effectif de validation est le plus proche
+du lot public ; à égalité il prend le plus petit. Cette règle conserve l’ordre
+d’acquisition supposé et ne choisit pas la coupure en fonction des performances
+ni des classes. Le manifeste signale les classes absentes et donne les effectifs
+d’images et de boîtes par classe pour les deux découpages. Il reste un candidat :
+l’absence d’une classe requise ou un support trop faible impose une revue avant
+le gel. Un décalage chronologique de distribution est possible.
+
+Sur une machine disposant déjà de l’export importé, utiliser par exemple :
+
+```text
+python -m BROWT grouped-split --dataset chemin/vers/export --output runs/grouped-v21/manifest.json --expected-source-sha256 c062734bb97589c092a4484ef5ef9cacd14546722db92a582424b2021bdd2622
+```
+
+Cette commande crée un fichier neuf hors de la source. L’empreinte attendue est
+celle du dataset, non de l’archive, dans `configs/dataset-lock.json`. Le JSON
+contient des chemins relatifs, les SHA-256 d’entrée et les affectations ; son
+empreinte canonique est calculée sur son contenu sans le champ d’empreinte.
+
+Ruff et le format passent. Les 11 cas ciblés sur fixture couvrent notamment
+minuit, les écarts de 10 et 11 secondes, les ex æquo, les doublons exacts, la
+couverture et la stabilité du manifeste après déplacement de l’export. La suite
+complète donne 264 succès et un échec : le test `doctor` exige un Python pris en
+charge (3.11 ou 3.12), tandis que ce runner fournit 3.13.5. Quarto est absent ;
+le rendu strict relève de la CI documentaire.
+
+L’export réel n’est pas disponible ici : son manifeste, sa couverture et la
+comparaison graphique restent à produire. Le fuseau et l’appareil sont inconnus ;
+un même groupe peut contenir plusieurs parties et une partie peut être coupée
+par une pause ou un saut d’horloge. Les hashes exacts ne détectent pas les
+quasi-doublons. La fixture ne démontre donc pas l’indépendance scientifique. Le
+futur corpus indépendant Solo Showdown reste hors de cette partition et devra
+être gelé séparément avant le réglage du modèle.
