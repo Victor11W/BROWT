@@ -142,3 +142,35 @@ financier du fournisseur n’est pas vérifié ; le choix du montant ne prouve
 pas sa configuration. Aucun appel de génération n’a été lancé. Le worker
 reste local et sa publication, son financement compatible, le contrôle des
 dépenses et la recette hébergée restent à effectuer avant activation.
+
+## Premier démarrage du contrôleur et correction de transport
+
+La PR nº 7 est fusionnée dans main, commit
+`2c8f27dc76548450d27555d644f86c882273c090`. Sa CI et celle de main passent
+avec 191 tests sur les quatre combinaisons CPU, ainsi que le rendu du livre.
+La publication et le déploiement Pages réussissent également.
+
+Le [premier démarrage réel](https://github.com/Victor11W/BROWT/actions/runs/45241309475)
+crée les labels et l’état durable dans l’issue nº 8, puis s’arrête sur
+`Invalid API path.` : la validation refusait les trois points de la comparaison
+GitHub utilisée pour vérifier le socle. Le job Telegram signale cette pause.
+Les jobs de modèle et de publication sont ignorés ; zéro session est réservée.
+
+Le correctif accepte les comparaisons tout en rejetant les segments de traversée,
+les changements d’origine et les chemins encodés ambigus. Une vérification du
+démarrage complet passe maintenant par le vrai client HTTP avec un transport
+simulé, et non seulement par un double de l’API GitHub. Le contrôleur peut lever
+cette pause d’initialisation précise après contrôle, sans effacer une réservation
+ou une pause liée à une session de modèle. Le déploiement réel du correctif reste
+à vérifier.
+
+Les 22 nouveaux cas portent le total à **213 tests locaux réussis** ; Ruff et
+le format passent. Le script d’ouverture et de mise à jour des PR est simulé :
+une PR, un commentaire par révision dans le ticket d’installation, puis aucun
+doublon, et aucune écriture si la branche est déjà intégrée. Le titre et la
+description suivent le commit réellement publié. Ces tests n’utilisent aucun
+secret ni réseau réel.
+
+Victor confirme que la facturation API n’est toujours pas activée. Le budget
+autorisé reste de 10 € par mois ; son contrôle effectif et le premier essai
+Codex réel restent à effectuer.

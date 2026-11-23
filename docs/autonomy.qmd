@@ -16,7 +16,7 @@ et le déploiement Pages ont réussi.
 | Tickets de départ | Quatre tickets publiés, nº 2 à 5 |
 | OpenAI | Liste des modèles lue avec succès ; inférence Codex et financement encore non testés |
 | Telegram | Envoi distant réussi et réception confirmée par Victor |
-| Worker | Contrôleur, workflow et tests locaux préparés ; déploiement et premier essai réel à effectuer |
+| Worker | Installé par la PR nº 7 ; premier démarrage interrompu avant le modèle, correctif de comparaison dans cette révision à vérifier sur GitHub |
 | Planification du modèle | Désactivée tant que les conditions d'activation ne sont pas réunies |
 | Dataset brut, GPU, émulateur | Archive encore locale ; NVIDIA et LDPlayer absents du runner |
 
@@ -106,8 +106,10 @@ après examen du journal.
 
 ## Installation et premier essai
 
-1. Publier puis fusionner la PR d'installation du worker, avec sa CI verte.
-   Le push vers codex/autonomous-worker prépare cette PR automatiquement.
+1. La PR d’installation nº 7 est fusionnée, avec sa CI verte. Publier et
+   vérifier le correctif du premier démarrage. Les pushes vers
+   codex/autonomous-worker créent ou actualisent la PR d’infrastructure et
+   ajoutent un lien sans doublon au ticket d’installation.
 2. Vérifier les trois secrets de dépôt déjà configurés : `OPENAI_API_KEY`,
    `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID`. Aucune valeur ne doit apparaître
    dans le chat, un ticket, un commit ou un log.
@@ -162,6 +164,13 @@ Après trois échecs distincts, la réparation se met en pause. Un changement ex
 de la PR ou de main provoque aussi une pause. Aucun force-push n'est utilisé.
 Une erreur de session Codex n'est pas relancée automatiquement.
 
+Le premier démarrage réel a révélé une validation trop stricte qui rejetait
+les URL de comparaison GitHub contenant BASE...HEAD. Le correctif distingue
+ces noms des segments de traversée. Il lève automatiquement cette seule pause
+d’initialisation si aucune session de modèle, réservation ou PR n’a commencé,
+après succès des vérifications de configuration. Les autres pauses conservent
+la procédure manuelle.
+
 Après examen et correction de la cause, lancer le mode resume efface la pause
 et la réservation incomplète ; ce mode ne lance aucun modèle. Une nouvelle
 exécution work est nécessaire. Une PR dont la base a changé exige une revue
@@ -193,8 +202,9 @@ L'étape Codex est limitée à douze minutes. Relancer le même run n'autorise p
 seconde session ; il faut un nouveau déclenchement. Ces bornes limitent le
 travail effectué, sans garantir un montant maximal en euros ou dollars.
 
-Les captures du compte indiquaient qu'aucun plan de facturation API payant n'était
-activé et n'affichaient pas de contrôle de dépense. Il reste à vérifier un financement
+Victor confirme le 23 novembre 2026 qu’aucun plan de facturation API payant
+n’est encore activé. Les captures précédentes n’affichaient pas de contrôle de
+dépense. Il reste à vérifier un financement
 compatible avec Codex avant l'essai. Des crédits liés à un abonnement ChatGPT
 peuvent avoir des restrictions : le [bénéfice de crédits API](https://help.openai.com/en/articles/20001626-api-credits-benefit-for-eligible-chatgpt-subscriptions)
 ne couvre pas les usages Codex par clé API. Ne pas confondre accès au chat,

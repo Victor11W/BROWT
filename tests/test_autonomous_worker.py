@@ -703,3 +703,128 @@ def test_code_change_requires_declared_verification_evidence():
     data["evidence"] = []
     with pytest.raises(worker.Stop):
         worker.validate_result(json.dumps(data), "work")
+
+
+@pytest.mark.parametrize(
+    "endpoint",
+    [
+        "",
+        "/compare/" + MAIN_SHA + "..." + HEAD_SHA,
+        "/git/ref/heads/codex/agent-3-100",
+        "/actions/workflows/ci.yml/runs?event=workflow_dispatch&per_page=100",
+    ],
+)
+def test_real_client_accepts_legitimate_repository_routes(endpoint):
+    api = worker.GitHub("Victor11W/BROWT", "local-test-token")
+    requests = []
+
+    class Transport:
+        def open(self, request, timeout):
+            requests.append(request)
+            return io.BytesIO(b"{}")
+
+    api.opener = Transport()
+    assert api.call("GET", endpoint) == {}
+    assert requests[0].full_url == "https://api.github.com/repos/Victor11W/BROWT" + endpoint
+
+
+@pytest.mark.parametrize(
+    "endpoint",
+    [
+        "https://elsewhere.invalid",
+        "//elsewhere.invalid/path",
+        "/../issues",
+        "/a/../../issues",
+        "/%2e%2e/issues",
+        "/%252e%252e/issues",
+        "/a/%2e/issues",
+        "/a%5c..%5cissues",
+        "/issues\n",
+        "/issues%0a",
+        "/issues#fragment",
+        "//[",
+        "//",
+        "/issues?x=\x00",
+    ],
+)
+def test_real_client_rejects_traversal_and_origin_overrides_before_http(endpoint):
+    api = worker.GitHub("Victor11W/BROWT", "local-test-token")
+
+    class NoNetwork:
+        def open(self, request, timeout):
+            raise AssertionError("Rejected paths must never reach HTTP.")
+
+    api.opener = NoNetwork()
+    with pytest.raises(worker.Stop, match="Invalid API path"):
+        api.call("GET", endpoint)
+
+
+def test_first_hosted_initialization_uses_real_client_through_fake_http():
+    backend = FakeGitHub()
+    backend.issues.append(issue(2, "publish-research-foundation"))
+    paused = worker.fresh_state()
+    paused.update(paused="Invalid API path.", notices=1, last_notice="pause:Invalid API path.")
+    state_issue = issue(8, "state")
+    state_issue["body"] = worker.state_body(paused)
+    backend.issues.append(state_issue)
+    backend.runs = [{"head_sha": MAIN_SHA, "head_branch": "main", "conclusion": "success"}]
+    api = worker.GitHub(backend.repo, "local-test-token")
+    seen = []
+
+    class HttpTransport:
+        def open(self, request, timeout):
+            url = worker.urllib.parse.urlsplit(request.full_url)
+            assert url.scheme == "https" and url.netloc == "api.github.com"
+            endpoint = url.path.removeprefix("/repos/" + backend.repo)
+            query = worker.urllib.parse.parse_qs(url.query)
+            seen.append((request.method, endpoint, query))
+            if endpoint == "/issues" and request.method == "GET":
+                payload = backend.pages("/issues?state=all")
+            elif endpoint == "/labels" and request.method == "GET":
+                payload = backend.pages("/labels")
+            elif endpoint == "/actions/workflows/ci.yml/runs":
+                payload = {"workflow_runs": backend.runs}
+            else:
+                data = json.loads(request.data) if request.data else None
+                payload = backend.call(request.method, endpoint, data)
+            return io.BytesIO(json.dumps(payload).encode())
+
+    api.opener = HttpTransport()
+    controller = worker.Controller(
+        api,
+        {},
+        {
+            "GITHUB_EVENT_NAME": "workflow_run",
+            "GITHUB_RUN_ID": "300",
+            "BROWT_API_BUDGET_CONFIRMED": "false",
+            "BROWT_AUTONOMY_ENABLED": "false",
+        },
+    )
+    assert controller.prepare() is None
+    assert controller.state["sessions"] == 0
+    assert controller.state["reservation"] is None
+    assert controller.state["paused"] == ""
+    assert not controller.state["probe_ok"] and not controller.state["verified"]
+    assert backend.issues[1]["state"] == "closed"
+    assert any("..." in endpoint for _, endpoint, _ in seen)
+    persisted = worker.parse_state(backend.issues[2]["body"])
+    assert persisted["paused"] == "" and persisted["sessions"] == 0
+    assert persisted["notice"]["key"] == "controller-initialized"
+
+
+@pytest.mark.parametrize(
+    "pause,reservation,sessions",
+    [
+        ("quota", None, 0),
+        ("Invalid API path.", {"run": "100"}, 0),
+        ("Invalid API path.", None, 1),
+    ],
+)
+def test_initialization_recovery_does_not_clear_other_or_billable_pauses(
+    pause, reservation, sessions
+):
+    controller = make_controller(mode="inspect", budget="false")
+    controller.state.update(paused=pause, reservation=reservation, sessions=sessions)
+    assert controller.prepare() is None
+    assert controller.state["paused"] == pause
+    assert controller.state["reservation"] == reservation
