@@ -114,7 +114,7 @@ jobs:
     permissions:
       contents: read
     outputs:
-      result: ${{ steps.codex.outputs.final-message }}
+      result: ${{ steps.api.outputs.result }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -123,8 +123,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install CPU research dependencies
-        run: python -m pip install -e ".[research,dev]"
       - name: Write the task as data
         env:
           TASK_JSON: ${{ needs.prepare.outputs.task }}
@@ -134,19 +132,16 @@ jobs:
           from pathlib import Path
           task = json.loads(os.environ['TASK_JSON'])
           Path('.worker-task.json').write_text(json.dumps(task, ensure_ascii=False), encoding='utf-8')
-      # Keep Codex last: no trusted command runs on the model's machine afterwards.
-      - name: Execute one bounded Codex session
-        id: codex
-        uses: openai/codex-action@v1
+      - name: Prepare tracked source and offline CPU dependencies
+        run: python .github/autonomy/responses_agent.py bundle
+      # Model commands run only in an OpenAI-hosted container without these keys.
+      - name: Execute one bounded Responses API session
+        id: api
         timeout-minutes: 12
-        with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          prompt-file: .github/autonomy/prompt.md
-          output-schema-file: .github/autonomy/result-schema.json
-          permission-profile: ":workspace"
-          safety-strategy: drop-sudo
-          model: ${{ vars.BROWT_CODEX_MODEL }}
-          effort: medium
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          BROWT_API_MODEL: ${{ vars.BROWT_API_MODEL }}
+        run: python .github/autonomy/responses_agent.py run
   publish:
     needs: [prepare, agent]
     if: always() && needs.prepare.outputs.run_model == 'true'

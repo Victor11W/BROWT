@@ -461,6 +461,45 @@ class Controller:
         ]
         return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
 
+    def initial_credit_probe_allowed(self):
+        """One tiny probe after an exact-SHA main CI, authorized by funding policy.
+
+        An explicit false flag remains a kill switch. Work and scheduled sessions
+        continue to require the ordinary activation flags and acceptance cycle.
+        """
+        if self.env.get("BROWT_API_BUDGET_CONFIRMED") == "false":
+            return False
+        if (
+            self.state["probe_ok"]
+            or self.state["paused"]
+            or self.state["reservation"]
+            or self.state["active"]
+        ):
+            return False
+        run = self.event.get("workflow_run") or {}
+        if (
+            run.get("conclusion") != "success"
+            or run.get("head_branch") != self.default
+            or run.get("head_repository", {}).get("full_name") != self.api.repo
+            or run.get("path") != ".github/workflows/ci.yml"
+        ):
+            return False
+        try:
+            policy = json.loads(
+                Path(".github/autonomy/budget-policy.json").read_text(encoding="utf-8")
+            )
+            funding = policy["funding"]
+            approved = (
+                policy.get("repository") == self.api.repo
+                and funding.get("initial_eligible_probe_after_ci") is True
+                and funding.get("status") == "declared_by_user"
+                and funding.get("source") == "eligible_promotional_api_credits"
+                and funding.get("api_paid_plan") == "not_started_confirmed_by_user"
+            )
+        except (OSError, ValueError, TypeError, KeyError):
+            return False
+        return approved and run.get("head_sha") == self.main_sha()
+
     def prepare(self):
         self.setup_labels()
         self.seed_statuses()
@@ -482,9 +521,13 @@ class Controller:
             )
         mode = self.event.get("inputs", {}).get("mode", "work")
         event_name = self.env["GITHUB_EVENT_NAME"]
+        automatic_probe = event_name == "workflow_run" and self.initial_credit_probe_allowed()
         if event_name == "workflow_run":
-            self.save()
-            return None
+            if automatic_probe:
+                mode = "probe"
+            else:
+                self.save()
+                return None
         if mode == "resume":
             if event_name != "workflow_dispatch":
                 raise Stop("Resume is manual only.")
@@ -494,7 +537,7 @@ class Controller:
         if mode == "inspect":
             self.save()
             return None
-        if self.env.get("BROWT_API_BUDGET_CONFIRMED") != "true":
+        if self.env.get("BROWT_API_BUDGET_CONFIRMED") != "true" and not automatic_probe:
             print("No model call: BROWT_API_BUDGET_CONFIRMED is not true.")
             self.save()
             return None
@@ -522,7 +565,7 @@ class Controller:
             print("No model call: a successful manual probe is required first.")
             self.save()
             return None
-        base = self.main_sha()
+        base = self.event["workflow_run"]["head_sha"] if automatic_probe else self.main_sha()
         issue, repair, source = None, False, base
         active = self.state["active"]
         if active:
@@ -591,7 +634,7 @@ class Controller:
         if agent_status != "success":
             self.state["reservation"] = None
             self.pause(
-                "La session Codex a échoué ; vérifier les crédits, le modèle et le journal avant resume."
+                "La session API a échoué ; vérifier les crédits, le modèle et le journal avant resume."
             )
             return
         result = validate_result(raw, reservation["mode"])
@@ -602,7 +645,7 @@ class Controller:
             self.state["probe_ok"] = True
             self.notice(
                 "probe-ok",
-                "BROWT · Codex répond\nLe test API est réussi ; la planification reste à valider.",
+                "BROWT · API répond\nLe test API est réussi ; la planification reste à valider.",
             )
         elif reservation["mode"] == "plan":
             self.state["planner_fingerprint"] = self.task_fingerprint()
