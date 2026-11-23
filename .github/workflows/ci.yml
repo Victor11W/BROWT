@@ -1,0 +1,46 @@
+name: Research checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -e ".[research,dev]"
+      - run: python -m ruff check .
+      - run: python -m ruff format --check src tests
+      - run: python -m pytest
+      - run: python -m BROWT doctor --json
+      - run: python -m BROWT demo --output runs/research --figures docs/assets/figures
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cpu-research-${{ matrix.os }}-${{ matrix.python }}
+          path: runs/research/
+          retention-days: 30
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.11.9"
+      - run: quarto render docs --fail-if-warnings
+      - name: Preserve rendered book
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-book
+          path: docs/_book/
+          if-no-files-found: error
+          retention-days: 7

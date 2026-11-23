@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "bloxxy-brawl-stars-v21-yolov11",
+  "source_url": "https://universe.roboflow.com/bloxxy/brawl-stars-dataset/dataset/21",
+  "workspace": "bloxxy",
+  "project": "brawl-stars-dataset",
+  "version": 21,
+  "format": "yolov11",
+  "archive_sha256": "eacde1ef89830927f9498ed5e2896f675dc9637357c0d36f2cbcec944509694a",
+  "archive_bytes": 642741724,
+  "dataset_fingerprint_sha256": "c062734bb97589c092a4484ef5ef9cacd14546722db92a582424b2021bdd2622",
+  "class_index_mapping": {
+    "0": "Ball",
+    "1": "Enemy",
+    "2": "Friendly",
+    "3": "Gem",
+    "4": "Hot_Zone",
+    "5": "Me",
+    "6": "PP",
+    "7": "PP_Box",
+    "8": "Safe_Enemy",
+    "9": "Safe_Friendly"
+  },
+  "split_images": {
+    "train": 2297,
+    "valid": 254
+  },
+  "annotation_issues": 0,
+  "source_identity": "matched_export_metadata",
+  "independent_test_established": false
+}

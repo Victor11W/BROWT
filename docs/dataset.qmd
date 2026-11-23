@@ -1,0 +1,90 @@
+---
+title: "Dataset public : source et acquisition"
+subtitle: "Bloxxy · Brawl Stars Dataset · version 21 « raw 4 »"
+---
+
+## Choix confirmé
+
+Le 23 novembre 2026, Victor a confirmé que le projet repart du dataset public, sans anciens poids ni captures à réutiliser.
+
+La source retenue pour la nouvelle baseline est [Bloxxy / Brawl Stars Dataset, version 21](https://universe.roboflow.com/bloxxy/brawl-stars-dataset/dataset/21), export **YOLOv11**. La licence annoncée par le projet est MIT.
+
+| Élément | Annonce confirmée dans l’export importé |
+|---|---|
+| Version | 21, nommée « raw 4 » |
+| Images | 2 551 |
+| Apprentissage | 2 297 |
+| Validation | 254 |
+| Test | Aucun |
+| Prétraitement | Orientation automatique |
+| Redimensionnement imposé | Aucun annoncé pour cette version |
+| Augmentations | Aucune annoncée |
+| Classes du projet | Ball, Enemy, Friendly, Gem, Hot_Zone, Me, PP, PP_Box, Safe_Enemy, Safe_Friendly |
+
+Ces métadonnées concordent avec l’export téléchargé et les effectifs de l’audit local. Le mapping exact des classes est conservé depuis son `data.yaml`. Les résultats et limites sont présentés dans [la première analyse](dataset-analysis.qmd).
+
+## Pourquoi cette version
+
+La version 22 annonce un redimensionnement étiré à 672 × 336 ; la version 23 affiche également un redimensionnement. La version 21 permet de partir d’images sans cette transformation ajoutée par la génération de version.
+
+Le terme « raw » est le nom de la version. Il ne démontre pas que chaque image est un original de caméra ou qu’aucun traitement antérieur n’a jamais eu lieu. L’orientation automatique est explicitement annoncée.
+
+Les versions plus anciennes peuvent inclure des augmentations et des résolutions différentes. Elles pourront être comparées plus tard, en conservant cette nouvelle baseline comme référence.
+
+## Récupération
+
+L’[export public YOLOv11](https://universe.roboflow.com/bloxxy/brawl-stars-dataset/dataset/21/download/yolov11) demande une connexion Roboflow. Le téléchargement et l’acquisition de données sont séparés des entraînements locaux ; aucune inférence hébergée n’est nécessaire.
+
+Après récupération du ZIP :
+
+```powershell
+python -m BROWT import-dataset --archive chemin/export.zip --destination data/raw/bloxxy-brawl-stars-v21-yolov11
+```
+
+La commande conserve l’archive, extrait dans un dossier neuf, puis contrôle classes, annotations, doublons et cohérence des métadonnées :
+
+```text
+data/raw/bloxxy-brawl-stars-v21-yolov11/
+  source.zip
+  export/
+    data.yaml
+    train/
+    valid/
+    ...
+  provenance.json
+  audit.json
+```
+
+Une archive avec un répertoire parent est également prise en charge. La commande affiche le vrai chemin de la racine dataset.
+
+Aucun dossier existant n’est remplacé. Les fichiers exportés ne sont pas corrigés silencieusement. Des anomalies donnent un statut `needs_review` et un code de sortie non nul, tout en conservant les données importées pour analyse.
+
+L’empreinte SHA-256 de l’archive et celle des fichiers du dataset sont enregistrées. Pour contrôler une récupération ultérieure, fournir `--expected-sha256` avec l’empreinte de référence. Aucune clé API n’est demandée ni enregistrée par l’importeur.
+
+## Exploration visuelle locale
+
+Après l’import, la commande suivante décode les images, mesure les distributions et crée une planche d’annotations :
+
+```powershell
+python -m BROWT dataset-report --dataset data/raw/bloxxy-brawl-stars-v21-yolov11/export --provenance data/raw/bloxxy-brawl-stars-v21-yolov11/provenance.json
+```
+
+Le rapport HTML distingue le support des classes, les dimensions d’images, la taille des objets, la densité des annotations et les anomalies. La galerie est sélectionnée avec une graine fixée ; elle montre les labels fournis, pas des prédictions de modèle.
+
+## Protocole pour la baseline
+
+Le découpage public peut servir à un **pilote exploratoire apprentissage/validation**. L’indépendance entre parties ou sessions n’est pas établie par la fiche. Il ne fournit donc pas encore un test scientifique indépendant.
+
+Les tâches suivantes seront :
+
+1. comparer l’export aux annonces publiques et examiner les annotations par classe ;
+2. mesurer effectifs, tailles d’images et de boîtes, doublons exacts et quasi-doublons ;
+3. rechercher les groupes d’acquisition ou identifier les limites de leur reconstruction ;
+4. réaliser un premier entraînement de validation sans inventer de lot de test par tirage de frames voisines ;
+5. préparer ensuite une acquisition indépendante pour le test final.
+
+Les scores du modèle publié sur Universe ne sont pas des mesures de BROWT et ne seront pas recopiés dans nos tableaux de résultats.
+
+## État de l’acquisition
+
+L’archive est téléchargée, conservée et importée. Les 2 551 images se décodent ; l’audit ne trouve aucune anomalie structurelle d’annotation ni doublon exact entre lots. Le diagnostic temporel révèle toutefois un risque de corrélation entre train et valid. Le [journal](progress.qmd) et [l’analyse des données](dataset-analysis.qmd) détaillent ces preuves.

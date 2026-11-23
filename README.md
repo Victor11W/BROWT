@@ -1,110 +1,113 @@
-# BROWT
+# BROWT · Laboratoire visuel de recherche
 
-[![Scientific documentation](https://img.shields.io/badge/docs-scientific%20report-1f6feb?style=for-the-badge)](https://victor11w.github.io/BROWT/)
+Étudier un agent Brawl Stars à partir de l’écran : **perception, observation,
+décision**, avec des expériences reproductibles et une restitution scientifique
+compréhensible. Mode initial : Solo Showdown.
 
-Brawl Stars bot trained with reinforcement learning. MVP target: Solo Showdown.
-Platform: Windows + NVIDIA GPU (CUDA). Large project, built step by step. Current
-priority: the detection step.
+Priorité confirmée : **recherche et visualisations scientifiques**.
+Le projet démarre sur CPU ; NVIDIA/CUDA est la cible des entraînements futurs.
 
-> ## Full scientific documentation
->
-> **A precise, structured scientific report — method and results — is published at**
-> **[victor11w.github.io/BROWT](https://victor11w.github.io/BROWT/)**.
->
-> It documents the experimental approach and the evidence gathered at each stage
-> of the pipeline (perception, state, RL). **This is the primary reference for the
-> project** — the sections below are only a summary.
+## Le plan et l’état réel
 
-## Pipeline
+- [Plan complet sur 24 semaines indicatives](docs/roadmap.qmd)
+- [Méthode expérimentale](docs/methodology.qmd)
+- [Atlas des visualisations](docs/visual-atlas.qmd)
+- [Journal et état des preuves](docs/progress.qmd)
+- [Dataset public et import reproductible](docs/dataset.qmd)
+- [Installation détaillée](docs/getting-started.qmd)
 
-### Work axes (3 groups)
+Le socle CPU, l’audit des annotations, les observations, les relectures et la
+traçabilité sont implémentés. Le code de détection existe et est renforcé.
+Le dataset public v21 est importé et analysé : 2 551 images et 11 643 boîtes.
+[Premiers résultats réels et limites du découpage](docs/dataset-analysis.qmd).
+La capture live, les actions, les baselines et le RL restent à construire.
+**Aucune performance réelle de détection ou de jeu n’est encore établie.**
 
-```mermaid
-flowchart LR
-    subgraph SIM[1. Game simulation and recording]
-        A[Emulator<br/>LDPlayer 9] --> B[Screen capture<br/>mss]
-    end
-    subgraph DET[2. Image detection]
-        C[Object detection<br/>YOLOv11] --> D[State restructuring]
-    end
-    subgraph AI[3. RL decision AI]
-        E[RL policy<br/>e.g. Q-learning]
-    end
+La documentation publiée sur [GitHub Pages](https://victor11w.github.io/BROWT/)
+reflète uniquement les versions déjà publiées. Les modifications locales ne
+sont pas automatiquement en ligne.
 
-    B -->|frame| C
-    D -->|state| E
+## Commencer sur CPU
+
+Python 3.11 ou 3.12, depuis ce dépôt sous PowerShell :
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -e ".[research,dev]"
+.\.venv\Scripts\python.exe -m BROWT doctor
+.\.venv\Scripts\python.exe -m BROWT demo --output runs/research --figures docs/assets/figures
 ```
 
-### AI feedback loop
+La dernière commande affiche un rapport HTML autonome. La scène est
+**synthétique**, et la durée mesurée concerne seulement la conversion CPU des
+observations. Elle ne nécessite ni dataset, ni modèle, ni émulateur.
 
-```mermaid
-flowchart LR
-    F[Frame] -->|detection -> state| G[RL decision AI]
-    G -->|action: direction + shoot| H[ADB input]
-    H --> I[New frame]
-    I -->|reward signal| G
-    I --> F
+![Démonstration synthétique et microbenchmark CPU de conversion ; aucune qualité YOLO ou performance de jeu n’est mesurée.](docs/assets/figures/observation-overview.svg)
+
+## Outils disponibles
+
+```text
+python -m BROWT doctor [--json]
+python -m BROWT demo --output runs/research
+python -m BROWT audit --dataset data/dataset --output runs/dataset-audit.json
+python -m BROWT replay --source chemin/detections.jsonl --output runs/replay
 ```
 
-The resulting frames provide the reward signal back to the AI.
+L’audit est en lecture seule : labels, boîtes normalisées, classes, fichiers
+manquants et doublons exacts entre lots. Il ne prouve pas l’indépendance des
+sessions ni la justesse visuelle des annotations.
 
-1. LDPlayer 9 runs Brawl Stars at a fixed resolution, ADB enabled; `mss`
-   captures the emulator window into a numpy frame.
-2. YOLOv11 (Ultralytics), trained on the Roboflow dataset, returns bounding
-   boxes; detections are restructured into a state.
-3. The RL policy maps the state to an action (a movement direction + shoot
-   yes/no); the action is injected back into LDPlayer via ADB (swipe =
-   joystick, tap = shoot/super).
+Chaque expérience écrit un manifeste avec statut, configuration, environnement,
+provenance et empreintes des artefacts. Les entrées réelles et synthétiques sont
+distinguées.
 
+## Détection
 
-## Libraries per step
-
-| Step | Tool / library |
-|------|----------------|
-| Emulator | LDPlayer 9 (Windows) |
-| Screen capture | mss + numpy + opencv-python |
-| Inputs (ADB) | platform-tools adb / pure-python-adb |
-| Detection | ultralytics (YOLOv11) |
-| Dataset | Roboflow bloxxy/brawl-stars-dataset (MIT) |
-| RL (future) | stable-baselines3, gymnasium, torch (CUDA) |
-| Logs (future) | tensorboard |
-
-## Detection classes
-
-Dataset: [bloxxy/brawl-stars-dataset](https://universe.roboflow.com/bloxxy/brawl-stars-dataset)
-(10 classes): `Me`, `Enemy`, `Friendly`, `Safe_Enemy`, `Safe_Friendly`, `Gem`,
-`Ball`, `PP`, `PP_Box`, `Hot_Zone`.
-
-## RL model
-
-- Input: full detected state (positions of all detected classes).
-- Output: a movement direction, plus a boolean action (shoot or not).
-- Theory not finalized yet. Q-learning was experimented with and is a
-  plausible candidate.
-
-## Roadmap
-
-| # | Step | Status |
-|---|------|--------|
-| 1 | Detection: LDPlayer + ADB, mss capture, YOLO inference | In progress (priority) |
-| 2 | State extraction from detections | To define |
-| 3 | RL model (state -> direction + shoot) | To define |
-| 4 | ADB input injection + reward / training loop | To define |
-
-## Open questions
-
-- YOLO detects mobile entities but not static terrain (bushes, walls). Ideal:
-  source static map layout data per map instead of detecting it from the image.
-  Unresolved for now.
-
-## Setup
-
-```
-pip install -r requirements.txt
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[vision,research,dev]"
+.\.venv\Scripts\python.exe -m BROWT.detection.train --smoke
+.\.venv\Scripts\python.exe -m BROWT.detection.train
+.\.venv\Scripts\python.exe -m BROWT.detection.report --weights chemin/weights/best.pt --split val
 ```
 
-Also requires Android platform-tools (`adb`) and LDPlayer 9 with ADB enabled.
+Préparer les lots indépendants `train/`, `valid/` et, pour l’évaluation finale,
+`test/` en amont. Les sources ne sont ni déplacées ni réécrites.
+Le mode rapide ne publie aucun poids et n’évalue pas le test.
+Chaque run conserve son checkpoint ; `--publish` permet une copie explicite
+sans écrasement. [Protocole détaillé](src/BROWT/detection/README.md).
 
-Full method, results, and design rationale: the published documentation at
-**[victor11w.github.io/BROWT](https://victor11w.github.io/BROWT/)** (sources in
-`docs/`).
+## Qualité et rapport
+
+```text
+python -m pytest
+python -m ruff check .
+python -m ruff format --check src tests
+quarto render docs --fail-if-warnings
+```
+
+Les tests d’entraînement utilisent un double de YOLO et ne constituent pas une
+validation d’apprentissage. La CI CPU Windows/Linux et le rendu documentaire
+sont configurés ; une exécution distante doit être observée avant de déclarer
+la CI passée.
+
+## Organisation
+
+```text
+src/BROWT/
+  data/         audit et classes
+  detection/    entraînement, inférence et évaluation
+  state/        observations et replay de détections
+  research/     provenance, statistiques et figures
+  capture/      future capture réelle
+configs/        paramètres d’expérience et plan de recherche
+tests/          non-régression CPU
+docs/           rapport Quarto et figures
+runs/           artefacts locaux, non versionnés
+```
+
+Code sous licence MIT. Version et licence du dataset à consigner avec
+l’export réellement utilisé.
+
+Pour préparer le travail hébergé et les notifications Telegram, voir le
+[guide d’autonomie](docs/autonomy.qmd). Le worker planifié n’est pas encore actif.

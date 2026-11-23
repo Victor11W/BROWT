@@ -1,3 +1,3 @@
-"""Brawl Stars reinforcement learning bot."""
+"""BROWT: reproducible perception and decision research."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

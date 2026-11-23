@@ -1,0 +1,88 @@
+---
+title: "Journal d’avancement"
+subtitle: "État des preuves au 23 novembre 2026"
+---
+
+## Direction confirmée
+
+Priorité : **recherche et visualisations scientifiques**. Environnement de départ : CPU ; GPU NVIDIA non disponible actuellement et envisagé pour les entraînements ultérieurs.
+
+Le dépôt historique a été récupéré depuis `main`, commit `831beeb` du 19 juin 2026. Le travail local est sur `codex/research-foundation`. L’historique local reste limité au dernier commit récupéré.
+
+## Livrables de cette première étape
+
+- Plan de recherche, jalons, dépendances, définition de fin et critères de passage.
+- Rapport Quarto restructuré en français et atlas des figures attendues.
+- Dépendances séparées pour CPU, vision et RL ; diagnostic en lecture seule.
+- Audit des labels YOLO et des doublons exacts, avec empreinte portable du dataset.
+- Observation normalisée, absence/ambiguïté du joueur et replay de journaux.
+- Expériences identifiées, configurations, environnement et artefacts hachés.
+- Démonstration synthétique et microbenchmark réel de la conversion CPU seule.
+- Protection contre l’écrasement des poids et séparation validation/test.
+- Tests de non-régression et CI CPU multiplateforme configurée.
+
+## Vérifié localement
+
+Les **116 tests passent** lors de la préparation du nouvel amorçage, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.
+
+Le rapport autonome et les figures sont inspectés visuellement, sur grand écran et sur mobile, sans débordement ni erreur JavaScript. Le livre Quarto et les workflows GitHub doivent être vérifiés dans leur environnement d’exécution ; aucune CI distante n’est déclarée passée avant lancement.
+
+## Pas encore établi
+
+| Élément | Situation |
+|---|---|
+| Dataset réel et version exacte | Version 21 importée : 2 551 images, 11 643 boîtes ; analyse descriptive réalisée |
+| Poids et anciens résultats | Non retrouvés dans le dépôt |
+| Qualité de détection | Aucune mesure réelle à annoncer |
+| Capture LDPlayer et commandes ADB | À implémenter et calibrer |
+| Politique et apprentissage RL | À implémenter après les baselines |
+| Matériel CUDA et performances GPU | Disponibilité et mesures à venir |
+| Résultats finaux | Non produits |
+
+## Prochaine action utile
+
+Préparer un découpage dérivé par groupes d’acquisition : 208/254 images de validation ont un voisin d’apprentissage à dix secondes ou moins d’après les noms de fichiers. Le découpage public reste exploratoire. Il faudra ensuite un corpus indépendant adapté à Solo Showdown pour le test final.
+
+Le pilote CPU préparera le protocole ; le pilote sur NVIDIA déterminera le budget d’entraînement. Aucun entraînement de plusieurs mois n’est présenté comme lancé par la mise en place de ce socle.
+
+## Acquisition et première analyse réelles
+
+La version 21 « raw 4 » est téléchargée et importée. L’archive originale est conservée avec son empreinte ; les métadonnées et les effectifs concordent. Les 2 551 images se décodent, sans anomalie structurelle d’annotation ni doublon exact entre lots.
+
+Le [rapport d’analyse](dataset-analysis.qmd) présente les distributions, la galerie et le diagnostic temporel. Les observations montrent un fort déséquilibre de classes, des situations variées et un risque de corrélation entre les lots. Aucun entraînement YOLO ni RL réel n’a été lancé dans cette étape.
+
+## Préparation du travail hébergé
+
+Le besoin confirmé est une exécution même lorsque le PC est éteint. Le [guide d’autonomie](autonomy.qmd) décrit la configuration et les limites actuelles. Quatre tickets sont préparés dans `.github/autonomy/backlog.json` ; leur création directe par la connexion du chat a échoué avec une erreur de permission GitHub 403. Aucun ticket n’est déclaré publié.
+
+Un workflow manuel `Hosted setup` est préparé pour créer les tickets sans doublon et tester Telegram. Il ne lance pas de modèle. Les trois secrets GitHub sont déclarés configurés par Victor ; leur présence et leur fonctionnement sur le runner ne sont pas encore vérifiés. Le worker Codex planifié et les notifications régulières ne sont pas encore installés.
+
+## Correction de la configuration Telegram sous Windows
+
+La saisie masquée recevait le caractère Ctrl+V au lieu du jeton dans le terminal de Victor. Le script attend maintenant que le jeton soit copié depuis BotFather, puis le lit dans le presse-papiers Windows après validation par Entrée. Si une seule conversation privée est trouvée, son identifiant est copié pour le secret GitHub. Le format du jeton est vérifié avant toute requête et les erreurs sont présentées sans afficher le jeton ni une URL qui le contiendrait.
+
+Les 18 tests ciblés passent avec des entrées, réponses et accès au presse-papiers simulés ; Ruff et le format passent. Aucun jeton réel ni presse-papiers réel n’a été lu par ces vérifications. La connexion au bot reste à vérifier par Victor en exécutant le script corrigé.
+
+## Procédure réutilisable pour les clés
+
+Le skill de dépôt `secret-handoff` et les fichiers `AGENTS.md` du dépôt et du dossier de travail rendent persistante la procédure de configuration des clés. Ils imposent une destination explicite, les secrets GitHub pour les workflows, un parcours Windows sans collage dans le terminal et une vérification qui ne révèle pas le secret. Le skill distingue configuration déclarée, présence vérifiée et accès réellement testé.
+
+Victor confirme que le script Telegram corrigé fonctionne et indique que les secrets devraient être configurés. Ces déclarations ne constituent pas un test distant de GitHub Actions ni un envoi Telegram observé par l’agent. La publication GitHub reste refusée par la connexion du chat.
+
+L’installation du skill dans le dossier personnel a échoué au démarrage de l’outil d’exécution Windows, avec une erreur CET. Le skill est présent dans le dépôt ; `scripts/install_secret_handoff_skill.py` prépare une installation personnelle sans écraser un skill différent. Aucune valeur de clé n’est conservée dans ces instructions.
+
+Le skill personnel est désormais détecté dans le catalogue de Codex. Cette détection confirme sa découverte par l’application ; elle ne valide aucun accès à un service externe.
+
+## Première exécution sur GitHub
+
+Le commit `bced66a` est publié sur `codex/research-foundation`. Les quatre jobs CPU de la [première CI distante](https://github.com/Victor11W/BROWT/actions/runs/45223132035) passent : Ubuntu et Windows, Python 3.11 et 3.12. Ils couvrent les tests, Ruff, le format, le diagnostic et la démonstration.
+
+Le job de documentation échoue avec Quarto 1.11.9 : l’option `--fail-on-warnings` transmise à Pandoc est inconnue. La commande est corrigée en `--fail-if-warnings` dans la CI et les instructions. La CI conservera le livre HTML comme artefact pour sa vérification. La réussite du rendu corrigé reste à confirmer après publication de ce correctif ; ni le worker planifié ni les notifications récurrentes ne sont actifs.
+
+## Deuxième exécution et amorçage des services
+
+Le [second run](https://github.com/Victor11W/BROWT/actions/runs/45224675887) confirme le succès des quatre jobs CPU et l’acceptation de l’option stricte. Le rendu échoue désormais sur l’interprétation des cartes HTML de l’accueil comme blocs Markdown. Les deux zones HTML sont isolées avec la syntaxe brute Quarto ; leur contenu est conservé. Un contrôle de source couvre les quinze chapitres, leurs blocs et 31 liens locaux, sans anomalie détectée. La compilation complète corrigée reste à confirmer sur GitHub.
+
+La CI et la publication sont fixées à Quarto 1.11.9. Le prochain push de la branche de recherche déclenchera aussi un amorçage : tickets sans doublons, PR en brouillon, lecture de la liste des modèles OpenAI et premier message Telegram si des tickets sont créés. Aucun appel de génération, aucun worker de développement et aucune session récurrente ne sont activés par cet amorçage. Les opérations sont préparées, mais leurs résultats distants ne sont pas encore établis.
+
+Les 16 tests de l’amorçage vérifient la séparation des secrets, les requêtes sans génération et le masquage des erreurs. Les 116 tests du dépôt passent localement, ainsi que Ruff et le format. Une simulation des scripts GitHub crée quatre tickets puis zéro doublon, et une seule PR en brouillon. Aucun accès GitHub en écriture, aucune lecture d’une vraie clé et aucun message réel n’ont eu lieu pendant ces vérifications.

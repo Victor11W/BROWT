@@ -27,8 +27,7 @@ Windows-only (no native macOS build; only a Windows VM workaround exists).
   `bloxxy/brawl-stars-dataset` (10 classes, MIT).
 - Classes: Me, Enemy, Friendly, Safe_Enemy, Safe_Friendly, Gem, Ball, PP,
   PP_Box, Hot_Zone.
-- The `Safe_*` classes likely mean an entity hidden in a bush (safe), useful
-  signal even though we do not detect the bush geometry itself.
+- In the inspected version-21 examples, `Safe_Enemy` and `Safe_Friendly` annotate the opposing and allied safes. See the dataset analysis for the visual evidence.
 
 ## State extraction (to define)
 

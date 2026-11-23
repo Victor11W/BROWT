@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "run_id": "20261122T234542-1b53c693",
+  "task": "observation-demo",
+  "data_kind": "synthetic",
+  "status": "completed",
+  "created_at": "2026-11-22T23:45:42.198690+00:00",
+  "config": {
+    "seed": 0,
+    "scene_version": 1,
+    "frames": 48,
+    "warmup": 50,
+    "repetitions": 1200,
+    "research_plan_sha256": "19f7dc89fd1f7c7964814a1688cbc1432f974efa3355d2076e78dd8e7ac4afc6"
+  },
+  "config_sha256": "f2475ca0b94b99f5047db8325346b445bacda50415e68e61d5afe88761fe6ab5",
+  "environment": {
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.19043-SP0",
+    "machine": "",
+    "packages": {
+      "BROWT": null,
+      "numpy": "1.26.4",
+      "PyYAML": "6.0.1",
+      "matplotlib": "3.8.0",
+      "torch": "2.4.0",
+      "ultralytics": null,
+      "gymnasium": "1.2.0",
+      "stable-baselines3": null,
+      "pytest": "7.4.2",
+      "ruff": "0.17.3"
+    },
+    "analysis_source": {
+      "sha256": "7973f5e5c910d638326b5d086d6b39b6741447c7c8bb834eb56d4eec4b4db67a",
+      "files": [
+        {
+          "path": "configs/detection.yaml",
+          "sha256": "88586f39bd2ef7af1f93c2bf09a78d8334f67919b13e2d0a9248837a29ec83ba"
+        },
+        {
+          "path": "configs/research-plan.yaml",
+          "sha256": "19f7dc89fd1f7c7964814a1688cbc1432f974efa3355d2076e78dd8e7ac4afc6"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "271dc3ce28aa1ecaaf5442793269fca0cc083c68dbbfbff2d5852c17c1767d81"
+        },
+        {
+          "path": "requirements.txt",
+          "sha256": "9c7741011b71dff5f0d2557bed302fe2d7630beb62e3e410176fee5c16ca3ea0"
+        },
+        {
+          "path": "src/BROWT/__init__.py",
+          "sha256": "ac7cec880cde975ceb8b3b5468f607458b679f1dbb740b0d76767864fc754f87"
+        },
+        {
+          "path": "src/BROWT/__main__.py",
+          "sha256": "037b32e62cc02894e99c5d24cb53b997c24fcbf943a29de79e7913ce8d1d2a48"
+        },
+        {
+          "path": "src/BROWT/capture/__init__.py",
+          "sha256": "409338eefcd84cc32ff89d3866c16cc8a2824880b8bdfbe3c432f2c6ec1baa91"
+        },
+        {
+          "path": "src/BROWT/cli.py",
+          "sha256": "8f0d9ed0aafdbeb7a3f50d6e32940a976409d4d4347ae5ac6664e558562d1a95"
+        },
+        {
+          "path": "src/BROWT/data/__init__.py",
+          "sha256": "39517857bf7e0a8f30fff02fb01beb134fc72f7cead92aab349713c10f7f5097"
+        },
+        {
+          "path": "src/BROWT/data/audit.py",
+          "sha256": "9fe2328bc14f049996d72bc506dfa042a8c0f8f3aede28c7eabcc53dfe2b91e0"
+        },
+        {
+          "path": "src/BROWT/data/classes.py",
+          "sha256": "c90d9f1c661218bae446a328fc17e540463856b6062ef73586e969d9c3c07200"
+        },
+        {
+          "path": "src/BROWT/detection/__init__.py",
+          "sha256": "a8c0e91846b89d5501e02e4e1759aa17bb94f82857f978dd0872d2600aaa17bd"
+        },
+        {
+          "path": "src/BROWT/detection/dataset.py",
+          "sha256": "ec57de49a5c7c61242d285f17542292b0ac4c5fdc59ff42b9a7945733d939cca"
+        },
+        {
+          "path": "src/BROWT/detection/detector.py",
+          "sha256": "7ac2ef9ad867823f95d24195cf31070e801981f67fc2ca79f64e59d77f044bb4"
+        },
+        {
+          "path": "src/BROWT/detection/report.py",
+          "sha256": "a81286e0de12fe1df5a7c9815a2300178d0e93f6ecda69cf185f10b06a638b78"
+        },
+        {
+          "path": "src/BROWT/detection/train.py",
+          "sha256": "87a8ff1704c6fdcbe66b7f10f953ef0006b6a2544042c04d76ed755237e51769"
+        },
+        {
+          "path": "src/BROWT/detection/visualize.py",
+          "sha256": "8886c7a34e344fa7a7074427669ceb480864cb735162f3c321ac765274c58871"
+        },
+        {
+          "path": "src/BROWT/research/__init__.py",
+          "sha256": "5f359ead99a9322b9f27ffb69165ad38763f8190b27113a607841e48f4c14cf3"
+        },
+        {
+          "path": "src/BROWT/research/demo.py",
+          "sha256": "75c4ac0e11e60d4e58fb43ac3825c43a3d3c569cb3d73de64f6bc39058dd7395"
+        },
+        {
+          "path": "src/BROWT/research/doctor.py",
+          "sha256": "6be006ae26284f7bda3d200ae9d07fb2ed23dff8ed8dc453e0adf3cb2e84a441"
+        },
+        {
+          "path": "src/BROWT/research/plots.py",
+          "sha256": "743dbabb242efbd55e87ad06970da1d22fd05ba493ca209509f776453120b3ae"
+        },
+        {
+          "path": "src/BROWT/research/provenance.py",
+          "sha256": "e696439091cf182343527bc1ab65b9f129c4bcfc22345d023534e255a6a47f61"
+        },
+        {
+          "path": "src/BROWT/research/replay.py",
+          "sha256": "bc5e4a65cfc56d9e337c43c91a902121e4ced0abc098447f91812dc633e2b815"
+        },
+        {
+          "path": "src/BROWT/research/roadmap.py",
+          "sha256": "f7989f995c7beb66e603b2360e60e7700a5e3a1d300eb90dc92e700e50a2387f"
+        },
+        {
+          "path": "src/BROWT/research/statistics.py",
+          "sha256": "e34a159c62698aabcf0fbf0190090e56c399686da63d8de1124eb80004d869a3"
+        },
+        {
+          "path": "src/BROWT/state/__init__.py",
+          "sha256": "f39d695bfa5bc598f34d4ed553da24c76a0472a7ee7d8eb2d15a8f3f6392332d"
+        },
+        {
+          "path": "src/BROWT/state/observation.py",
+          "sha256": "98468d5629132436bbb71efd139a3532d008772a2c92fb5b95076c16f7320922"
+        },
+        {
+          "path": "src/BROWT/state/replay.py",
+          "sha256": "11e536bf72d3d0777cd2e4ca315bf866c302402a75274d5482ad7e5425b758cf"
+        }
+      ]
+    },
+    "git": {
+      "commit": "831beeb2f666e94d35816fc10c7ff5c7c929e60e",
+      "dirty": true
+    }
+  },
+  "artifacts": [
+    {
+      "path": "detections.jsonl",
+      "sha256": "e46f215dd05649fa8d21267bc23d4348dd5563178dfa5991140f5b6dc32812ea",
+      "bytes": 30784
+    },
+    {
+      "path": "states.jsonl",
+      "sha256": "9f716f159ffb7b1bf77007ff79bf6b49c09d55f77f6f49eb2a21a4280993576d",
+      "bytes": 26972
+    },
+    {
+      "path": "conversion-latency-us.json",
+      "sha256": "d0e48cc029906891eea93c9e0561a383b6b897c65e773575f66a5ac5416cbff8",
+      "bytes": 12104
+    },
+    {
+      "path": "summary.json",
+      "sha256": "23b36c7d84f6f7ce758d6e18cdf262a5f6f449e0a9bb6b3c3762e4e7a523ec59",
+      "bytes": 375
+    },
+    {
+      "path": "report.html",
+      "sha256": "40c6b637b420ca34f39a3b6d680539536818030d7eeedddd20b0102c35336e0f",
+      "bytes": 88940
+    },
+    {
+      "path": "observation-overview.svg",
+      "sha256": "f364a7397b957093fe5f0c7197e53cbcbc03d8df8a38fe9baf6484d47aa80eb4",
+      "bytes": 61070
+    },
+    {
+      "path": "observation-overview.png",
+      "sha256": "ac79b0f3761accfd29b034f17e40d9c9ebc1b4f652a469d6138dda512ac7abb0",
+      "bytes": 200110
+    },
+    {
+      "path": "research-roadmap.svg",
+      "sha256": "163f96915857fa44c5e170f4bc9cc57ccd9631cd17c81908eb487091c2a7d9c9",
+      "bytes": 25128
+    },
+    {
+      "path": "research-roadmap.png",
+      "sha256": "556a06ec4b90493665ec889677e47572c551e4963f7a115512ce4bf13a27de4d",
+      "bytes": 114881
+    }
+  ],
+  "metrics": {
+    "data_kind": "synthetic",
+    "frames": 48,
+    "player_visible_frames": 44,
+    "player_missing_frames": 4,
+    "conversion_cpu_p50_us": 13.1,
+    "conversion_cpu_p95_us": 18.804999999999996,
+    "input_sha256": "e46f215dd05649fa8d21267bc23d4348dd5563178dfa5991140f5b6dc32812ea",
+    "claim": "Geometry fixture and local conversion microbenchmark; no game, YOLO or RL measurement."
+  },
+  "completed_at": "2026-11-22T23:45:45.024175+00:00"
+}

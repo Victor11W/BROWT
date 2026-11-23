@@ -1,0 +1,55 @@
+---
+title: "De la détection à l’observation"
+---
+
+## Les repères
+
+Une image a une largeur `W` et une hauteur `H`. L’origine est en haut à gauche ; `x` augmente vers la droite et `y` vers le bas.
+
+Les boîtes du détecteur sont exprimées en pixels. L’observation les normalise par `W` et `H`. Elle contient classe, confiance, boîte, horodatage et statut du joueur.
+
+La normalisation rend les coordonnées comparables entre résolutions. Elle ne corrige ni la caméra ni un changement de champ de vision.
+
+## Absence et ambiguïté
+
+Une observation n’est pas l’état interne du jeu. Elle peut manquer des objets ou en inventer.
+
+- Aucun objet `Me` : statut `missing`, position du joueur absente.
+- Un seul objet `Me` : statut `visible`.
+- Plusieurs objets `Me` : statut `ambiguous`, aucune sélection silencieuse.
+
+Les boîtes débordant partiellement de l’image sont bornées ; les boîtes vides, valeurs non finies et confidences invalides sont refusées. L’ordre des objets est déterministe.
+
+Aucune commande n’est exécutée par cette couche. Le comportement de la politique lorsque l’observation est invalide sera défini et vérifié lors de l’intégration.
+
+## Format des journaux
+
+Chaque ligne JSON décrit une frame :
+
+```json
+{
+  "schema_version": 1,
+  "data_kind": "observed",
+  "source_id": "session-001",
+  "timestamp_s": 0.1,
+  "width": 1280,
+  "height": 720,
+  "detections": [
+    {"cls_id": 0, "cls_name": "Me", "confidence": 0.8, "xyxy": [100, 200, 160, 280]}
+  ]
+}
+```
+
+Cet exemple illustre le format ; il n’est pas un résultat d’inférence. L’association ID/classe doit venir du `data.yaml` du modèle, et non être supposée identique entre exports.
+
+Les horodatages doivent être strictement croissants. Un journal possède une source et un type de données uniques. La relecture produit les observations sans relancer le détecteur.
+
+## Première validation géométrique
+
+![Planche de validation sur une scène synthétique ; aucune inférence n’est exécutée. Les quatre images sans détection du joueur produisent une rupture dans sa trajectoire. La distribution de temps mesure la conversion seule sur le CPU qui a généré le rapport.](assets/figures/observation-overview.svg){#fig-observation}
+
+Données dérivées de démonstration : [résumé](assets/figures/demo-summary.json), [manifeste](assets/figures/demo-manifest.json) et [chronométrages](assets/figures/demo-latency-us.json).
+
+## Travaux suivants
+
+La capture réelle, le suivi d’identité, l’estimation du mouvement de caméra, la mémoire temporelle et l’interface RL restent à réaliser. Leur valeur sera évaluée sur des séquences réelles, avec comparaison à l’observation frame par frame déjà disponible.

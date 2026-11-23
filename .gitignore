@@ -39,3 +39,18 @@ docs/.quarto/
 .DS_Store
 .vscode/
 .idea/
+# Local research checks
+.pytest_cache/
+.ruff_cache/
+.test-tmp/
+.test-tmp-*/
+# Derived scientific figure previews
+!docs/assets/figures/*.png
+
+# Public dataset archives and extracted originals stay local.
+data/raw/
+data/archives/
+
+# Local credentials
+.env
+.env.*

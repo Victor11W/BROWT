@@ -1,0 +1,108 @@
+---
+title: "Méthode expérimentale"
+subtitle: "Faire correspondre chaque conclusion à une preuve"
+---
+
+## Questions et hypothèses initiales
+
+| Question | Hypothèse à examiner | Expérience | Preuve attendue |
+|---|---|---|---|
+| La perception est-elle suffisante ? | Une baseline YOLO11n identifie les entités utiles | Lot indépendant, analyse par classe et situation | Qualité, support, erreurs et limites |
+| Le temps aide-t-il ? | Une observation temporelle réduit les absences instables | Même séquence, avec/sans mémoire | Continuité et erreurs mesurées |
+| L’état détecté suffit-il pour agir ? | Les observations compactes permettent une politique de référence utile | Même protocole, politiques simples | Résultats par épisode et cas d’échec |
+| Le RL apporte-t-il un gain ? | Une politique apprise améliore une baseline définie | Budget et observations comparables | Écart, incertitude et reproductibilité |
+| Qu’est-ce qui limite le système ? | Perception, latence ou récompense expliquent une partie des échecs | Ablations et chronologies d’épisodes | Association argumentée, limites causales |
+
+Ces hypothèses sont des pistes de recherche, pas des conclusions.
+
+## Contrat d’une expérience
+
+Chaque run possède un dossier unique contenant :
+
+- un `manifest.json` : tâche, statut, date UTC, type de données, configuration et empreinte ;
+- l’environnement : Python, plateforme, bibliothèques, commit et état modifié du dépôt ;
+- les références du dataset et des poids lorsqu’ils sont utilisés ;
+- les métriques structurées et les artefacts bruts ou dérivés ;
+- la taille et l’empreinte SHA-256 de chaque artefact déclaré.
+
+Un run interrompu ou échoué reste identifiable. Un résultat absent reste absent : il n’est pas remplacé par zéro.
+
+Un commit seul ne décrit pas des modifications locales non committées. Une empreinte des sources et configurations complète donc la provenance ; les expériences confirmatoires devront partir d’une révision propre et archivée.
+
+## Données, indépendance et fuite
+
+L’unité de partition est la **partie ou la session d’acquisition**. Des frames adjacentes d’une même partie se ressemblent trop pour fournir une évaluation indépendante lorsqu’elles sont distribuées entre apprentissage et test.
+
+L’audit actuel vérifie les annotations et les doublons **exacts**. Les quasi-doublons, la corrélation temporelle et les erreurs sémantiques nécessitent une analyse complémentaire. Un audit sans erreur ne prouve pas l’absence de fuite.
+
+Le test final est défini avant le réglage du modèle. La validation sert au développement, à l’arrêt anticipé et au choix des seuils. L’évaluation du test est déclenchée explicitement ; elle ne fait pas partie d’un test rapide.
+
+Les données sources sont conservées. Les fichiers résolus et les partitions dérivées possèdent leur propre emplacement et leur manifeste.
+
+## Baselines et comparaisons
+
+Une amélioration se mesure relativement à une référence :
+
+- perception : baseline historique YOLO11n, puis variation contrôlée d’un facteur ;
+- observation : frame unique, puis ajout de mémoire ou suivi ;
+- décision : immobilité, hasard contrôlé, heuristique, puis politique apprise.
+
+Les comparaisons partagent le contexte, les observations disponibles, le budget et les contraintes d’action. Un modèle plus coûteux n’est pas déclaré meilleur sans montrer son coût.
+
+Les paramètres, métriques principales, règles d’exclusion et conditions d’arrêt sont fixés avant l’évaluation finale. Toute modification ultérieure est identifiée comme exploration.
+
+## Incertitude et unités statistiques
+
+Les frames ne sont pas des parties indépendantes. Un nombre élevé de frames ne compense pas un petit nombre de sessions.
+
+Pour le RL, distinguer :
+
+1. la variabilité entre entraînements et graines ;
+2. la variabilité entre épisodes d’évaluation d’une même politique ;
+3. la variabilité des cartes, sessions et situations.
+
+Les premiers outils proposent un bootstrap de moyenne pour des **unités indépendantes choisies par l’analyste**. Ils ne modélisent pas encore une hiérarchie graine/épisode/carte. Les comparaisons finales demanderont un bootstrap groupé ou hiérarchique adapté ; aucun intervalle global ne sera calculé naïvement sur toutes les frames.
+
+Avec peu de graines, montrer les points individuels et expliciter l’incertitude. Les recommandations d’évaluation RL insistent sur la variabilité des runs ; les travaux d’Agarwal et al. motivent une analyse qui ne s’arrête pas au meilleur score observé. Voir les [références](references.qmd).
+
+## Mesurer le temps correctement
+
+Utiliser une horloge monotone pour les durées et UTC pour l’identification des expériences. Exclure et documenter l’échauffement.
+
+Mesurer séparément capture, prétraitement, inférence, construction de l’observation, politique et injection, puis mesurer la boucle réelle. Les moyennes ou p95 de composants ne s’additionnent pas pour fournir un p95 global.
+
+Sur GPU, synchroniser le travail asynchrone avant de conclure sur une durée CPU ; consigner précision numérique, taille d’entrée, batch, matériel et charge. Les résultats CPU ne sont pas extrapolés vers CUDA.
+
+La démonstration actuelle mesure uniquement `build_state` sur une scène synthétique. Elle ne fournit pas la vitesse d’un détecteur ou d’un agent jouant au jeu.
+
+## Analyse d’erreurs et ablations
+
+Chaque erreur retenue possède : contexte, entrée, annotation ou référence, sortie, conséquence, hypothèse d’explication et niveau de certitude.
+
+Les ablations prévues concernent la résolution, le seuil, la mémoire, le terrain, la récompense et la fréquence d’action. Elles gardent les autres paramètres et le budget aussi constants que possible.
+
+Une corrélation entre une erreur de détection et un échec du bot ne démontre pas seule un lien causal. La relecture et les interventions contrôlées serviront à renforcer ou limiter l’interprétation.
+
+## Format d’un résultat dans le rapport
+
+Chaque résultat comporte, dans cet ordre :
+
+1. la question et le contraste étudié ;
+2. le protocole et les unités expérimentales ;
+3. la figure ou le tableau, avec provenance ;
+4. l’observation quantitative ;
+5. l’interprétation et ses limites ;
+6. la décision de suite.
+
+Les représentations schématiques, les scènes synthétiques et les mesures réelles portent des labels distincts. Les figures de démonstration ne remplissent pas des tableaux de performances réelles.
+
+## Reproductibilité pratique
+
+- Garder les graines, configurations et versions exactes avec chaque run.
+- Archiver les partitions, références des données et empreintes des poids.
+- Ne pas écraser un run ou un modèle déjà publié.
+- Vérifier les résultats sélectionnés depuis une installation propre.
+- Documenter le comportement non déterministe restant, notamment entre matériels.
+- Conserver les échecs et les exclusions, ainsi que leurs motifs.
+
+Une graine améliore la répétabilité ; elle ne garantit pas l’identité numérique de tous les résultats entre CPU, GPU et versions de bibliothèques.

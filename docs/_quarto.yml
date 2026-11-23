@@ -1,48 +1,62 @@
 project:
   type: book
+  output-dir: _book
 
+lang: fr
 book:
   title: "BROWT"
+  subtitle: "Laboratoire visuel de perception et de décision"
   author: "Victor Woelffel"
-  date: today
+  date: "2026-11-23"
   repo-url: https://github.com/Victor11W/BROWT
+  search: true
   sidebar:
-    logo: "assets/logo.png"
-
+    logo: assets/logo.png
+    style: docked
   chapters:
     - index.qmd
-    - part: "Detection and analysis"
+    - part: "Le projet"
       chapters:
+        - roadmap.qmd
+        - autonomy.qmd
+        - methodology.qmd
+        - visual-atlas.qmd
+    - part: "Expérimenter"
+      chapters:
+        - getting-started.qmd
+        - dataset.qmd
+        - dataset-analysis.qmd
+        - observations.qmd
         - detection.qmd
-    - part: "Reinforcement learning"
-      chapters:
         - rl.qmd
-    - pipeline.qmd
+    - part: "Construire et conclure"
+      chapters:
+        - pipeline.qmd
+        - progress.qmd
+        - decisions.qmd
+        - references.qmd
 
 format:
   html:
-    theme: flatly
+    theme:
+      light: flatly
+      dark: darkly
     css: custom.css
     page-layout: article
     grid:
-      sidebar-width: 220px
+      sidebar-width: 240px
       body-width: 1050px
-    mermaid:
-      theme: neutral
-
-    # Table of contents
     toc: true
     toc-depth: 3
-    toc-location: right
-    toc-title: "On this page"
-    toc-expand: 1
-    number-sections: false
-
-    # Code display
+    toc-title: "Dans cette page"
+    number-sections: true
     code-fold: true
-    code-summary: "Show code"
-    code-tools: false
     code-copy: true
-    code-block-bg: true
     code-overflow: wrap
-    highlight-style: github
+    smooth-scroll: true
+    link-external-newwindow: true
+    fig-cap-location: bottom
+    mermaid:
+      theme: neutral
+execute:
+  enabled: false
