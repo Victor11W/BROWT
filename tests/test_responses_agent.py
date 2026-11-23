@@ -320,3 +320,15 @@ def test_interrupted_background_wait_requests_cancellation():
             api, {"id": "resp_test", "status": "in_progress"}, now=lambda: 0, sleep=interrupted
         )
     assert api.calls == [("POST", "/responses/resp_test/cancel", {})]
+
+
+def test_rerunning_only_the_model_job_stops_before_key_or_task_access(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["responses_agent.py", "run"])
+    monkeypatch.setenv("GITHUB_RUN_ATTEMPT", "2")
+
+    def no_key(*args, **kwargs):
+        raise AssertionError("A rerun must stop before API-key access.")
+
+    monkeypatch.setattr(agent, "OpenAI", no_key)
+    with pytest.raises(agent.Stop, match="cannot be rerun"):
+        agent.main()

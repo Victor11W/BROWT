@@ -62,3 +62,26 @@ jobs:
             -v "$PWD/runs/api-agent:/bundle:ro" \
             -v "$PWD/.github/autonomy/check_bundle.py:/check.py:ro" \
             python:3.11-slim-bookworm python /check.py
+  return_to_worker:
+    needs: [cpu, documentation, api_bundle]
+    if: always() && github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/heads/codex/agent-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      actions: write
+    steps:
+      - name: Ask the controller to inspect the completed checks
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const {owner, repo} = context.repo;
+            try {
+              await github.rest.actions.createWorkflowDispatch({
+                owner, repo, workflow_id: 'autonomous-worker.yml',
+                ref: context.payload.repository.default_branch,
+                inputs: {mode: 'inspect'}
+              });
+              core.notice('Controller inspection requested.');
+            } catch {
+              core.warning('Controller callback failed; scheduled inspection remains available.');
+            }
