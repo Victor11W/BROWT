@@ -13,6 +13,7 @@ import os
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
@@ -46,7 +47,27 @@ class GitHub:
         self.opener = urllib.request.build_opener(NoRedirect)
 
     def call(self, method, endpoint, data=None):
-        if endpoint and (not endpoint.startswith("/") or ".." in endpoint or "\\" in endpoint):
+        if not isinstance(endpoint, str):
+            raise Stop("Invalid API path.")
+        try:
+            parsed = urllib.parse.urlsplit(endpoint)
+            decoded_path = urllib.parse.unquote(parsed.path)
+        except ValueError:
+            raise Stop("Invalid API path.") from None
+        # A compare route contains BASE...HEAD. Reject traversal segments, not dots
+        # inside a legitimate route component. Never allow an origin override.
+        if endpoint and (
+            not endpoint.startswith("/")
+            or endpoint.startswith("//")
+            or parsed.scheme
+            or parsed.netloc
+            or decoded_path.startswith("//")
+            or "#" in endpoint
+            or "\\" in decoded_path
+            or "%" in decoded_path
+            or any(part in {".", ".."} for part in decoded_path.split("/"))
+            or any(ord(char) <= 32 or ord(char) == 127 for char in endpoint + decoded_path)
+        ):
             raise Stop("Invalid API path.")
         request = urllib.request.Request(
             "https://api.github.com/repos/" + self.repo + endpoint,
@@ -446,6 +467,19 @@ class Controller:
         self.dependencies()
         self.reconcile()
         self.complete_setup_tickets()
+        if (
+            self.state["paused"] == "Invalid API path."
+            and self.state["reservation"] is None
+            and self.state["active"] is None
+            and self.state["sessions"] == 0
+        ):
+            # Recover only the known pre-model initialization defect, after its
+            # setup checks have succeeded. Other pauses retain manual resume.
+            self.state["paused"] = ""
+            self.notice(
+                "controller-initialized",
+                "BROWT · contrôleur initialisé\nLe premier essai attend le financement et le contrôle du budget.",
+            )
         mode = self.event.get("inputs", {}).get("mode", "work")
         event_name = self.env["GITHUB_EVENT_NAME"]
         if event_name == "workflow_run":
