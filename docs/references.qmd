@@ -1,0 +1,21 @@
+---
+title: "Sources et lectures"
+---
+
+## Références techniques primaires
+
+- [Ultralytics — entraînement](https://docs.ultralytics.com/modes/train/) : API, paramètres et contraintes d’exécution. Les exemples actuels peuvent porter sur une autre famille que la baseline YOLO11.
+- [Ultralytics — validation](https://docs.ultralytics.com/modes/val/) : métriques, classes effectivement évaluées et paramètres.
+- [Gymnasium — environnement personnalisé](https://gymnasium.farama.org/introduction/create_custom_env/) : contrat reset/step et initialisation reproductible.
+- [Stable-Baselines3 — conseils expérimentaux](https://stable-baselines3.readthedocs.io/en/master/guide/rl_tips.html) : baselines, runs multiples et évaluation séparée.
+- [Quarto — livres](https://quarto.org/docs/books/) et [calculs Python](https://quarto.org/docs/computations/python.html) : structure du rapport et séparation des calculs.
+
+## Évaluation scientifique
+
+Agarwal, Schwarzer, Castro, Courville et Bellemare (2021), [Deep Reinforcement Learning at the Edge of the Statistical Precipice](https://arxiv.org/abs/2108.13264). Référence pour la prise en compte de l’incertitude et des limites des comparaisons à peu de runs.
+
+## Dataset retenu pour la nouvelle baseline
+
+[Bloxxy — Brawl Stars Dataset, version 21](https://universe.roboflow.com/bloxxy/brawl-stars-dataset/dataset/21). La licence et le mapping ont été vérifiés dans l’export importé. Les archives et empreintes sont conservées ; voir la fiche dataset et son analyse. Cette acquisition ne détermine pas la version utilisée dans les anciens essais non archivés.
+
+Ces références ont été consultées lors de la préparation du socle. Les versions exactes installées dans les expériences sont consignées séparément.

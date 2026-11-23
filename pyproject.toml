@@ -4,27 +4,31 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "BROWT"
-version = "0.1.0"
-description = "Brawl Stars bot trained with reinforcement learning"
+version = "0.2.0"
+description = "A reproducible visual research laboratory for a screen-based Brawl Stars agent"
 requires-python = ">=3.11,<3.13"
-dependencies = [
-    "ultralytics",
-    "opencv-python",
-    "numpy",
-    "pyyaml",
-    "mss",
-]
+dependencies = ["numpy>=1.24,<3", "PyYAML>=6,<7"]
 
 [project.optional-dependencies]
-rl = [
-    "torch",
-    "stable-baselines3",
-    "gymnasium",
-    "tensorboard",
-]
-adb = [
-    "pure-python-adb",
-]
+vision = ["ultralytics>=8.3,<9", "opencv-python>=4.8,<5", "mss>=9,<11"]
+research = ["matplotlib>=3.7,<4", "Pillow>=9,<13"]
+rl = ["torch>=2.2,<3", "stable-baselines3>=2.3,<3", "gymnasium>=0.29,<2", "tensorboard>=2.14,<3"]
+dev = ["pytest>=7.4,<10", "ruff>=0.8,<1"]
+
+[project.scripts]
+browt = "BROWT.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

@@ -1,0 +1,69 @@
+schema_version: 1
+title: "BROWT · six mois de recherche"
+horizon_weeks: 24
+timing: "Indicatif ; ajuster après le pilote et selon la disponibilité CUDA."
+phases:
+  - id: J0
+    name: "Fondations et laboratoire CPU"
+    start_week: 1
+    end_week: 2
+    status: in_progress
+    hardware: cpu
+    depends_on: []
+    evidence: "Tests, provenance, démonstration et protocole"
+  - id: J1
+    name: "Données et partitions"
+    start_week: 3
+    end_week: 5
+    status: planned
+    hardware: cpu
+    depends_on: [J0]
+    evidence: "Dataset audité, groupes indépendants, fiche descriptive"
+  - id: J2
+    name: "Baseline de perception"
+    start_week: 6
+    end_week: 8
+    status: planned
+    hardware: cuda_target
+    depends_on: [J1]
+    evidence: "Qualité par classe, erreurs, budget et latence"
+  - id: J3
+    name: "Observation temporelle"
+    start_week: 9
+    end_week: 11
+    status: planned
+    hardware: cpu
+    depends_on: [J2]
+    evidence: "Relecture réelle, absences, suivi et synchronisation"
+  - id: J4
+    name: "Boucle et baselines"
+    start_week: 12
+    end_week: 14
+    status: planned
+    hardware: emulator
+    depends_on: [J3]
+    evidence: "Actions calibrées, événements et politiques de référence"
+  - id: J5
+    name: "Expériences RL"
+    start_week: 15
+    end_week: 19
+    status: planned
+    hardware: cuda_target
+    depends_on: [J4]
+    evidence: "Plusieurs graines et comparaison à budget explicite"
+  - id: J6
+    name: "Robustesse et intégration"
+    start_week: 20
+    end_week: 22
+    status: planned
+    hardware: emulator
+    depends_on: [J5]
+    evidence: "Évaluation hors distribution et démonstration intégrée"
+  - id: J7
+    name: "Synthèse et reproduction"
+    start_week: 23
+    end_week: 24
+    status: planned
+    hardware: cpu
+    depends_on: [J6]
+    evidence: "Rapport final, figures, archive et reproduction"

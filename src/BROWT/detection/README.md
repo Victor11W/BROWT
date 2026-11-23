@@ -1,79 +1,65 @@
-# Detection (YOLOv11)
+# Detection · YOLO11
 
-Object detection on Brawl Stars frames. Input: an image. Output: detected
-classes with bounding boxes and confidences.
+Input: a game image. Output: classes, scores and pixel bounding boxes.
+The historical YOLO11n baseline is preserved. No real accuracy result has been
+established in the current repository.
 
 ## Setup
 
-Python 3.11 or 3.12 (not 3.14 — no torch/ultralytics wheels yet).
+Python 3.11 or 3.12:
 
-```bash
-python3.12 -m venv .venv
-.venv/bin/python -m pip install -e .
+```text
+python -m pip install -e ".[vision,research,dev]"
 ```
 
-The dataset (Roboflow export, YOLOv11 format) must sit in `data/dataset/`
-with `train/` and `valid/` splits. The `test/` split is created automatically
-on first run.
+Place the original YOLO export in `data/dataset/`, with `data.yaml` and
+independently defined `train/`, `valid/`, and final `test/` partitions.
+Partition by session/match before training. Adjacent video frames must not be
+randomly split across training and test.
 
-## Train
+## Audit, train, evaluate
 
-```bash
-.venv/bin/python -m BROWT.detection.train          # full run
-.venv/bin/python -m BROWT.detection.train --smoke  # 1-epoch sanity check
+```text
+python -m BROWT audit --dataset data/dataset
+python -m BROWT.detection.train --smoke
+python -m BROWT.detection.train
+python -m BROWT.detection.report --weights path/to/weights/best.pt --split val
 ```
 
-All settings live in [`configs/detection.yaml`](../../../configs/detection.yaml)
-(model size, epochs, image size, device, ...). On first run the trainer:
+Training does not move source images or replace the source YAML.
+Each run has a unique directory, manifest, resolved dataset YAML and checkpoint.
+A smoke run uses one epoch and a training subset. It cannot publish weights or
+evaluate the held-out test.
 
-1. Carves a deterministic `test` split (10% of `train`).
-2. Writes a clean `data.yaml` with an absolute path root.
-3. Trains, evaluates on the `test` split, and copies the best weights to
-   `data/models/brawl_yolo11<size>.pt`.
+Normal training uses training/validation only. After the protocol is frozen,
+explicitly use `--evaluate-test` or evaluate a checkpoint with `--split test`.
 
-Device is auto-selected: CUDA > MPS (Apple Silicon) > CPU.
-
-Monitor:
-
-```bash
-tail -f logs/train_full.log
-.venv/bin/tensorboard --logdir runs
-```
-
-Run artifacts (curves, confusion matrix, weights) land in
-`runs/detect/<name>/`.
+To copy a completed run's weights to the configured model directory, training
+accepts `--publish`. Existing published weights are never replaced. Inference
+can also load the best checkpoint directly from its run directory.
 
 ## Inference
 
 ```python
 from BROWT.detection import Detector
 
-det = Detector("data/models/brawl_yolo11n.pt")
-for d in det.detect("path/to/frame.png"):
-    print(d.cls_name, round(d.confidence, 2), d.center)
+detector = Detector("path/to/weights/best.pt")
+for detection in detector.detect("path/to/frame.png"):
+    print(detection.cls_name, detection.confidence, detection.center)
 ```
 
-`detect()` accepts a file path or a numpy array (e.g. an `mss` capture) and
-returns a list of `Detection(cls_id, cls_name, confidence, xyxy, center)`.
+The label-index mapping comes from the actual dataset export, not a hardcoded
+alphabetical class order.
 
-## Classes
+## Results
 
-10 classes: `Ball`, `Enemy`, `Friendly`, `Gem`, `Hot_Zone`, `Me`, `PP`,
-`PP_Box`, `Safe_Enemy`, `Safe_Friendly`.
-
-## Results / validation
-
-Generated from the held-out `test` split by:
-
-```bash
-.venv/bin/python -m BROWT.detection.report
-```
-
-It runs evaluation and rewrites everything between the markers below.
+Evaluation writes a new run with JSON metrics, Markdown and provenance.
+Updating this README requires the explicit `--update-readme` option.
 
 <!-- RESULTS:START -->
-_Not generated yet. Run `python -m BROWT.detection.report` after training._
+No real dataset/checkpoint evaluation has been archived yet.
 <!-- RESULTS:END -->
 
-Observations: _(weak classes, confusions, sample-count imbalance, ideas to
-improve — fill in after reviewing `runs/detect/<name>/`.)_
+Class absence is reported as not evaluated, never as zero performance.
+The latency reported by Ultralytics covers inference, not the complete
+capture–decision–action loop.

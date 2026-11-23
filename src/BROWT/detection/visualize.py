@@ -25,9 +25,16 @@ IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 # Distinct BGR colors, one per class index (10 classes).
 _PALETTE = [
-    (56, 56, 255), (151, 157, 255), (31, 112, 255), (29, 178, 255),
-    (49, 210, 207), (10, 249, 72), (23, 204, 146), (134, 219, 61),
-    (199, 55, 255), (255, 112, 31),
+    (56, 56, 255),
+    (151, 157, 255),
+    (31, 112, 255),
+    (29, 178, 255),
+    (49, 210, 207),
+    (10, 249, 72),
+    (23, 204, 146),
+    (134, 219, 61),
+    (199, 55, 255),
+    (255, 112, 31),
 ]
 
 
@@ -50,8 +57,14 @@ def draw(image, detections: list[Detection]):
         (tw, th), baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
         cv2.rectangle(image, (x1, y1 - th - baseline - 2), (x1 + tw, y1), color, -1)
         cv2.putText(
-            image, label, (x1, y1 - baseline - 1),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA,
+            image,
+            label,
+            (x1, y1 - baseline - 1),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (255, 255, 255),
+            1,
+            cv2.LINE_AA,
         )
     return image
 
@@ -73,8 +86,12 @@ def _collect_sources(source: Path | None, num: int) -> list[Path]:
 def main() -> None:
     root = repo_root()
     parser = argparse.ArgumentParser(description="Visualize detector predictions.")
-    parser.add_argument("--weights", type=Path, default=root / "data" / "models" / "brawl_yolo11n.pt")
-    parser.add_argument("--source", type=Path, default=None, help="Image or directory. Default: test split.")
+    parser.add_argument(
+        "--weights", type=Path, default=root / "data" / "models" / "brawl_yolo11n.pt"
+    )
+    parser.add_argument(
+        "--source", type=Path, default=None, help="Image or directory. Default: test split."
+    )
     parser.add_argument("--num", type=int, default=8, help="Number of images when sampling.")
     parser.add_argument("--output", type=Path, default=root / "runs" / "viz")
     parser.add_argument("--conf", type=float, default=0.25)

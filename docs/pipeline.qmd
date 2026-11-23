@@ -1,31 +1,56 @@
 ---
-title: "General pipeline"
+title: "Architecture et boucle expérimentale"
 ---
 
-This final part ties the two halves together — **perception** (detection and
-analysis) and **decision** (reinforcement learning) — into the full system. It
-comes last on purpose, once both problems are understood on their own.
-
-## The pipeline under study
-
-The agent is organised along **three stages** that turn a frame into an action.
+## Une chaîne instrumentée
 
 ```{mermaid}
 flowchart LR
-    subgraph SIM[1. Capture]
-        A[Emulator] --> B[Screen capture]
-    end
-    subgraph DET[2. Perception]
-        C[Object detection<br/>YOLOv11] --> D[State restructuring]
-    end
-    subgraph AI[3. Decision]
-        E[RL policy]
-    end
-
-    B -->|frame| C
-    D -->|state| E
+  source["Image ou séquence<br/>capture / replay"] --> detector["Perception<br/>détections YOLO"]
+  detector --> observation["Observation<br/>géométrie + absences"]
+  observation --> policy["Politique<br/>baseline / RL"]
+  policy --> action["Exécution<br/>calibration ADB"]
+  action --> source
+  source --> evidence["Journal horodaté<br/>données + événements"]
+  observation --> evidence
+  policy --> evidence
+  evidence --> figures["Analyse et figures<br/>rapport scientifique"]
 ```
 
-At run time the stages form a **closed perception-action loop**: each action
-changes the game, producing the next frame, and the change in frames is the
-reward signal that trains the policy.
+Les flèches décrivent l’architecture cible. La boucle réelle n’est pas encore intégrée. Les journaux de détections, la normalisation, la provenance et la démonstration CPU sont implémentés.
+
+## Responsabilités
+
+| Module | Responsabilité | État |
+|---|---|---|
+| `data` | Classes, audit des annotations et empreintes | Implémenté ; validation visuelle et groupes à compléter |
+| `detection` | Entraînement, inférence, rapport | Code disponible ; expériences réelles à conduire |
+| `state` | Observation normalisée et replay de détections | Implémenté ; mémoire et suivi à étudier |
+| `capture` | Frames live et enregistrement | À implémenter |
+| `research` | Provenance, statistiques, figures et rapport de démonstration | Implémenté sur CPU |
+| Environnement/politiques/actions | Boucle, baselines, récompense et RL | À implémenter |
+| `docs` | Méthode, état des preuves et résultats | Rapport structuré ; résultats réels à ajouter |
+
+Le détecteur et la politique ne doivent pas accéder directement aux commandes de l’émulateur. Les interfaces permettent d’examiner les observations et actions en relecture avant toute exécution live.
+
+## Les contrats à conserver
+
+- **Frame** : pixels, dimensions, source, horodatage monotone et contexte d’acquisition.
+- **Détection** : mapping de classe versionné, score, boîte dans le repère image.
+- **Observation** : géométrie normalisée, absences et ambiguïtés explicites.
+- **Action** : intention indépendante de la calibration écran.
+- **Transition** : observation, action, événement/récompense et fin/troncature.
+- **Expérience** : configuration, données, code, environnement, statut et artefacts.
+- **Figure** : données sources, unités, méthode et limites.
+
+## Relecture et temps réel
+
+La relecture sert à reproduire des erreurs et isoler les composants. Le temps réel ajoute des contraintes de synchronisation, de latence et de commandes persistantes. Ces deux modes partageront les observations, mais leurs résultats temporels seront présentés séparément.
+
+Les contrôles futurs couvriront capture figée, fenêtre perdue, observation trop ancienne, joueur absent/ambigu et arrêt utilisateur. Les décisions face à ces situations devront être visibles dans le journal.
+
+## Terrain et état partiel
+
+Le dataset historique décrit surtout des entités. Il ne fournit pas automatiquement la géométrie des murs, buissons ou dangers. Il faudra comparer acquisition de carte, représentation manuelle et perception dédiée, selon le besoin réel des politiques.
+
+La caméra mobile empêche d’assimiler des coordonnées écran à une position absolue sur la carte. Toute transformation vers un repère mondial devra être validée séparément.

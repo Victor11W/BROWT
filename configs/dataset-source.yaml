@@ -1,0 +1,34 @@
+schema_version: 1
+source_id: bloxxy-brawl-stars-v21-yolov11
+provider: Roboflow Universe
+workspace: bloxxy
+project: brawl-stars-dataset
+version: 21
+version_name: raw 4
+format: yolov11
+public_url: https://universe.roboflow.com/bloxxy/brawl-stars-dataset/dataset/21
+export_page: https://universe.roboflow.com/bloxxy/brawl-stars-dataset/dataset/21/download/yolov11
+license: MIT
+verified_on: "2026-11-23"
+expected_splits:
+  train: 2297
+  valid: 254
+expected_classes:
+  - Ball
+  - Enemy
+  - Friendly
+  - Gem
+  - Hot_Zone
+  - Me
+  - PP
+  - PP_Box
+  - Safe_Enemy
+  - Safe_Friendly
+preprocessing:
+  auto_orient: true
+  resize: none
+  augmentations: none
+research_limits:
+  - No independent test split is provided.
+  - Match/session independence is not established by the public page.
+  - Published hosted-model scores are not BROWT measurements.

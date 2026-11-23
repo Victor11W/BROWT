@@ -1,0 +1,108 @@
+---
+title: "Démarrer sur CPU"
+---
+
+## Installation locale
+
+Python **3.11 ou 3.12** est la cible du projet. Dans le dépôt, sous PowerShell :
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -e ".[research,dev]"
+.\.venv\Scripts\python.exe -m BROWT doctor
+```
+
+Sous Linux/macOS, utiliser `python3.11 -m venv .venv`, puis `.venv/bin/python`. L’émulateur cible reste Windows ; les outils d’analyse CPU sont séparés de cette contrainte.
+
+Les bornes du paquet définissent des versions compatibles candidates, pas un environnement CUDA déjà validé. Chaque run consigne les versions réellement installées. Une configuration d’entraînement figée recevra son export d’environnement exact après le pilote.
+
+## Première expérience visuelle
+
+```powershell
+.\.venv\Scripts\python.exe -m BROWT demo --output runs/research --figures docs/assets/figures
+```
+
+La commande affiche le chemin d’un `report.html` autonome. Chaque lancement crée un nouveau dossier. Ouvrir ce rapport dans un navigateur.
+
+Le dossier contient un manifeste, les détections simulées, les observations normalisées, les durées brutes et les figures SVG/PNG. Aucun dataset, poids, GPU ou émulateur n’est nécessaire.
+
+## Relire un journal de détections
+
+```powershell
+.\.venv\Scripts\python.exe -m BROWT replay --source chemin/detections.jsonl --output runs/replay
+```
+
+Le format est décrit dans [Observation](observations.qmd). Il enregistre les dimensions, l’horodatage, les classes et les boîtes. La relecture refuse de mélanger entrées réelles et synthétiques dans un même journal.
+
+Cette commande relit des **détections déjà enregistrées** ; elle ne lance pas une inférence YOLO sur une vidéo.
+
+## Auditer les données réelles
+
+Placer l’export au format YOLO dans :
+
+```text
+data/dataset/
+  data.yaml
+  train/images/   train/labels/
+  valid/images/   valid/labels/
+  test/images/    test/labels/
+```
+
+```powershell
+.\.venv\Scripts\python.exe -m BROWT audit --dataset data/dataset --output runs/dataset-audit.json
+```
+
+La commande ne déplace aucun fichier. Une erreur d’annotation, un lot manquant ou un doublon exact entre lots donne un code de sortie non nul et un rapport localisé. Une image de fond possède un fichier de labels vide explicite.
+
+Le découpage par partie/session est préparé en amont. L’audit des fichiers ne prouve pas à lui seul l’indépendance des lots.
+
+## Tests et qualité
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest
+.\.venv\Scripts\python.exe -m ruff check .
+.\.venv\Scripts\python.exe -m ruff format --check src tests
+```
+
+Les tests d’orchestration d’entraînement utilisent un **double de YOLO** et de très petites images de test. Ils vérifient les protections et les fichiers ; ils ne prouvent pas qu’un vrai modèle apprend.
+
+## Ajouter la vision et entraîner
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[vision,research,dev]"
+.\.venv\Scripts\python.exe -m BROWT.detection.train --smoke
+```
+
+Le dataset doit exister avant cette commande. Le mode rapide ne publie aucun poids et n’évalue pas le test final. Un entraînement normal utilise apprentissage et validation :
+
+```powershell
+.\.venv\Scripts\python.exe -m BROWT.detection.train
+.\.venv\Scripts\python.exe -m BROWT.detection.report --weights chemin/weights/best.pt --split val
+```
+
+Chaque entraînement garde ses meilleurs poids dans son propre dossier. La copie vers `data/models/` est volontaire et exclusive :
+
+```powershell
+.\.venv\Scripts\python.exe -m BROWT.detection.train --publish
+```
+
+Un fichier existant n’est jamais remplacé. Le test final est demandé explicitement avec `--evaluate-test` lors d’une expérience figée, ou `--split test` dans le rapport.
+
+## Migrer vers NVIDIA
+
+Avant d’installer une variante CUDA : identifier GPU/VRAM, pilote, version de Python et matrice de compatibilité PyTorch. Utiliser ensuite les instructions officielles correspondant à cette machine. Aucun lien de wheel CUDA arbitraire n’est figé avant de connaître le matériel.
+
+Le même code choisit CUDA, puis MPS, puis CPU avec `device: auto`. Le nombre de workers et le batch initiaux sont prudents pour Windows/CPU ; ils seront ajustés et mesurés sur la station CUDA. Conserver la nouvelle configuration et l’environnement exact dans chaque run.
+
+## Rendre le rapport complet
+
+Installer Quarto depuis sa distribution officielle, puis :
+
+```powershell
+quarto render docs --fail-on-warnings
+```
+
+Le rapport est généré dans `docs/_book/`. Les calculs lourds ne sont pas exécutés pendant le rendu : ils produisent d’abord des artefacts et figures vérifiables.
+
+Quarto n’est pas présent dans l’environnement local d’audit initial. Le rapport HTML autonome de la démonstration et les figures PNG/SVG restent consultables indépendamment ; une tâche CI est prévue pour vérifier le livre Quarto.

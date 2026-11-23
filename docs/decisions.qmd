@@ -1,0 +1,59 @@
+---
+title: "Décisions de conception"
+---
+
+## D001 — Recherche et lisibilité en priorité
+
+**Décision, 23 novembre 2026.** Le résultat final combine expériences reproductibles, système instrumenté et rapport scientifique visuel. Une performance compétitive n’est pas promise avant mesure.
+
+**Motif.** Direction explicitement retenue par Victor.
+
+**Conséquence.** Les limites, échecs et baselines ont la même traçabilité que les meilleurs résultats.
+
+## D002 — CPU d’abord, CUDA ensuite
+
+**Décision.** Les outils de données, observation, relecture et figures fonctionnent sans GPU ni Ultralytics. Vision lourde et RL sont des dépendances distinctes.
+
+**Motif.** Aucun GPU NVIDIA actuellement disponible.
+
+**À réévaluer.** Batch, résolution, modèle et budget après un pilote sur le matériel cible.
+
+## D003 — Conserver YOLO11n comme baseline historique
+
+**Décision.** Éviter un changement silencieux de famille de modèle. Une autre version ou architecture sera comparée explicitement.
+
+**Motif.** Préserver un point de référence et rendre les gains interprétables.
+
+## D004 — Partitions explicites, source préservée
+
+**Décision.** Retirer le découpage automatique par déplacement de frames lors de l’entraînement. Écrire le YAML résolu dans le run et auditer les lots utilisés.
+
+**Motif.** Réduire les modifications implicites du dataset et préparer une séparation indépendante par session.
+
+**Limite actuelle.** L’audit ne détecte que les doublons exacts et ne prouve pas l’indépendance temporelle.
+
+## D005 — Pas de publication implicite des poids
+
+**Décision.** Chaque run conserve ses poids. Publication explicite, sans écrasement. Le mode rapide ne peut publier ni évaluer le test.
+
+**Motif.** L’ancien mode rapide pouvait remplacer le modèle complet.
+
+## D006 — Une démonstration synthétique reste une démonstration
+
+**Décision.** Identifier son type dans les manifests, figures et légendes. Séparer les entrées synthétiques des durées CPU réellement mesurées.
+
+**Motif.** Pouvoir valider la chaîne de visualisation avant les données réelles sans fabriquer de résultats scientifiques.
+
+## D007 — Artefacts locaux et livre Quarto
+
+**Décision.** JSON/JSONL pour les preuves, SVG/PNG pour les figures, HTML autonome pour le premier rapport, Quarto pour la synthèse.
+
+**Motif.** Lisibilité hors ligne, inspection simple et continuité avec le dépôt existant.
+
+**À réévaluer.** Visualiseur interactif lorsque des séquences réelles rendent l’exploration utile.
+
+## D008 — Algorithme RL après le contrat d’action
+
+**Décision.** PPO candidat initial ; alternatives selon action et observation. Aucune implémentation lourde avant les baselines et les événements vérifiés.
+
+**Motif.** L’espace d’action, la récompense et le coût de collecte structurent le choix davantage qu’une préférence théorique isolée.

@@ -1,0 +1,102 @@
+name: Hosted setup
+run-name: Prepare BROWT tickets and Telegram
+on:
+  workflow_dispatch:
+    inputs:
+      publish_tickets:
+        description: Create the initial research tickets without duplicates
+        type: boolean
+        default: true
+      test_telegram:
+        description: Send one setup confirmation to the configured Telegram chat
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: browt-hosted-setup
+  cancel-in-progress: false
+jobs:
+  tickets:
+    if: inputs.publish_tickets
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Create missing initial tickets
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const seeds = JSON.parse(fs.readFileSync('.github/autonomy/backlog.json', 'utf8'));
+            if (!Array.isArray(seeds) || seeds.length > 20) throw new Error('Invalid backlog');
+            const {owner, repo} = context.repo;
+            const all = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'all', per_page: 100
+            });
+            const ids = new Set();
+            for (const seed of seeds) {
+              if (!/^[a-z0-9-]+$/.test(seed.id) || ids.has(seed.id) ||
+                  typeof seed.title !== 'string' || !seed.title.trim() ||
+                  typeof seed.body !== 'string') throw new Error('Invalid ticket');
+              ids.add(seed.id);
+              const marker = '<!-- browt-seed:' + seed.id + ' -->';
+              const existing = all.find(issue => !issue.pull_request &&
+                ((issue.body || '').includes(marker) || issue.title === seed.title));
+              if (existing) {
+                core.notice('Ticket already exists: #' + existing.number);
+                await core.summary.addLink(seed.title, existing.html_url).addEOL().write();
+                continue;
+              }
+              const {data: created} = await github.rest.issues.create({
+                owner, repo, title: seed.title, body: seed.body + '\n\n' + marker
+              });
+              all.push(created);
+              core.notice('Created ticket #' + created.number);
+              await core.summary.addLink(seed.title, created.html_url).addEOL().write();
+            }
+  telegram:
+    if: inputs.test_telegram
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: Send the requested setup confirmation
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        shell: python
+        run: |
+          import json
+          import os
+          import urllib.error
+          import urllib.request
+
+          token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+          chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+          if not token or not chat_id:
+              raise SystemExit("Configure both Telegram secrets before testing.")
+          payload = json.dumps({
+              "chat_id": chat_id,
+              "text": "BROWT · Telegram connecté ✅\nLes notifications sont prêtes ; le worker Codex reste à configurer.",
+              "link_preview_options": {"is_disabled": True},
+          }).encode()
+          request = urllib.request.Request(
+              "https://api.telegram.org/bot" + token + "/sendMessage",
+              data=payload,
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=20) as response:
+                  result = json.load(response)
+          except urllib.error.HTTPError as error:
+              raise SystemExit("Telegram rejected the request (HTTP " + str(error.code) + ").") from None
+          except (urllib.error.URLError, TimeoutError, ValueError):
+              raise SystemExit("Telegram is unreachable or returned an invalid response.") from None
+          if not result.get("ok"):
+              raise SystemExit("Telegram did not confirm delivery.")
+          print("Telegram confirmed delivery.")

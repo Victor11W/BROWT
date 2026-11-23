@@ -1,13 +1,35 @@
 ---
-title: "Detection and analysis"
+title: "Perception et détection"
 ---
 
-This part covers the **perception** problem: detecting the relevant objects in
-each frame and turning them into usable information. Because public datasets for
-the game are limited, the focus is on **techniques to maximize detection
-accuracy**, with all training and inference kept **local**.
+## Ce qui existe
 
-::: {.callout-note}
-## Work in progress
-The sections of this part will be added as the work progresses.
+La base YOLO11 dispose d’une configuration, d’un entraînement, d’un wrapper d’inférence, d’une visualisation des boîtes et d’un rapport d’évaluation. L’inférence renvoie les classes, confidences et coordonnées.
+
+La baseline historique reste YOLO11n. Les versions récentes de la bibliothèque peuvent proposer d’autres familles de modèles ; une mise à niveau du modèle sera une expérience explicite, et non un changement silencieux de référence.
+
+## Un protocole plus propre
+
+L’entraînement lit des partitions existantes. Il ne crée plus de test en déplaçant automatiquement une fraction des images d’apprentissage.
+
+Avant un run, un audit vérifie les annotations et les doublons exacts dans les lots utilisés. Un YAML dérivé résout les chemins à l’intérieur du dossier d’expérience et laisse l’export original intact.
+
+- `--smoke` : essai court sur apprentissage/validation ; publication et test final interdits.
+- Entraînement normal : nouveau dossier, graine et paramètres enregistrés.
+- `--publish` : copie explicite des meilleurs poids, sans remplacement d’un fichier existant.
+- `--evaluate-test` : évaluation finale explicitement demandée.
+- Rapport : validation par défaut ; métriques JSON, texte et provenance dans un run distinct.
+
+Les rapports nomment le backend et la taille d’image configurés. Une classe non évaluée est affichée comme telle. Une latence d’inférence ne représente pas la latence de toute la boucle.
+
+## Résultats réels
+
+::: {.callout-note title="À mesurer"}
+Aucun résultat réel n’est encore établi dans cette révision : ni mAP, ni performance par classe, ni débit GPU. Les tests d’orchestration avec un double de YOLO servent à vérifier le code, pas la qualité d’un détecteur.
 :::
+
+## Expériences prévues
+
+Le jalon J2 du [plan](roadmap.qmd) définira l’étude de résolution, les classes difficiles, les seuils et les augmentations. Les comparaisons conserveront un dataset identifié et des budgets explicites.
+
+Les sorties attendues sont : précision–rappel, matrice de confusion, AP par classe avec support, galerie d’erreurs et compromis qualité–latence. Toutes les figures devront référencer le checkpoint et les données évaluées.

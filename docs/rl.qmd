@@ -1,12 +1,36 @@
 ---
-title: "Reinforcement learning"
+title: "Décision et apprentissage"
 ---
 
-This part covers **decision-making from unlabeled information**: learning a
-policy that maps the perceived state to an action, with no labels telling us the
-right move — only experience and a reward signal.
+## La question étudiée
 
-::: {.callout-note}
-## Work in progress
-The sections of this part will be added as the work progresses.
-:::
+L’agent reçoit une observation partielle et doit choisir une action sans étiquette de « bonne décision ». L’apprentissage par renforcement sera étudié après validation de la perception et de l’environnement.
+
+**Aucun entraînement RL réel n’a été réalisé dans cette version.** Les dépendances et la trajectoire de recherche sont préparées ; l’environnement de jeu et les politiques restent à implémenter.
+
+## Les références à construire
+
+1. Immobilité : contrôle minimal du protocole.
+2. Hasard reproductible : effet des contraintes d’action.
+3. Heuristique : usage simple de l’observation.
+4. Politique apprise : gain éventuel à budget comparable.
+
+Les quatre partagent le même contexte, les mêmes observations disponibles et la même évaluation.
+
+## Environnement et récompense
+
+Le contrat cible suit Gymnasium : initialisation reproductible, transition explicite et distinction entre fin naturelle et troncature temporelle. Une disparition du joueur ou un changement de pixels ne suffisent pas à définir une mort ou une récompense.
+
+Les événements devront être vérifiés contre des épisodes annotés. Les commandes simultanées, le maintien du mouvement et le relâchement des contacts sont des difficultés d’intégration à mesurer.
+
+## Expérience initiale
+
+PPO est un candidat initial pour des actions factorisées. DQN nécessite une action discrète définie et validée. Le choix final dépendra de l’espace d’action retenu, du coût de collecte et de l’observabilité.
+
+L’expérience comprendra un pilote, un budget figé, plusieurs graines et une évaluation indépendante. Une courbe d’apprentissage unique ne suffira pas à conclure.
+
+## Visualisations attendues
+
+Courbes par graine, résultats finaux par politique, budget d’interactions, chronologies d’épisodes et ablations de l’observation ou de la récompense. Les intervalles seront calculés sur les unités appropriées, en tenant compte de la structure graine/épisode.
+
+Voir le [protocole](methodology.qmd) et les jalons J4–J6 du [plan](roadmap.qmd).

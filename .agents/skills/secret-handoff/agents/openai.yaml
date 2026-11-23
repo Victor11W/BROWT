@@ -1,0 +1,6 @@
+interface:
+  display_name: "Clés et jetons"
+  short_description: "Configurer les clés sans collage dans le terminal"
+  default_prompt: "Utilise $secret-handoff pour configurer cet accès sans afficher ni enregistrer la clé dans le chat."
+policy:
+  allow_implicit_invocation: true

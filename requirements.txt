@@ -1,17 +1,3 @@
-# Core RL
-torch
-stable-baselines3
-gymnasium
-
-# Vision
-ultralytics
-opencv-python
-numpy
-
-# Emulator interface
-pure-python-adb
-mss
-
-# Utilities
-pyyaml
-tensorboard
+# Full workstation setup. For CPU research only:
+# python -m pip install -e ".[research,dev]"
+-e .[vision,research,rl,dev]
