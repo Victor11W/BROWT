@@ -2,6 +2,7 @@
 title: "Voir, comprendre, apprendre"
 ---
 
+```{=html}
 <div class="hero-kicker">Brawl Stars · perception visuelle · apprentissage par renforcement</div>
 
 <div class="research-lead">Étudier comment un agent peut passer des pixels à une décision, puis rendre chaque résultat compréhensible, vérifiable et reproductible.</div>
@@ -12,14 +13,17 @@ title: "Voir, comprendre, apprendre"
 <span class="status-tag">Cible d’entraînement : NVIDIA / CUDA</span>
 <span class="status-tag">Jalon actuel : analyse des données</span>
 </div>
+```
 
 BROWT est un projet de recherche de plusieurs mois. Le terrain d’étude est **Solo Showdown**. Le résultat attendu associe un système instrumenté, des expériences comparatives et un rapport visuel qui explique ce qui fonctionne, ce qui échoue et pourquoi.
 
+```{=html}
 <div class="project-grid">
 <div class="project-card"><h3>1. Percevoir</h3><p>Évaluer les objets détectés, les erreurs de localisation, les classes difficiles et les limites du dataset.</p></div>
 <div class="project-card"><h3>2. Décider</h3><p>Construire des observations, des politiques de référence puis une expérience RL mesurable.</p></div>
 <div class="project-card"><h3>3. Expliquer</h3><p>Relier chaque figure à ses données, son protocole et sa provenance.</p></div>
 </div>
+```
 
 ## Lire le projet
 

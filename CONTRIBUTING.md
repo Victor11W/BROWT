@@ -34,6 +34,8 @@ Define the evaluation protocol before using the final test.
 
 ## Documentation
 
+CI and publication both use Quarto 1.11.9.
+
 Update implementation, tests and the evidence log together.
 Keep planned features separate from verified behavior.
 Generate figures with the versioned code:

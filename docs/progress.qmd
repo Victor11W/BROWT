@@ -23,7 +23,7 @@ Le dépôt historique a été récupéré depuis `main`, commit `831beeb` du 19 
 
 ## Vérifié localement
 
-Les **100 tests passent** lors de la préparation de publication, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.
+Les **116 tests passent** lors de la préparation du nouvel amorçage, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.
 
 Le rapport autonome et les figures sont inspectés visuellement, sur grand écran et sur mobile, sans débordement ni erreur JavaScript. Le livre Quarto et les workflows GitHub doivent être vérifiés dans leur environnement d’exécution ; aucune CI distante n’est déclarée passée avant lancement.
 
@@ -78,3 +78,11 @@ Le skill personnel est désormais détecté dans le catalogue de Codex. Cette d�
 Le commit `bced66a` est publié sur `codex/research-foundation`. Les quatre jobs CPU de la [première CI distante](https://github.com/Victor11W/BROWT/actions/runs/45223132035) passent : Ubuntu et Windows, Python 3.11 et 3.12. Ils couvrent les tests, Ruff, le format, le diagnostic et la démonstration.
 
 Le job de documentation échoue avec Quarto 1.11.9 : l’option `--fail-on-warnings` transmise à Pandoc est inconnue. La commande est corrigée en `--fail-if-warnings` dans la CI et les instructions. La CI conservera le livre HTML comme artefact pour sa vérification. La réussite du rendu corrigé reste à confirmer après publication de ce correctif ; ni le worker planifié ni les notifications récurrentes ne sont actifs.
+
+## Deuxième exécution et amorçage des services
+
+Le [second run](https://github.com/Victor11W/BROWT/actions/runs/45224675887) confirme le succès des quatre jobs CPU et l’acceptation de l’option stricte. Le rendu échoue désormais sur l’interprétation des cartes HTML de l’accueil comme blocs Markdown. Les deux zones HTML sont isolées avec la syntaxe brute Quarto ; leur contenu est conservé. Un contrôle de source couvre les quinze chapitres, leurs blocs et 31 liens locaux, sans anomalie détectée. La compilation complète corrigée reste à confirmer sur GitHub.
+
+La CI et la publication sont fixées à Quarto 1.11.9. Le prochain push de la branche de recherche déclenchera aussi un amorçage : tickets sans doublons, PR en brouillon, lecture de la liste des modèles OpenAI et premier message Telegram si des tickets sont créés. Aucun appel de génération, aucun worker de développement et aucune session récurrente ne sont activés par cet amorçage. Les opérations sont préparées, mais leurs résultats distants ne sont pas encore établis.
+
+Les 16 tests de l’amorçage vérifient la séparation des secrets, les requêtes sans génération et le masquage des erreurs. Les 116 tests du dépôt passent localement, ainsi que Ruff et le format. Une simulation des scripts GitHub crée quatre tickets puis zéro doublon, et une seule PR en brouillon. Aucun accès GitHub en écriture, aucune lecture d’une vraie clé et aucun message réel n’ont eu lieu pendant ces vérifications.
