@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "source_id": "bloxxy-brawl-stars-v21-yolov11",
+  "source_url": "https://universe.roboflow.com/bloxxy/brawl-stars-dataset/dataset/21",
+  "archive_sha256": "eacde1ef89830927f9498ed5e2896f675dc9637357c0d36f2cbcec944509694a",
+  "dataset_fingerprint_sha256": "c062734bb97589c092a4484ef5ef9cacd14546722db92a582424b2021bdd2622",
+  "run_id": "20261123T002602-a49fe6c6",
+  "created_at": "2026-11-23T00:26:02.780623+00:00",
+  "metrics": {
+    "source_images": 2551,
+    "decoded_images": 2551,
+    "valid_reference_boxes": 11643,
+    "annotation_issues": 0,
+    "decode_issues": 0,
+    "class_counts": {
+      "Ball": 614,
+      "Enemy": 3484,
+      "Friendly": 3011,
+      "Gem": 569,
+      "Hot_Zone": 376,
+      "Me": 2160,
+      "PP": 570,
+      "PP_Box": 621,
+      "Safe_Enemy": 139,
+      "Safe_Friendly": 99
+    },
+    "independent_test_established": false,
+    "filename_timestamp_matched_images": 2551,
+    "validation_within_2_seconds_of_train": 62,
+    "validation_within_10_seconds_of_train": 208,
+    "player_annotation_counts": {
+      "zero": 392,
+      "multiple": 1
+    }
+  },
+  "split_support": {
+    "train": {
+      "images": 2297,
+      "annotated_images": 2277,
+      "background_images": 20,
+      "boxes": 10510,
+      "class_counts": {
+        "Ball": 549,
+        "Enemy": 3137,
+        "Friendly": 2718,
+        "Gem": 482,
+        "Hot_Zone": 341,
+        "Me": 1961,
+        "PP": 520,
+        "PP_Box": 582,
+        "Safe_Enemy": 128,
+        "Safe_Friendly": 92
+      }
+    },
+    "valid": {
+      "images": 254,
+      "annotated_images": 244,
+      "background_images": 10,
+      "boxes": 1133,
+      "class_counts": {
+        "Ball": 65,
+        "Enemy": 347,
+        "Friendly": 293,
+        "Gem": 87,
+        "Hot_Zone": 35,
+        "Me": 199,
+        "PP": 50,
+        "PP_Box": 39,
+        "Safe_Enemy": 11,
+        "Safe_Friendly": 7
+      }
+    }
+  },
+  "most_common_resolution": {
+    "width": 2400,
+    "height": 1080,
+    "images": 2433
+  },
+  "temporal_diagnostic": {
+    "method": "nearest train filename timestamp for each matched validation image",
+    "clock": "nominal filename time; timezone and device identity unverified",
+    "matched_images": 2551,
+    "paired_validation_images": 254,
+    "within_2_seconds": 62,
+    "within_10_seconds": 208,
+    "days": {
+      "2024-05-06": {
+        "train": 10,
+        "valid": 0,
+        "test": 0
+      },
+      "2024-05-08": {
+        "train": 38,
+        "valid": 4,
+        "test": 0
+      },
+      "2024-05-09": {
+        "train": 58,
+        "valid": 8,
+        "test": 0
+      },
+      "2024-06-29": {
+        "train": 245,
+        "valid": 26,
+        "test": 0
+      },
+      "2024-06-30": {
+        "train": 187,
+        "valid": 29,
+        "test": 0
+      },
+      "2024-07-01": {
+        "train": 233,
+        "valid": 18,
+        "test": 0
+      },
+      "2024-07-02": {
+        "train": 324,
+        "valid": 40,
+        "test": 0
+      },
+      "2024-07-03": {
+        "train": 91,
+        "valid": 9,
+        "test": 0
+      },
+      "2024-07-04": {
+        "train": 483,
+        "valid": 54,
+        "test": 0
+      },
+      "2024-07-05": {
+        "train": 211,
+        "valid": 24,
+        "test": 0
+      },
+      "2024-07-06": {
+        "train": 13,
+        "valid": 3,
+        "test": 0
+      },
+      "2024-07-07": {
+        "train": 201,
+        "valid": 20,
+        "test": 0
+      },
+      "2024-07-08": {
+        "train": 44,
+        "valid": 4,
+        "test": 0
+      },
+      "2024-07-09": {
+        "train": 110,
+        "valid": 10,
+        "test": 0
+      },
+      "2024-07-21": {
+        "train": 49,
+        "valid": 5,
+        "test": 0
+      }
+    },
+    "example_pairs": [
+      {
+        "valid": "valid/images/Screenshot_20240629-191833_png.rf.1ad5982e28cb62ce186a61aeeb4f2e46.jpg",
+        "train": "train/images/Screenshot_20240629-191832_png.rf.b2c511f6c2c56b06b974396707a48a94.jpg",
+        "valid_nominal_time": "2024-06-29T19:18:33",
+        "train_nominal_time": "2024-06-29T19:18:32",
+        "gap_seconds": 1
+      },
+      {
+        "valid": "valid/images/Screenshot_20240701-133622_png.rf.09945675d4e949908aaa27d570d8b927.jpg",
+        "train": "train/images/Screenshot_20240701-133621_png.rf.dc8905f95522e98a55df6a8c6ac2bcc3.jpg",
+        "valid_nominal_time": "2024-07-01T13:36:22",
+        "train_nominal_time": "2024-07-01T13:36:21",
+        "gap_seconds": 1
+      }
+    ]
+  },
+  "software": {
+    "BROWT": null,
+    "numpy": "1.26.4",
+    "PyYAML": "6.0.1",
+    "matplotlib": "3.8.0",
+    "Pillow": "9.3.0",
+    "torch": "2.4.0",
+    "ultralytics": null,
+    "gymnasium": "1.2.0",
+    "stable-baselines3": null,
+    "pytest": "7.4.2",
+    "ruff": "0.17.3"
+  },
+  "analysis_source_sha256": "df696710f57e2afefaf42b00d6cfb81b223e11ab9355c0c04cd0ad6856dc69de"
+}

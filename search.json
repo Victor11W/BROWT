@@ -4,61 +4,1118 @@
     "href": "index.html",
     "title": "BROWT",
     "section": "",
-    "text": "An educational research project\nBROWT is, above all, an educational research project. The goal is not a finished tool but to study — hands on — the hard problems behind an agent that plays Brawl Stars from the screen alone, with no access to the game’s internal state.\nTwo problems are deliberately pushed in depth, because they are the most challenging and the most instructive.",
+    "text": "0.1 Lire le projet\nBROWT est un projet de recherche de plusieurs mois. Le terrain d’étude est Solo Showdown. Le résultat attendu associe un système instrumenté, des expériences comparatives et un rapport visuel qui explique ce qui fonctionne, ce qui échoue et pourquoi.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Voir, comprendre, apprendre</span>"
     ]
   },
   {
-    "objectID": "index.html#an-educational-research-project",
-    "href": "index.html#an-educational-research-project",
+    "objectID": "index.html#lire-le-projet",
+    "href": "index.html#lire-le-projet",
     "title": "BROWT",
     "section": "",
-    "text": "1. Perception — detecting objects in the frame\nIdentifying the relevant objects (brawlers, gems, …) in each frame. Public datasets for this game are limited, so a large part of the work is studying and comparing techniques that push detection accuracy as far as possible, with all training and inference kept local — no cloud services.\n\n\n2. Decision — acting on unlabeled information\nChoosing what to do from the perceived state, without labels telling us the correct action. This is a reinforcement-learning problem: the agent must learn a policy from its own experience and a reward signal.",
+    "text": "Plan de recherche sur 24 semaines : étapes, dépendances et critères de passage.\nMéthode expérimentale : séparation des données, unités statistiques, baselines et reproductibilité.\nAtlas des visualisations : quelle figure répond à quelle question.\nDémarrer sur CPU : commandes disponibles immédiatement.\nJournal d’avancement : réalisations effectives et travaux restants.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Voir, comprendre, apprendre</span>"
     ]
   },
   {
-    "objectID": "index.html#how-this-documentation-is-organized",
-    "href": "index.html#how-this-documentation-is-organized",
+    "objectID": "index.html#une-première-chaîne-observable",
+    "href": "index.html#une-première-chaîne-observable",
     "title": "BROWT",
-    "section": "How this documentation is organized",
-    "text": "How this documentation is organized\nThe documentation mirrors these two axes:\n\nDetection and analysis — the perception problem above.\nReinforcement learning — the decision problem above.\n\nEach part is split into its own sections, added as the work progresses. A final part presents the general pipeline that ties everything together — deliberately placed last, once both halves are understood.",
+    "section": "0.2 Une première chaîne observable",
+    "text": "0.2 Une première chaîne observable\n\n\n\n\n\n\nFigure 1: Démonstration de la chaîne d’observation. Les scènes A–C sont synthétiques ; D mesure seulement la conversion des détections en observations sur le CPU local. Aucune performance de détection ou de jeu n’est établie.\n\n\n\nCette démonstration vérifie les coordonnées, les absences du joueur et la production d’artefacts traçables. Le chapitre Observation décrit ses hypothèses et ses limites.\n\n\n\n\n\n\nNoteÉtat des preuves\n\n\n\nLe dataset public v21 est récupéré et analysé : 2 551 images, 11 643 boîtes valides. Le découpage révèle un risque de corrélation temporelle entre train et valid ; voir les résultats sur données réelles. Aucun score mAP, taux de victoire ou résultat RL n’est encore établi. Le GPU NVIDIA et l’émulateur restent à préparer pour les étapes suivantes.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Voir, comprendre, apprendre</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html",
+    "href": "roadmap.html",
+    "title": "2  Plan de recherche",
+    "section": "",
+    "text": "2.1 Intention et définition de fin\nQuestion centrale : avec quelles informations visuelles et quel budget de calcul un agent peut-il apprendre un comportement utile dans Brawl Stars, et comment expliquer ses succès et ses échecs ?\nLa priorité retenue est la recherche et la visualisation scientifique. La performance du bot est un objet de mesure. Une conclusion négative étayée est un résultat scientifique ; elle ne remplace toutefois pas la validation des composants annoncés comme opérationnels.\nLe projet est considéré comme terminé lorsque :\nLes objectifs chiffrés de qualité, de latence et de jeu seront fixés après le pilote et avant les comparaisons finales. Aucun score arbitraire n’est présenté comme une exigence déjà justifiée.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#intention-et-définition-de-fin",
+    "href": "roadmap.html#intention-et-définition-de-fin",
+    "title": "2  Plan de recherche",
+    "section": "",
+    "text": "une installation documentée permet de relire une séquence enregistrée et d’en reproduire les observations et les figures ;\nun dataset audité possède des partitions gelées, un historique de provenance et une fiche descriptive ;\nun détecteur est évalué sur des données indépendantes avec résultats globaux et par classe ;\nune chaîne capture → perception → observation → politique → action peut être démontrée sur le contexte expérimental défini ;\ndes baselines et au moins une expérience RL sont comparées selon un protocole fixé, avec plusieurs graines et des limites d’interprétation ;\nles figures, tableaux, données dérivées, configurations, versions et poids nécessaires à la reproduction sont archivés ;\nle rapport final présente méthode, résultats, erreurs, limites, consommation de ressources et pistes suivantes ;\nles tests CPU et les vérifications de documentation passent, et les essais matériels sont consignés séparément.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#calendrier-et-dépendances",
+    "href": "roadmap.html#calendrier-et-dépendances",
+    "title": "2  Plan de recherche",
+    "section": "2.2 Calendrier et dépendances",
+    "text": "2.2 Calendrier et dépendances\n\n\n\n\n\n\nFigure 2.1: Plan indicatif par semaines. Les durées représentent des budgets de travail et non un engagement calendaire. Les étapes GPU dépendent de la disponibilité d’une machine NVIDIA.\n\n\n\nLe travail commence sur CPU. L’absence actuelle de GPU ne bloque ni l’architecture, ni l’audit des données, ni les visualisations, ni les relectures enregistrées. Elle limite les entraînements lourds et les conclusions sur les performances CUDA.\n\n\n\n\n\n\n\n\n\nJalon\nSemaines\nLivrable principal\nDépendance\n\n\n\n\nJ0 · Fondations\n1–2\nOutils CPU, tests, provenance, rapport visuel et protocole\nDépôt récupéré\n\n\nJ1 · Données\n3–5\nDataset audité et partitions par session gelées\nJ0 + données\n\n\nJ2 · Perception\n6–8\nBaseline YOLO11n et analyse d’erreurs\nJ1 + calcul adapté\n\n\nJ3 · Observation\n9–11\nCapture/replay, observation temporelle et mesures de latence\nJ2, séquences réelles\n\n\nJ4 · Boucle et baselines\n12–14\nEnvironnement expérimental, actions calibrées et politiques simples\nJ3 + émulateur\n\n\nJ5 · Apprentissage\n15–19\nComparaison RL avec plusieurs graines\nJ4 + budget CUDA\n\n\nJ6 · Robustesse\n20–22\nÉvaluation hors distribution et boucle intégrée\nJ5\n\n\nJ7 · Synthèse\n23–24\nRapport final, démonstration et archive reproductible\nJ0–J6\n\n\n\nCertaines tâches de documentation et d’analyse progressent en parallèle des expériences. Les jalons restent conditionnés à des preuves : on ne passe pas au RL pour compenser une perception défaillante.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j0-installer-un-laboratoire-fiable",
+    "href": "roadmap.html#j0-installer-un-laboratoire-fiable",
+    "title": "2  Plan de recherche",
+    "section": "2.3 J0 — Installer un laboratoire fiable",
+    "text": "2.3 J0 — Installer un laboratoire fiable\nTravail. Séparer les dépendances CPU, vision et RL ; créer une commande de diagnostic ; définir les formats d’observation et d’expérience ; corriger les écrasements de poids ; distinguer validation et test ; ajouter tests et CI ; définir les conventions graphiques.\nLivrables. CLI browt, manifest.json, audit d’annotations, relecture de détections, démonstration synthétique, premiers SVG/PNG, plan et journal.\nPassage. Les tests de non-régression passent ; la démonstration est exécutable sans GPU, modèle ni émulateur ; chaque résultat est identifié comme observé ou synthétique ; aucun entraînement rapide ne peut remplacer un modèle publié.\nÉtat actuel. Socle implémenté localement. La CI distante et le rendu Quarto nécessitent encore leur validation dans un environnement équipé.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j1-construire-des-données-évaluables",
+    "href": "roadmap.html#j1-construire-des-données-évaluables",
+    "title": "2  Plan de recherche",
+    "section": "2.4 J1 — Construire des données évaluables",
+    "text": "2.4 J1 — Construire des données évaluables\nTravail.\n\nRetrouver l’export Roboflow, sa version exacte, ses classes et sa licence ; conserver les fichiers sources en lecture seule dans le protocole.\nÉtablir un inventaire images/annotations, vérifier les boîtes, les images vides, les classes rares et un échantillon visuel par classe.\nRepérer les doublons exacts et les quasi-doublons ; rechercher les frames proches et les sessions communes.\nIdentifier les parties, sessions, cartes, personnages et versions du jeu ; séparer les groupes avant de créer les lots.\nRéserver des sessions pour la validation et un test final verrouillé ; ne pas distribuer aléatoirement des frames voisines entre lots.\nMesurer le décalage entre le dataset public et les captures cibles.\n\nLivrables. Fiche dataset, manifeste de fichiers et empreintes, tableau d’effectifs, planches d’annotations, partitions versionnées et registre d’exclusions.\nPassage. Aucun doublon exact entre lots ; chaque classe requise possède un support documenté ; les groupes d’acquisition sont connus ou la limite d’indépendance est explicitée ; le test est gelé avant le réglage du modèle. Si les groupes du dataset public sont introuvables, créer un petit lot indépendant acquis localement.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j2-établir-une-baseline-de-perception",
+    "href": "roadmap.html#j2-établir-une-baseline-de-perception",
+    "title": "2  Plan de recherche",
+    "section": "2.5 J2 — Établir une baseline de perception",
+    "text": "2.5 J2 — Établir une baseline de perception\nTravail. Conserver YOLO11n comme baseline historique ; commencer par un test court puis une première expérience complète ; enregistrer graines, versions, augmentations, résolution et checkpoint ; comparer un seul facteur à la fois.\nExpériences. Résolution, taille du modèle si le budget le permet, déséquilibre de classes, exemples difficiles et sélection du seuil de confiance sur validation.\nMesures. mAP@50–95, AP@50 par classe avec support, précision/rappel selon les seuils, faux positifs/faux négatifs, erreurs de localisation et vitesse après échauffement. Les classes absentes sont indiquées « non évaluées ».\nFigures. Courbes précision–rappel, matrice de confusion explicitant sa normalisation, galerie de succès/échecs, qualité–latence et répartition des erreurs par situation.\nPassage. Baseline reproductible sur validation, évaluation finale explicitement déclenchée, seuils d’usage documentés et goulots d’étranglement identifiés. Pilote à une graine puis cible de trois graines pour les comparaisons abordables ; adapter le nombre et l’incertitude au budget, sans faire passer un pilote pour une étude confirmatoire.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j3-passer-des-détections-à-une-observation-temporelle",
+    "href": "roadmap.html#j3-passer-des-détections-à-une-observation-temporelle",
+    "title": "2  Plan de recherche",
+    "section": "2.6 J3 — Passer des détections à une observation temporelle",
+    "text": "2.6 J3 — Passer des détections à une observation temporelle\nTravail. Capturer ou relire des séquences horodatées ; conserver la géométrie de la fenêtre ; convertir pixels et coordonnées normalisées ; représenter explicitement absences et ambiguïtés ; étudier l’intérêt du suivi temporel et de la mémoire.\nÉcueils à traiter. Occlusions, faux « Me », caméra mobile, changements de résolution, terrain statique absent des annotations et état partiellement observable. Une absence de détection n’est pas une preuve de disparition de l’objet.\nLivrables. Sources de frames replay/live, journal de sessions, observations versionnées, schéma des repères, visualiseur de séquences et métriques de stabilité.\nPassage. Relecture déterministe d’un enregistrement réel ; absence/ambiguïté du joueur correctement propagée ; synchronisation et latences de chaque étape mesurées ; défaillances de perception visibles dans le rapport.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j4-définir-une-boucle-expérimentale-et-ses-baselines",
+    "href": "roadmap.html#j4-définir-une-boucle-expérimentale-et-ses-baselines",
+    "title": "2  Plan de recherche",
+    "section": "2.7 J4 — Définir une boucle expérimentale et ses baselines",
+    "text": "2.7 J4 — Définir une boucle expérimentale et ses baselines\nTravail. Fixer personnage, carte, résolution et contexte d’essai ; calibrer les commandes ; séparer observation, décision et exécution ; vérifier les actions en mode simulation avant l’injection.\nActions candidates. Neuf mouvements discrets, dont l’immobilité, et une composante de tir. L’orientation, la simultanéité des contacts et le relâchement doivent être vérifiés sur l’émulateur : un simple swipe peut ne pas suffire à maintenir le joystick et tirer ensemble.\nBaselines. Politique immobile, politique aléatoire reproductible, politique heuristique simple. Elles partagent exactement les observations, les contraintes d’action et le protocole d’évaluation des agents appris.\nRécompense. Définir séparément score principal, signaux auxiliaires et pénalités ; valider visuellement les événements. La variation des pixels, seule, ne constitue pas une récompense fiable.\nLivrables. Contrat Gymnasium, tests de transitions, journal observation/action/événement, calibration ADB et premiers épisodes annotés.\nPassage. Débuts/fins d’épisode fiables ; distinction fin naturelle/limite de temps ; pas d’action persistante après arrêt ; métriques de référence disponibles et estimation du coût d’un épisode.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j5-étudier-lapprentissage",
+    "href": "roadmap.html#j5-étudier-lapprentissage",
+    "title": "2  Plan de recherche",
+    "section": "2.8 J5 — Étudier l’apprentissage",
+    "text": "2.8 J5 — Étudier l’apprentissage\nTravail. Geler une représentation initiale et une récompense ; vérifier d’abord l’apprentissage sur une tâche réduite ; comparer ensuite une baseline RL adaptée à l’espace d’action.\nChoix prévus. PPO comme candidat initial pour l’action factorisée ; DQN seulement avec une action discrète correctement définie. Q-learning tabulaire reste une référence possible sur une abstraction très réduite. Ces choix seront réexaminés après J4, sans chercher à comparer tous les algorithmes.\nProtocole. Séparer graines d’entraînement et sessions d’évaluation ; fixer un budget d’interactions et de calcul identique pour les comparaisons ; conserver les runs interrompus et les échecs ; évaluer une politique figée sur des épisodes indépendants.\nFigures. Courbes par graine et agrégats justifiés, score par budget d’interactions, distribution des résultats finaux et chronologie d’épisodes représentatifs. Ne pas lisser au point de cacher les effondrements.\nPassage. Au moins une expérience RL complète avec une baseline comparable ; plusieurs graines pour toute affirmation générale ; explication des écarts et limites de puissance statistique. Une absence d’amélioration entraîne une analyse, pas une retouche du test final.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j6-intégrer-et-éprouver",
+    "href": "roadmap.html#j6-intégrer-et-éprouver",
+    "title": "2  Plan de recherche",
+    "section": "2.9 J6 — Intégrer et éprouver",
+    "text": "2.9 J6 — Intégrer et éprouver\nTravail. Évaluer cartes, situations, personnages ou sessions non vus selon une matrice définie ; analyser la propagation des erreurs ; vérifier dérive temporelle, perte de fenêtre, capture figée, joueur absent et interruptions.\nMesures. Score principal, réussite/survie selon le protocole, coût de calcul, latences p50/p95 de la boucle complète, taux de frames invalides et fréquence des arrêts.\nPassage. Démonstration intégrée enregistrée ; conditions de validité explicites ; cas d’échec reproductibles ; comparaison finale sans changement opportuniste de métriques.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#j7-fermer-proprement-létude",
+    "href": "roadmap.html#j7-fermer-proprement-létude",
+    "title": "2  Plan de recherche",
+    "section": "2.10 J7 — Fermer proprement l’étude",
+    "text": "2.10 J7 — Fermer proprement l’étude\nTravail. Reproduire une sélection d’expériences depuis un environnement propre ; figer les configurations et poids ; harmoniser légendes, unités et tableaux ; archiver données dérivées et scripts.\nLivrables finaux.\n\nRapport scientifique HTML lisible et export des figures vectorielles.\nVidéo courte expliquant perception, observation, décision et échecs.\nFiches dataset et modèle ; versions, empreintes et procédure de reproduction.\nRésultats comparatifs avec incertitude et périmètre de généralisation.\nGuide d’installation CPU puis CUDA ; démonstration offline et démonstration intégrée.\nListe explicite des limites et des travaux futurs, sans fonctionnalité annoncée comme réalisée sans preuve.\n\nPassage final. Chaque conclusion renvoie à une expérience ; chaque figure renvoie à ses données ; les résultats sélectionnés sont reproductibles ; les limitations matérielles et expérimentales sont documentées.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#gestion-du-temps-du-calcul-et-des-inconnues",
+    "href": "roadmap.html#gestion-du-temps-du-calcul-et-des-inconnues",
+    "title": "2  Plan de recherche",
+    "section": "2.11 Gestion du temps, du calcul et des inconnues",
+    "text": "2.11 Gestion du temps, du calcul et des inconnues\n\n\n\n\n\n\n\n\nIncertitude\nConséquence\nRéponse prévue\n\n\n\n\nGPU NVIDIA indisponible\nEntraînements lourds retardés\nDévelopper et analyser sur CPU ; réaliser un pilote avant de dimensionner le calcul\n\n\nDataset/poids antérieurs introuvables\nBaseline à reconstruire\nRepartir d’un export identifié et tracer la nouvelle lignée\n\n\nFrames très corrélées\nRésultats surestimés\nPartitionner par session et évaluer sur acquisition indépendante\n\n\nJeu/émulateur instable\nÉpisodes coûteux ou invalides\nConstruire d’abord capture/replay et tests de transitions\n\n\nRécompense peu fiable\nApprentissage trompeur\nVérifier les événements et comparer à des épisodes annotés\n\n\nRésultats RL très variables\nComparaison fragile\nPlusieurs graines, intervalles adaptés et budget explicitement limité\n\n\nPérimètre trop large\nAnalyse inachevée\nUn mode, un personnage et un contexte initial ; élargissement seulement après validation\n\n\n\nLe premier pilote mesure le temps par époque, la mémoire, la vitesse de collecte et le coût par épisode. Ces mesures déterminent le budget ; elles ne sont pas remplacées par une estimation inventée. Aucune ressource payante ou machine distante n’est engagée par ce plan.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "roadmap.html#manière-de-travailler",
+    "href": "roadmap.html#manière-de-travailler",
+    "title": "2  Plan de recherche",
+    "section": "2.12 Manière de travailler",
+    "text": "2.12 Manière de travailler\nLe journal indique le jalon courant, ses preuves, ses blocages et la prochaine action. Les décisions conservent le raisonnement des choix structurants. Le code, les expériences et le rapport évoluent ensemble.\nUne avancée scientifique se termine par une question traitée, un protocole exécutable, des données archivées, une figure expliquée et une limite identifiée. Les essais exploratoires restent distincts des résultats figés.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Plan de recherche</span>"
+    ]
+  },
+  {
+    "objectID": "autonomy.html",
+    "href": "autonomy.html",
+    "title": "3  Travail autonome et notifications",
+    "section": "",
+    "text": "3.1 État réel\nBROWT doit avancer quand le PC de Victor est éteint. Le socle CPU est publié sur codex/research-foundation et les quatre jobs CPU passent sur GitHub : Ubuntu et Windows, Python 3.11 et 3.12. Le rendu strict du livre reste à valider après correction des blocs HTML de l’accueil. La CI et la publication utilisent toutes deux Quarto 1.11.9.\nLa connexion GitHub du chat refuse actuellement les écritures avec 403 Resource not accessible by integration. Les workflows disposent de leur propre GITHUB_TOKEN : cette permission est distincte de celle du chat.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Travail autonome et notifications</span>"
+    ]
+  },
+  {
+    "objectID": "autonomy.html#état-réel",
+    "href": "autonomy.html#état-réel",
+    "title": "3  Travail autonome et notifications",
+    "section": "",
+    "text": "Composant\nSituation\n\n\n\n\nTrois secrets GitHub\nDéclarés configurés par Victor ; tests distants à effectuer\n\n\nAssistant Telegram local\nFonctionnement confirmé par Victor\n\n\nTickets et PR d’amorçage\nCréation automatique préparée pour le prochain push\n\n\nTest d’authentification OpenAI\nLecture de la liste des modèles préparée ; aucune génération\n\n\nTest Telegram distant\nMessage de confirmation préparé\n\n\nWorker Codex qui développe\nÀ implémenter\n\n\nSessions planifiées et résumés réguliers\nInactifs\n\n\nGPU NVIDIA et LDPlayer\nEnvironnement à préparer ultérieurement",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Travail autonome et notifications</span>"
+    ]
+  },
+  {
+    "objectID": "autonomy.html#ce-que-lance-le-prochain-push",
+    "href": "autonomy.html#ce-que-lance-le-prochain-push",
+    "title": "3  Travail autonome et notifications",
+    "section": "3.2 Ce que lance le prochain push",
+    "text": "3.2 Ce que lance le prochain push\nLe workflow Hosted setup se déclenche sur les pushes vers codex/research-foundation. Il reste aussi utilisable manuellement.\n\n\n\n\n\n\nflowchart TD\n    P[\"Push de la branche de recherche\"] --&gt; C[\"Research checks : CPU et livre\"]\n    P --&gt; T[\"Créer les tickets manquants\"]\n    P --&gt; R[\"Ouvrir une PR en brouillon\"]\n    P --&gt; A[\"Vérifier la lecture OpenAI\"]\n    T --&gt; N[\"Premier message Telegram\"]\n\n\n\n\n\n\nLes opérations sont séparées par job et par permission :\n\nTickets : importe les quatre objectifs de .github/autonomy/backlog.json. Un marqueur stable et le titre évitent les doublons, y compris pour les tickets déjà fermés.\nPR : ouvre une PR en brouillon vers la branche par défaut si elle n’existe pas déjà et si la branche contient des changements. Aucune fusion automatique n’est réalisée par cet amorçage.\nOpenAI : appelle seulement GET /v1/models, sans afficher la clé ni la réponse détaillée. Une réussite valide cet accès de lecture ; elle ne prouve ni une génération Codex réussie, ni des crédits compatibles, ni un budget.\nTelegram : envoie un message de confirmation lorsque le push crée de nouveaux tickets. Les pushes suivants n’envoient pas à nouveau ce message si aucun ticket n’est créé. Un test manuel explicite reste possible.\n\nCette étape ne lance aucun worker Codex et n’installe aucune planification.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Travail autonome et notifications</span>"
+    ]
+  },
+  {
+    "objectID": "autonomy.html#les-trois-secrets",
+    "href": "autonomy.html#les-trois-secrets",
+    "title": "3  Travail autonome et notifications",
+    "section": "3.3 Les trois secrets",
+    "text": "3.3 Les trois secrets\nDans Settings → Secrets and variables → Actions, ouvrir l’onglet Secrets, puis New repository secret.\n\n\n\n\n\n\n\nName exact\nValeur dans le champ Secret\n\n\n\n\nOPENAI_API_KEY\nClé API créée dans le projet OpenAI destiné au worker\n\n\nTELEGRAM_BOT_TOKEN\nJeton fourni par BotFather après /newbot\n\n\nTELEGRAM_CHAT_ID\nIdentifiant de la conversation destinée aux notifications\n\n\n\nNe conserver aucune de ces valeurs dans le chat, le dépôt, un ticket ou les logs. Le skill .agents/skills/secret-handoff/SKILL.md et les consignes AGENTS.md conservent la procédure.\nPour Telegram, créer le bot dans @BotFather, puis lui envoyer /start en conversation privée. Depuis le dépôt, lancer :\npython scripts/telegram_setup.py\nSur Windows, le script attend que le jeton soit copié depuis BotFather, puis demande Entrée sans collage dans le terminal. Il lit le presse-papiers sans afficher ni enregistrer le jeton. Si une seule conversation privée est trouvée, son identifiant est copié pour être collé dans TELEGRAM_CHAT_ID. L’option --manual conserve une saisie masquée sans accès au presse-papiers.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Travail autonome et notifications</span>"
+    ]
+  },
+  {
+    "objectID": "autonomy.html#vérifier-lamorçage",
+    "href": "autonomy.html#vérifier-lamorçage",
+    "title": "3  Travail autonome et notifications",
+    "section": "3.4 Vérifier l’amorçage",
+    "text": "3.4 Vérifier l’amorçage\nAprès publication du correctif, ouvrir les exécutions GitHub Actions.\n\nDans Research checks, vérifier les quatre jobs CPU et le rendu du livre. Le livre réussi est conservé sept jours dans l’artefact research-book.\nDans Hosted setup, vérifier la création des tickets, la PR et le contrôle OpenAI. Le journal affiche uniquement les résultats nécessaires.\nVérifier la réception du bref message dans Telegram. Un job passé signifie que Telegram a confirmé l’envoi ; la réception doit être constatée.\nPour un nouvel essai explicite, lancer Hosted setup manuellement avec test_telegram coché. L’option publish_tickets peut être décochée.\n\nUne erreur de secret ou de permission doit être corrigée avant relance. Le workflow n’effectue pas de tentatives répétées sans limite.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Travail autonome et notifications</span>"
+    ]
+  },
+  {
+    "objectID": "autonomy.html#travail-restant-pour-le-worker",
+    "href": "autonomy.html#travail-restant-pour-le-worker",
+    "title": "3  Travail autonome et notifications",
+    "section": "3.5 Travail restant pour le worker",
+    "text": "3.5 Travail restant pour le worker\nLe futur worker devra relire les tickets, la feuille de route et le journal, choisir une tâche réalisable, développer sur une branche codex/, exécuter les vérifications, publier une PR et mettre à jour les preuves.\nUne tâche terminée exige du code publié et des vérifications adaptées. Un essai technique ou une simulation ne constitue pas un résultat scientifique. Les blocages de matériel ou d’accès doivent laisser un ticket ouvert avec une raison précise et permettre de choisir un autre travail réalisable.\nLe mode de fusion des PR, la reprise après interruption et la limitation des coûts doivent être installés et testés avant d’annoncer une livraison autonome. L’action officielle Codex est le moteur envisagé. Les jobs qui génèrent et testent du code doivent être séparés de ceux qui possèdent les droits d’écriture GitHub ou le jeton Telegram.\nLes données brutes et les poids nécessitent un stockage persistant avec leurs empreintes ; un runner éphémère ne doit pas en être l’unique copie. L’archive actuelle reste locale.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Travail autonome et notifications</span>"
+    ]
+  },
+  {
+    "objectID": "autonomy.html#budget-et-cadence",
+    "href": "autonomy.html#budget-et-cadence",
+    "title": "3  Travail autonome et notifications",
+    "section": "3.6 Budget et cadence",
+    "text": "3.6 Budget et cadence\nLes captures du compte n’affichent pas de contrôle de dépense et indiquent qu’aucun plan de facturation API payant n’est activé. Le contrôle de lecture des modèles ne résout pas cette question. Il faudra vérifier le financement compatible avec le moteur choisi, fixer le budget effectif et valider une première exécution avant la planification.\nUn niveau de débit, une alerte de dépense ou un solde prépayé ne garantit pas, à lui seul, un plafond strict pour BROWT. Consulter la documentation des limites de dépense et l’état réellement disponible dans le compte.\nPoint de départ proposé : deux sessions par jour et au plus deux résumés Telegram utiles par jour. Les changements inchangés ne doivent pas produire de notifications répétées. Cette cadence et sa limitation ne sont pas actives.\nLes entraînements NVIDIA et les expériences LDPlayer nécessiteront ensuite un environnement adapté et un budget distinct. Le travail CPU peut être préparé avant leur disponibilité.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Travail autonome et notifications</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html",
+    "href": "methodology.html",
+    "title": "4  Méthode expérimentale",
+    "section": "",
+    "text": "4.1 Questions et hypothèses initiales\nCes hypothèses sont des pistes de recherche, pas des conclusions.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#questions-et-hypothèses-initiales",
+    "href": "methodology.html#questions-et-hypothèses-initiales",
+    "title": "4  Méthode expérimentale",
+    "section": "",
+    "text": "Question\nHypothèse à examiner\nExpérience\nPreuve attendue\n\n\n\n\nLa perception est-elle suffisante ?\nUne baseline YOLO11n identifie les entités utiles\nLot indépendant, analyse par classe et situation\nQualité, support, erreurs et limites\n\n\nLe temps aide-t-il ?\nUne observation temporelle réduit les absences instables\nMême séquence, avec/sans mémoire\nContinuité et erreurs mesurées\n\n\nL’état détecté suffit-il pour agir ?\nLes observations compactes permettent une politique de référence utile\nMême protocole, politiques simples\nRésultats par épisode et cas d’échec\n\n\nLe RL apporte-t-il un gain ?\nUne politique apprise améliore une baseline définie\nBudget et observations comparables\nÉcart, incertitude et reproductibilité\n\n\nQu’est-ce qui limite le système ?\nPerception, latence ou récompense expliquent une partie des échecs\nAblations et chronologies d’épisodes\nAssociation argumentée, limites causales",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#contrat-dune-expérience",
+    "href": "methodology.html#contrat-dune-expérience",
+    "title": "4  Méthode expérimentale",
+    "section": "4.2 Contrat d’une expérience",
+    "text": "4.2 Contrat d’une expérience\nChaque run possède un dossier unique contenant :\n\nun manifest.json : tâche, statut, date UTC, type de données, configuration et empreinte ;\nl’environnement : Python, plateforme, bibliothèques, commit et état modifié du dépôt ;\nles références du dataset et des poids lorsqu’ils sont utilisés ;\nles métriques structurées et les artefacts bruts ou dérivés ;\nla taille et l’empreinte SHA-256 de chaque artefact déclaré.\n\nUn run interrompu ou échoué reste identifiable. Un résultat absent reste absent : il n’est pas remplacé par zéro.\nUn commit seul ne décrit pas des modifications locales non committées. Une empreinte des sources et configurations complète donc la provenance ; les expériences confirmatoires devront partir d’une révision propre et archivée.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#données-indépendance-et-fuite",
+    "href": "methodology.html#données-indépendance-et-fuite",
+    "title": "4  Méthode expérimentale",
+    "section": "4.3 Données, indépendance et fuite",
+    "text": "4.3 Données, indépendance et fuite\nL’unité de partition est la partie ou la session d’acquisition. Des frames adjacentes d’une même partie se ressemblent trop pour fournir une évaluation indépendante lorsqu’elles sont distribuées entre apprentissage et test.\nL’audit actuel vérifie les annotations et les doublons exacts. Les quasi-doublons, la corrélation temporelle et les erreurs sémantiques nécessitent une analyse complémentaire. Un audit sans erreur ne prouve pas l’absence de fuite.\nLe test final est défini avant le réglage du modèle. La validation sert au développement, à l’arrêt anticipé et au choix des seuils. L’évaluation du test est déclenchée explicitement ; elle ne fait pas partie d’un test rapide.\nLes données sources sont conservées. Les fichiers résolus et les partitions dérivées possèdent leur propre emplacement et leur manifeste.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#baselines-et-comparaisons",
+    "href": "methodology.html#baselines-et-comparaisons",
+    "title": "4  Méthode expérimentale",
+    "section": "4.4 Baselines et comparaisons",
+    "text": "4.4 Baselines et comparaisons\nUne amélioration se mesure relativement à une référence :\n\nperception : baseline historique YOLO11n, puis variation contrôlée d’un facteur ;\nobservation : frame unique, puis ajout de mémoire ou suivi ;\ndécision : immobilité, hasard contrôlé, heuristique, puis politique apprise.\n\nLes comparaisons partagent le contexte, les observations disponibles, le budget et les contraintes d’action. Un modèle plus coûteux n’est pas déclaré meilleur sans montrer son coût.\nLes paramètres, métriques principales, règles d’exclusion et conditions d’arrêt sont fixés avant l’évaluation finale. Toute modification ultérieure est identifiée comme exploration.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#incertitude-et-unités-statistiques",
+    "href": "methodology.html#incertitude-et-unités-statistiques",
+    "title": "4  Méthode expérimentale",
+    "section": "4.5 Incertitude et unités statistiques",
+    "text": "4.5 Incertitude et unités statistiques\nLes frames ne sont pas des parties indépendantes. Un nombre élevé de frames ne compense pas un petit nombre de sessions.\nPour le RL, distinguer :\n\nla variabilité entre entraînements et graines ;\nla variabilité entre épisodes d’évaluation d’une même politique ;\nla variabilité des cartes, sessions et situations.\n\nLes premiers outils proposent un bootstrap de moyenne pour des unités indépendantes choisies par l’analyste. Ils ne modélisent pas encore une hiérarchie graine/épisode/carte. Les comparaisons finales demanderont un bootstrap groupé ou hiérarchique adapté ; aucun intervalle global ne sera calculé naïvement sur toutes les frames.\nAvec peu de graines, montrer les points individuels et expliciter l’incertitude. Les recommandations d’évaluation RL insistent sur la variabilité des runs ; les travaux d’Agarwal et al. motivent une analyse qui ne s’arrête pas au meilleur score observé. Voir les références.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#mesurer-le-temps-correctement",
+    "href": "methodology.html#mesurer-le-temps-correctement",
+    "title": "4  Méthode expérimentale",
+    "section": "4.6 Mesurer le temps correctement",
+    "text": "4.6 Mesurer le temps correctement\nUtiliser une horloge monotone pour les durées et UTC pour l’identification des expériences. Exclure et documenter l’échauffement.\nMesurer séparément capture, prétraitement, inférence, construction de l’observation, politique et injection, puis mesurer la boucle réelle. Les moyennes ou p95 de composants ne s’additionnent pas pour fournir un p95 global.\nSur GPU, synchroniser le travail asynchrone avant de conclure sur une durée CPU ; consigner précision numérique, taille d’entrée, batch, matériel et charge. Les résultats CPU ne sont pas extrapolés vers CUDA.\nLa démonstration actuelle mesure uniquement build_state sur une scène synthétique. Elle ne fournit pas la vitesse d’un détecteur ou d’un agent jouant au jeu.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#analyse-derreurs-et-ablations",
+    "href": "methodology.html#analyse-derreurs-et-ablations",
+    "title": "4  Méthode expérimentale",
+    "section": "4.7 Analyse d’erreurs et ablations",
+    "text": "4.7 Analyse d’erreurs et ablations\nChaque erreur retenue possède : contexte, entrée, annotation ou référence, sortie, conséquence, hypothèse d’explication et niveau de certitude.\nLes ablations prévues concernent la résolution, le seuil, la mémoire, le terrain, la récompense et la fréquence d’action. Elles gardent les autres paramètres et le budget aussi constants que possible.\nUne corrélation entre une erreur de détection et un échec du bot ne démontre pas seule un lien causal. La relecture et les interventions contrôlées serviront à renforcer ou limiter l’interprétation.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#format-dun-résultat-dans-le-rapport",
+    "href": "methodology.html#format-dun-résultat-dans-le-rapport",
+    "title": "4  Méthode expérimentale",
+    "section": "4.8 Format d’un résultat dans le rapport",
+    "text": "4.8 Format d’un résultat dans le rapport\nChaque résultat comporte, dans cet ordre :\n\nla question et le contraste étudié ;\nle protocole et les unités expérimentales ;\nla figure ou le tableau, avec provenance ;\nl’observation quantitative ;\nl’interprétation et ses limites ;\nla décision de suite.\n\nLes représentations schématiques, les scènes synthétiques et les mesures réelles portent des labels distincts. Les figures de démonstration ne remplissent pas des tableaux de performances réelles.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "methodology.html#reproductibilité-pratique",
+    "href": "methodology.html#reproductibilité-pratique",
+    "title": "4  Méthode expérimentale",
+    "section": "4.9 Reproductibilité pratique",
+    "text": "4.9 Reproductibilité pratique\n\nGarder les graines, configurations et versions exactes avec chaque run.\nArchiver les partitions, références des données et empreintes des poids.\nNe pas écraser un run ou un modèle déjà publié.\nVérifier les résultats sélectionnés depuis une installation propre.\nDocumenter le comportement non déterministe restant, notamment entre matériels.\nConserver les échecs et les exclusions, ainsi que leurs motifs.\n\nUne graine améliore la répétabilité ; elle ne garantit pas l’identité numérique de tous les résultats entre CPU, GPU et versions de bibliothèques.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Méthode expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "visual-atlas.html",
+    "href": "visual-atlas.html",
+    "title": "5  Atlas des visualisations",
+    "section": "",
+    "text": "5.1 Grammaire commune\nLes figures scientifiques utilisent une typographie lisible, des axes nommés avec unités, une palette compatible avec les déficiences de perception des couleurs et des symboles ou styles redondants. Les exports principaux sont SVG et PNG ; un export PDF pourra accompagner le rapport final.\nLa couleur porte une signification stable : joueur, ennemi, classe, condition ou statut. Elle ne décore pas arbitrairement chaque catégorie. Les données absentes créent une rupture ou une mention « non évalué ».\nChaque légende précise les entrées, le protocole, le nombre d’unités, le calcul de l’incertitude et les exclusions. Les intervalles sont définis ; une zone ombrée ne signifie pas automatiquement « intervalle de confiance ».",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Atlas des visualisations</span>"
+    ]
+  },
+  {
+    "objectID": "visual-atlas.html#les-planches-à-produire",
+    "href": "visual-atlas.html#les-planches-à-produire",
+    "title": "5  Atlas des visualisations",
+    "section": "5.2 Les planches à produire",
+    "text": "5.2 Les planches à produire\n\n\n\n\n\n\n\n\n\nFigure\nQuestion\nDonnées et unités\nAttention principale\n\n\n\n\nFrise des jalons\nQue doit-on établir, et dans quel ordre ?\nSemaines indicatives et dépendances\nUn calendrier n’est pas une preuve d’avancement\n\n\nDistribution du dataset\nQuelles classes et situations dominent ?\nImages, instances et sessions\nInstances et images sont des effectifs différents\n\n\nPlanche d’annotations\nLes labels correspondent-ils aux objets ?\nExemples sélectionnés par classe\nMontrer aussi les ambiguïtés\n\n\nRépartition des partitions\nLes groupes sont-ils indépendants ?\nSessions/cartes/personnages par lot\nLes doublons exacts ne couvrent pas les quasi-doublons\n\n\nCourbes précision–rappel\nQuel compromis offre le détecteur ?\nRéférence annotée et scores\nIndiquer seuils, IoU et classes présentes\n\n\nMatrice de confusion\nQuelles erreurs se ressemblent ?\nEffectifs bruts et normalisés\nNommer le sens de normalisation\n\n\nGalerie d’erreurs\nComment le système échoue-t-il ?\nFaux positifs/négatifs, contexte\nÉviter une sélection seulement flatteuse\n\n\nQualité–latence\nQuel modèle est utilisable au budget cible ?\nAP et ms/image sur matériel identifié\nSéparer CPU, GPU et boucle entière\n\n\nPixels → observation\nQue reçoit la politique ?\nBoîtes, repères, absences, variables\nNe pas assimiler observation et état interne réel\n\n\nTrajectoires et suivi\nL’observation est-elle stable dans le temps ?\nCoordonnées, identités, horodatage\nRuptures explicites, mouvements de caméra\n\n\nChronologie d’épisode\nPourquoi une action a-t-elle été choisie ?\nFrames, observation, action, événement, récompense\nSynchroniser les horloges\n\n\nCourbes d’apprentissage\nQuel progrès pour quel budget ?\nInteractions, graines, scores d’évaluation\nMontrer dispersion et entraînements échoués\n\n\nComparaison finale\nLe gain est-il robuste ?\nRésultat par graine/partie, protocole fixé\nUn meilleur run ne résume pas une méthode\n\n\nAblations\nQuel composant compte réellement ?\nContrastes contrôlés et incertitude\nGarder budgets et données comparables\n\n\nRobustesse\nOù la généralisation se dégrade-t-elle ?\nCartes, sessions, personnages, situations\nNe pas masquer les groupes peu représentés\n\n\n\nLes figures sans données disponibles restent dans cette liste de travail. Elles ne sont pas remplies avec des scores fictifs.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Atlas des visualisations</span>"
+    ]
+  },
+  {
+    "objectID": "visual-atlas.html#première-planche-exécutable",
+    "href": "visual-atlas.html#première-planche-exécutable",
+    "title": "5  Atlas des visualisations",
+    "section": "5.3 Première planche exécutable",
+    "text": "5.3 Première planche exécutable\n\n\n\n\n\n\nFigure 5.1: A et B vérifient la conversion de pixels en coordonnées normalisées ; C montre une trajectoire interrompue par quatre observations manquantes ; D est un microbenchmark CPU local de la conversion seule. Les entrées géométriques sont synthétiques.\n\n\n\nLes trajectoires sont artificielles et les scores de confiance sont simulés pour tester les interfaces. Ils ne représentent ni la confiance calibrée d’un modèle ni une précision mesurée.\nLa distribution de temps contient tous les appels après échauffement. Les appels répétés au même traitement ne constituent pas des épisodes indépendants de jeu.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Atlas des visualisations</span>"
+    ]
+  },
+  {
+    "objectID": "visual-atlas.html#lisibilité-et-exploration",
+    "href": "visual-atlas.html#lisibilité-et-exploration",
+    "title": "5  Atlas des visualisations",
+    "section": "5.4 Lisibilité et exploration",
+    "text": "5.4 Lisibilité et exploration\nLes figures statiques doivent suffire à lire le rapport. Un visualiseur interactif de séquences viendra ensuite pour avancer image par image, afficher les erreurs et relier décision et observation. Il utilisera les mêmes données archivées.\nLe rapport de démonstration actuel est autonome, lisible hors ligne et sans dépendance à un service externe. Il permet d’agrandir les figures vectorielles et d’ouvrir les artefacts bruts associés.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Atlas des visualisations</span>"
+    ]
+  },
+  {
+    "objectID": "visual-atlas.html#liste-de-contrôle-dune-figure-finale",
+    "href": "visual-atlas.html#liste-de-contrôle-dune-figure-finale",
+    "title": "5  Atlas des visualisations",
+    "section": "5.5 Liste de contrôle d’une figure finale",
+    "text": "5.5 Liste de contrôle d’une figure finale\n\nQuestion explicite, unités visibles et repères définis.\nProvenance accessible : identifiant du run, données, configuration et code.\nSupport et exclusions annoncés ; absence distincte d’un zéro.\nIncertitude définie et unité statistique cohérente.\nCouleurs et symboles cohérents avec les autres figures.\nLégende qui permet de comprendre l’essentiel sans relire tout le chapitre.\nSource génératrice versionnée et export vectoriel conservé.",
+    "crumbs": [
+      "Le projet",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Atlas des visualisations</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html",
+    "href": "getting-started.html",
+    "title": "6  Démarrer sur CPU",
+    "section": "",
+    "text": "6.1 Installation locale\nPython 3.11 ou 3.12 est la cible du projet. Dans le dépôt, sous PowerShell :\nSous Linux/macOS, utiliser python3.11 -m venv .venv, puis .venv/bin/python. L’émulateur cible reste Windows ; les outils d’analyse CPU sont séparés de cette contrainte.\nLes bornes du paquet définissent des versions compatibles candidates, pas un environnement CUDA déjà validé. Chaque run consigne les versions réellement installées. Une configuration d’entraînement figée recevra son export d’environnement exact après le pilote.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#installation-locale",
+    "href": "getting-started.html#installation-locale",
+    "title": "6  Démarrer sur CPU",
+    "section": "",
+    "text": "py -3.11 -m venv .venv\n.\\.venv\\Scripts\\python.exe -m pip install --upgrade pip\n.\\.venv\\Scripts\\python.exe -m pip install -e \".[research,dev]\"\n.\\.venv\\Scripts\\python.exe -m BROWT doctor",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#première-expérience-visuelle",
+    "href": "getting-started.html#première-expérience-visuelle",
+    "title": "6  Démarrer sur CPU",
+    "section": "6.2 Première expérience visuelle",
+    "text": "6.2 Première expérience visuelle\n.\\.venv\\Scripts\\python.exe -m BROWT demo --output runs/research --figures docs/assets/figures\nLa commande affiche le chemin d’un report.html autonome. Chaque lancement crée un nouveau dossier. Ouvrir ce rapport dans un navigateur.\nLe dossier contient un manifeste, les détections simulées, les observations normalisées, les durées brutes et les figures SVG/PNG. Aucun dataset, poids, GPU ou émulateur n’est nécessaire.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#relire-un-journal-de-détections",
+    "href": "getting-started.html#relire-un-journal-de-détections",
+    "title": "6  Démarrer sur CPU",
+    "section": "6.3 Relire un journal de détections",
+    "text": "6.3 Relire un journal de détections\n.\\.venv\\Scripts\\python.exe -m BROWT replay --source chemin/detections.jsonl --output runs/replay\nLe format est décrit dans Observation. Il enregistre les dimensions, l’horodatage, les classes et les boîtes. La relecture refuse de mélanger entrées réelles et synthétiques dans un même journal.\nCette commande relit des détections déjà enregistrées ; elle ne lance pas une inférence YOLO sur une vidéo.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#auditer-les-données-réelles",
+    "href": "getting-started.html#auditer-les-données-réelles",
+    "title": "6  Démarrer sur CPU",
+    "section": "6.4 Auditer les données réelles",
+    "text": "6.4 Auditer les données réelles\nPlacer l’export au format YOLO dans :\ndata/dataset/\n  data.yaml\n  train/images/   train/labels/\n  valid/images/   valid/labels/\n  test/images/    test/labels/\n.\\.venv\\Scripts\\python.exe -m BROWT audit --dataset data/dataset --output runs/dataset-audit.json\nLa commande ne déplace aucun fichier. Une erreur d’annotation, un lot manquant ou un doublon exact entre lots donne un code de sortie non nul et un rapport localisé. Une image de fond possède un fichier de labels vide explicite.\nLe découpage par partie/session est préparé en amont. L’audit des fichiers ne prouve pas à lui seul l’indépendance des lots.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#tests-et-qualité",
+    "href": "getting-started.html#tests-et-qualité",
+    "title": "6  Démarrer sur CPU",
+    "section": "6.5 Tests et qualité",
+    "text": "6.5 Tests et qualité\n.\\.venv\\Scripts\\python.exe -m pytest\n.\\.venv\\Scripts\\python.exe -m ruff check .\n.\\.venv\\Scripts\\python.exe -m ruff format --check src tests\nLes tests d’orchestration d’entraînement utilisent un double de YOLO et de très petites images de test. Ils vérifient les protections et les fichiers ; ils ne prouvent pas qu’un vrai modèle apprend.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#ajouter-la-vision-et-entraîner",
+    "href": "getting-started.html#ajouter-la-vision-et-entraîner",
+    "title": "6  Démarrer sur CPU",
+    "section": "6.6 Ajouter la vision et entraîner",
+    "text": "6.6 Ajouter la vision et entraîner\n.\\.venv\\Scripts\\python.exe -m pip install -e \".[vision,research,dev]\"\n.\\.venv\\Scripts\\python.exe -m BROWT.detection.train --smoke\nLe dataset doit exister avant cette commande. Le mode rapide ne publie aucun poids et n’évalue pas le test final. Un entraînement normal utilise apprentissage et validation :\n.\\.venv\\Scripts\\python.exe -m BROWT.detection.train\n.\\.venv\\Scripts\\python.exe -m BROWT.detection.report --weights chemin/weights/best.pt --split val\nChaque entraînement garde ses meilleurs poids dans son propre dossier. La copie vers data/models/ est volontaire et exclusive :\n.\\.venv\\Scripts\\python.exe -m BROWT.detection.train --publish\nUn fichier existant n’est jamais remplacé. Le test final est demandé explicitement avec --evaluate-test lors d’une expérience figée, ou --split test dans le rapport.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#migrer-vers-nvidia",
+    "href": "getting-started.html#migrer-vers-nvidia",
+    "title": "6  Démarrer sur CPU",
+    "section": "6.7 Migrer vers NVIDIA",
+    "text": "6.7 Migrer vers NVIDIA\nAvant d’installer une variante CUDA : identifier GPU/VRAM, pilote, version de Python et matrice de compatibilité PyTorch. Utiliser ensuite les instructions officielles correspondant à cette machine. Aucun lien de wheel CUDA arbitraire n’est figé avant de connaître le matériel.\nLe même code choisit CUDA, puis MPS, puis CPU avec device: auto. Le nombre de workers et le batch initiaux sont prudents pour Windows/CPU ; ils seront ajustés et mesurés sur la station CUDA. Conserver la nouvelle configuration et l’environnement exact dans chaque run.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "getting-started.html#rendre-le-rapport-complet",
+    "href": "getting-started.html#rendre-le-rapport-complet",
+    "title": "6  Démarrer sur CPU",
+    "section": "6.8 Rendre le rapport complet",
+    "text": "6.8 Rendre le rapport complet\nInstaller Quarto depuis sa distribution officielle, puis :\nquarto render docs --fail-if-warnings\nLe rapport est généré dans docs/_book/. Les calculs lourds ne sont pas exécutés pendant le rendu : ils produisent d’abord des artefacts et figures vérifiables.\nQuarto n’est pas présent dans l’environnement local d’audit initial. Le rapport HTML autonome de la démonstration et les figures PNG/SVG restent consultables indépendamment ; une tâche CI est prévue pour vérifier le livre Quarto.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Démarrer sur CPU</span>"
+    ]
+  },
+  {
+    "objectID": "dataset.html",
+    "href": "dataset.html",
+    "title": "7  Dataset public : source et acquisition",
+    "section": "",
+    "text": "7.1 Choix confirmé\nLe 23 novembre 2026, Victor a confirmé que le projet repart du dataset public, sans anciens poids ni captures à réutiliser.\nLa source retenue pour la nouvelle baseline est Bloxxy / Brawl Stars Dataset, version 21, export YOLOv11. La licence annoncée par le projet est MIT.\nCes métadonnées concordent avec l’export téléchargé et les effectifs de l’audit local. Le mapping exact des classes est conservé depuis son data.yaml. Les résultats et limites sont présentés dans la première analyse.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Dataset public : source et acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "dataset.html#choix-confirmé",
+    "href": "dataset.html#choix-confirmé",
+    "title": "7  Dataset public : source et acquisition",
+    "section": "",
+    "text": "Élément\nAnnonce confirmée dans l’export importé\n\n\n\n\nVersion\n21, nommée « raw 4 »\n\n\nImages\n2 551\n\n\nApprentissage\n2 297\n\n\nValidation\n254\n\n\nTest\nAucun\n\n\nPrétraitement\nOrientation automatique\n\n\nRedimensionnement imposé\nAucun annoncé pour cette version\n\n\nAugmentations\nAucune annoncée\n\n\nClasses du projet\nBall, Enemy, Friendly, Gem, Hot_Zone, Me, PP, PP_Box, Safe_Enemy, Safe_Friendly",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Dataset public : source et acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "dataset.html#pourquoi-cette-version",
+    "href": "dataset.html#pourquoi-cette-version",
+    "title": "7  Dataset public : source et acquisition",
+    "section": "7.2 Pourquoi cette version",
+    "text": "7.2 Pourquoi cette version\nLa version 22 annonce un redimensionnement étiré à 672 × 336 ; la version 23 affiche également un redimensionnement. La version 21 permet de partir d’images sans cette transformation ajoutée par la génération de version.\nLe terme « raw » est le nom de la version. Il ne démontre pas que chaque image est un original de caméra ou qu’aucun traitement antérieur n’a jamais eu lieu. L’orientation automatique est explicitement annoncée.\nLes versions plus anciennes peuvent inclure des augmentations et des résolutions différentes. Elles pourront être comparées plus tard, en conservant cette nouvelle baseline comme référence.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Dataset public : source et acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "dataset.html#récupération",
+    "href": "dataset.html#récupération",
+    "title": "7  Dataset public : source et acquisition",
+    "section": "7.3 Récupération",
+    "text": "7.3 Récupération\nL’export public YOLOv11 demande une connexion Roboflow. Le téléchargement et l’acquisition de données sont séparés des entraînements locaux ; aucune inférence hébergée n’est nécessaire.\nAprès récupération du ZIP :\npython -m BROWT import-dataset --archive chemin/export.zip --destination data/raw/bloxxy-brawl-stars-v21-yolov11\nLa commande conserve l’archive, extrait dans un dossier neuf, puis contrôle classes, annotations, doublons et cohérence des métadonnées :\ndata/raw/bloxxy-brawl-stars-v21-yolov11/\n  source.zip\n  export/\n    data.yaml\n    train/\n    valid/\n    ...\n  provenance.json\n  audit.json\nUne archive avec un répertoire parent est également prise en charge. La commande affiche le vrai chemin de la racine dataset.\nAucun dossier existant n’est remplacé. Les fichiers exportés ne sont pas corrigés silencieusement. Des anomalies donnent un statut needs_review et un code de sortie non nul, tout en conservant les données importées pour analyse.\nL’empreinte SHA-256 de l’archive et celle des fichiers du dataset sont enregistrées. Pour contrôler une récupération ultérieure, fournir --expected-sha256 avec l’empreinte de référence. Aucune clé API n’est demandée ni enregistrée par l’importeur.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Dataset public : source et acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "dataset.html#exploration-visuelle-locale",
+    "href": "dataset.html#exploration-visuelle-locale",
+    "title": "7  Dataset public : source et acquisition",
+    "section": "7.4 Exploration visuelle locale",
+    "text": "7.4 Exploration visuelle locale\nAprès l’import, la commande suivante décode les images, mesure les distributions et crée une planche d’annotations :\npython -m BROWT dataset-report --dataset data/raw/bloxxy-brawl-stars-v21-yolov11/export --provenance data/raw/bloxxy-brawl-stars-v21-yolov11/provenance.json\nLe rapport HTML distingue le support des classes, les dimensions d’images, la taille des objets, la densité des annotations et les anomalies. La galerie est sélectionnée avec une graine fixée ; elle montre les labels fournis, pas des prédictions de modèle.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Dataset public : source et acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "dataset.html#protocole-pour-la-baseline",
+    "href": "dataset.html#protocole-pour-la-baseline",
+    "title": "7  Dataset public : source et acquisition",
+    "section": "7.5 Protocole pour la baseline",
+    "text": "7.5 Protocole pour la baseline\nLe découpage public peut servir à un pilote exploratoire apprentissage/validation. L’indépendance entre parties ou sessions n’est pas établie par la fiche. Il ne fournit donc pas encore un test scientifique indépendant.\nLes tâches suivantes seront :\n\ncomparer l’export aux annonces publiques et examiner les annotations par classe ;\nmesurer effectifs, tailles d’images et de boîtes, doublons exacts et quasi-doublons ;\nrechercher les groupes d’acquisition ou identifier les limites de leur reconstruction ;\nréaliser un premier entraînement de validation sans inventer de lot de test par tirage de frames voisines ;\npréparer ensuite une acquisition indépendante pour le test final.\n\nLes scores du modèle publié sur Universe ne sont pas des mesures de BROWT et ne seront pas recopiés dans nos tableaux de résultats.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Dataset public : source et acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "dataset.html#état-de-lacquisition",
+    "href": "dataset.html#état-de-lacquisition",
+    "title": "7  Dataset public : source et acquisition",
+    "section": "7.6 État de l’acquisition",
+    "text": "7.6 État de l’acquisition\nL’archive est téléchargée, conservée et importée. Les 2 551 images se décodent ; l’audit ne trouve aucune anomalie structurelle d’annotation ni doublon exact entre lots. Le diagnostic temporel révèle toutefois un risque de corrélation entre train et valid. Le journal et l’analyse des données détaillent ces preuves.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Dataset public : source et acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "dataset-analysis.html",
+    "href": "dataset-analysis.html",
+    "title": "8  Première analyse des données",
+    "section": "",
+    "text": "8.1 Question et protocole\nPeut-on utiliser la version 21 comme point de départ pour la perception, et quelles limites faut-il traiter avant de conclure sur un modèle ?\nL’archive originale est conservée. L’analyse lit les fichiers d’apprentissage et de validation, contrôle les annotations, calcule leurs empreintes, décode chaque image et produit les figures. Les labels fournis sont des annotations de référence : aucune inférence YOLO n’est exécutée dans cette étude.\nLes entrées sont identifiées dans configs/dataset-lock.json. Les résultats structurés et la provenance de la génération des figures figurent dans le résumé exporté.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Première analyse des données</span>"
+    ]
+  },
+  {
+    "objectID": "dataset-analysis.html#intégrité-et-effectifs",
+    "href": "dataset-analysis.html#intégrité-et-effectifs",
+    "title": "8  Première analyse des données",
+    "section": "8.2 Intégrité et effectifs",
+    "text": "8.2 Intégrité et effectifs\n\n\n\nContrôle\nRésultat local\n\n\n\n\nImages d’apprentissage\n2 297\n\n\nImages de validation\n254\n\n\nImages décodées\n2 551 / 2 551\n\n\nBoîtes de référence valides\n11 643\n\n\nAnomalies structurelles d’annotation\n0\n\n\nDoublons de fichiers exacts entre les lots\n0\n\n\nImages avec un label de fond vide explicite\n30\n\n\nTest indépendant établi\nNon\n\n\n\nCes contrôles valident le format et la lisibilité des fichiers. Ils ne certifient ni l’exhaustivité sémantique des labels ni l’indépendance des acquisitions.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Première analyse des données</span>"
+    ]
+  },
+  {
+    "objectID": "dataset-analysis.html#distribution-et-géométrie",
+    "href": "dataset-analysis.html#distribution-et-géométrie",
+    "title": "8  Première analyse des données",
+    "section": "8.3 Distribution et géométrie",
+    "text": "8.3 Distribution et géométrie\n\n\n\n\n\n\nFigure 8.1: Distribution des boîtes de référence par classe et par lot, rapport largeur/hauteur des images, surface relative des boîtes et nombre de boîtes par image. Toutes les valeurs sont calculées sur l’export importé ; aucun score de modèle n’est présenté.\n\n\n\n\n\n\nClasse\nApprentissage\nValidation\nTotal\n\n\n\n\nBall\n549\n65\n614\n\n\nEnemy\n3 137\n347\n3 484\n\n\nFriendly\n2 718\n293\n3 011\n\n\nGem\n482\n87\n569\n\n\nHot_Zone\n341\n35\n376\n\n\nMe\n1 961\n199\n2 160\n\n\nPP\n520\n50\n570\n\n\nPP_Box\n582\n39\n621\n\n\nSafe_Enemy\n128\n11\n139\n\n\nSafe_Friendly\n92\n7\n99\n\n\n\nLa classe Enemy représente environ 29,9 % des boîtes. Safe_Friendly n’a que sept instances dans le lot de validation : sa future AP devra être interprétée avec ce faible support, indépendamment du score global.\n2 433 images sur 2 551 sont en 2 400 × 1 080 pixels. Les 102 résolutions distinctes conservent presque toutes un rapport proche de 20:9. Le format de l’émulateur devra donc être choisi et évalué explicitement ; un passage à une capture 16:9 modifie les conditions d’observation.\nLa médiane de surface des boîtes est proche de 1,19 % de l’image. La distribution couvre des objets nettement plus petits : la résolution d’inférence sera un facteur d’étude, sans extrapoler une qualité de détection à partir de ces tailles.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Première analyse des données</span>"
+    ]
+  },
+  {
+    "objectID": "dataset-analysis.html#revue-visuelle-des-annotations",
+    "href": "dataset-analysis.html#revue-visuelle-des-annotations",
+    "title": "8  Première analyse des données",
+    "section": "8.4 Revue visuelle des annotations",
+    "text": "8.4 Revue visuelle des annotations\n\n\n\n\n\n\nFigure 8.2: Six exemples sélectionnés de façon reproductible dans le lot de validation. Les boîtes sont les annotations de l’export, et non les prédictions d’un détecteur. L’échantillon illustre plusieurs situations et modes.\n\n\n\nLes exemples inspectés montrent des situations variées, dont des vues de spectateur et plusieurs objectifs de jeu. Les coffres visibles sont annotés Safe_Enemy ou Safe_Friendly dans les exemples correspondants. Cette observation remplace l’ancienne interprétation spéculative de ces classes comme des personnages cachés dans les buissons.\nDans les labels, 392 images n’ont aucun Me, et une image en a plusieurs. L’absence d’un label Me ne prouve pas une annotation manquante : mort, vue de spectateur et autres contextes doivent être distingués par revue. La couche d’observation traite déjà explicitement les cas absent et ambigu.\nCette planche ne remplace pas une revue complète par classe, notamment pour les classes rares et les transitions de fin de partie.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Première analyse des données</span>"
+    ]
+  },
+  {
+    "objectID": "dataset-analysis.html#un-risque-de-corrélation-entre-les-lots",
+    "href": "dataset-analysis.html#un-risque-de-corrélation-entre-les-lots",
+    "title": "8  Première analyse des données",
+    "section": "8.5 Un risque de corrélation entre les lots",
+    "text": "8.5 Un risque de corrélation entre les lots\nTous les noms d’images contiennent un motif d’horodatage exploitable. Ces noms couvrent 15 dates nominales, du 6 mai au 21 juillet 2024. Le fuseau et l’identité de l’appareil ne sont pas certifiés.\nPour chaque image de validation, le diagnostic cherche l’image d’apprentissage dont l’heure nominale est la plus proche :\n\n62 sur 254 ont un voisin à deux secondes ou moins ;\n208 sur 254, soit environ 81,9 %, ont un voisin à dix secondes ou moins.\n\n\n\n\n\n\n\nFigure 8.3: Proportion cumulée des images de validation selon leur écart nominal au plus proche fichier d’apprentissage. Le seuil de dix secondes sert au diagnostic exploratoire ; il ne définit pas une règle suffisante d’indépendance.\n\n\n\n\n\n\n\n\n\nFigure 8.4: Les deux paires aux écarts nominaux minimaux, avec départage par nom de fichier. Les images brutes permettent de comparer le contexte et le contenu visuel des lots train et valid.\n\n\n\nCe résultat signale un risque important de frames corrélées entre apprentissage et validation. Un fichier différent et une empreinte différente ne garantissent pas une situation indépendante.\nLa proximité nominale ne prouve pas à elle seule l’identité d’une partie. Les exemples et les métadonnées doivent être examinés, puis regroupés de manière documentée. Il faudra aussi traiter les séquences pouvant traverser minuit : séparer les dates seules ne suffit pas automatiquement.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Première analyse des données</span>"
+    ]
+  },
+  {
+    "objectID": "dataset-analysis.html#décisions-pour-la-baseline",
+    "href": "dataset-analysis.html#décisions-pour-la-baseline",
+    "title": "8  Première analyse des données",
+    "section": "8.6 Décisions pour la baseline",
+    "text": "8.6 Décisions pour la baseline\n\nConserver l’export public intact comme référence et pilote exploratoire.\nPréparer un découpage dérivé par groupes d’acquisition, sans distribuer des frames proches entre lots.\nDocumenter la définition et les limites de ces groupes, ainsi que le support des classes après séparation.\nPréparer un corpus indépendant adapté à Solo Showdown pour le test final.\nComparer les futurs modèles sur des données et budgets fixés, avec résultats par classe.\n\nConclusion actuelle : le dataset est exploitable pour préparer la perception, mais son découpage public ne suffit pas à démontrer la généralisation. Aucun mAP, gain RL ou taux de victoire n’est encore mesuré par BROWT.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Première analyse des données</span>"
+    ]
+  },
+  {
+    "objectID": "observations.html",
+    "href": "observations.html",
+    "title": "9  De la détection à l’observation",
+    "section": "",
+    "text": "9.1 Les repères\nUne image a une largeur W et une hauteur H. L’origine est en haut à gauche ; x augmente vers la droite et y vers le bas.\nLes boîtes du détecteur sont exprimées en pixels. L’observation les normalise par W et H. Elle contient classe, confiance, boîte, horodatage et statut du joueur.\nLa normalisation rend les coordonnées comparables entre résolutions. Elle ne corrige ni la caméra ni un changement de champ de vision.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>De la détection à l’observation</span>"
+    ]
+  },
+  {
+    "objectID": "observations.html#absence-et-ambiguïté",
+    "href": "observations.html#absence-et-ambiguïté",
+    "title": "9  De la détection à l’observation",
+    "section": "9.2 Absence et ambiguïté",
+    "text": "9.2 Absence et ambiguïté\nUne observation n’est pas l’état interne du jeu. Elle peut manquer des objets ou en inventer.\n\nAucun objet Me : statut missing, position du joueur absente.\nUn seul objet Me : statut visible.\nPlusieurs objets Me : statut ambiguous, aucune sélection silencieuse.\n\nLes boîtes débordant partiellement de l’image sont bornées ; les boîtes vides, valeurs non finies et confidences invalides sont refusées. L’ordre des objets est déterministe.\nAucune commande n’est exécutée par cette couche. Le comportement de la politique lorsque l’observation est invalide sera défini et vérifié lors de l’intégration.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>De la détection à l’observation</span>"
+    ]
+  },
+  {
+    "objectID": "observations.html#format-des-journaux",
+    "href": "observations.html#format-des-journaux",
+    "title": "9  De la détection à l’observation",
+    "section": "9.3 Format des journaux",
+    "text": "9.3 Format des journaux\nChaque ligne JSON décrit une frame :\n{\n  \"schema_version\": 1,\n  \"data_kind\": \"observed\",\n  \"source_id\": \"session-001\",\n  \"timestamp_s\": 0.1,\n  \"width\": 1280,\n  \"height\": 720,\n  \"detections\": [\n    {\"cls_id\": 0, \"cls_name\": \"Me\", \"confidence\": 0.8, \"xyxy\": [100, 200, 160, 280]}\n  ]\n}\nCet exemple illustre le format ; il n’est pas un résultat d’inférence. L’association ID/classe doit venir du data.yaml du modèle, et non être supposée identique entre exports.\nLes horodatages doivent être strictement croissants. Un journal possède une source et un type de données uniques. La relecture produit les observations sans relancer le détecteur.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>De la détection à l’observation</span>"
+    ]
+  },
+  {
+    "objectID": "observations.html#première-validation-géométrique",
+    "href": "observations.html#première-validation-géométrique",
+    "title": "9  De la détection à l’observation",
+    "section": "9.4 Première validation géométrique",
+    "text": "9.4 Première validation géométrique\n\n\n\n\n\n\nFigure 9.1: Planche de validation sur une scène synthétique ; aucune inférence n’est exécutée. Les quatre images sans détection du joueur produisent une rupture dans sa trajectoire. La distribution de temps mesure la conversion seule sur le CPU qui a généré le rapport.\n\n\n\nDonnées dérivées de démonstration : résumé, manifeste et chronométrages.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>De la détection à l’observation</span>"
+    ]
+  },
+  {
+    "objectID": "observations.html#travaux-suivants",
+    "href": "observations.html#travaux-suivants",
+    "title": "9  De la détection à l’observation",
+    "section": "9.5 Travaux suivants",
+    "text": "9.5 Travaux suivants\nLa capture réelle, le suivi d’identité, l’estimation du mouvement de caméra, la mémoire temporelle et l’interface RL restent à réaliser. Leur valeur sera évaluée sur des séquences réelles, avec comparaison à l’observation frame par frame déjà disponible.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>De la détection à l’observation</span>"
     ]
   },
   {
     "objectID": "detection.html",
     "href": "detection.html",
-    "title": "Detection and analysis",
+    "title": "10  Perception et détection",
     "section": "",
-    "text": "This part covers the perception problem: detecting the relevant objects in each frame and turning them into usable information. Because public datasets for the game are limited, the focus is on techniques to maximize detection accuracy, with all training and inference kept local.\n\n\n\n\n\n\nNoteWork in progress\n\n\n\nThe sections of this part will be added as the work progresses.",
+    "text": "10.1 Ce qui existe\nLa base YOLO11 dispose d’une configuration, d’un entraînement, d’un wrapper d’inférence, d’une visualisation des boîtes et d’un rapport d’évaluation. L’inférence renvoie les classes, confidences et coordonnées.\nLa baseline historique reste YOLO11n. Les versions récentes de la bibliothèque peuvent proposer d’autres familles de modèles ; une mise à niveau du modèle sera une expérience explicite, et non un changement silencieux de référence.",
     "crumbs": [
-      "Detection and analysis",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Detection and analysis</span>"
+      "Expérimenter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Perception et détection</span>"
+    ]
+  },
+  {
+    "objectID": "detection.html#un-protocole-plus-propre",
+    "href": "detection.html#un-protocole-plus-propre",
+    "title": "10  Perception et détection",
+    "section": "10.2 Un protocole plus propre",
+    "text": "10.2 Un protocole plus propre\nL’entraînement lit des partitions existantes. Il ne crée plus de test en déplaçant automatiquement une fraction des images d’apprentissage.\nAvant un run, un audit vérifie les annotations et les doublons exacts dans les lots utilisés. Un YAML dérivé résout les chemins à l’intérieur du dossier d’expérience et laisse l’export original intact.\n\n--smoke : essai court sur apprentissage/validation ; publication et test final interdits.\nEntraînement normal : nouveau dossier, graine et paramètres enregistrés.\n--publish : copie explicite des meilleurs poids, sans remplacement d’un fichier existant.\n--evaluate-test : évaluation finale explicitement demandée.\nRapport : validation par défaut ; métriques JSON, texte et provenance dans un run distinct.\n\nLes rapports nomment le backend et la taille d’image configurés. Une classe non évaluée est affichée comme telle. Une latence d’inférence ne représente pas la latence de toute la boucle.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Perception et détection</span>"
+    ]
+  },
+  {
+    "objectID": "detection.html#résultats-réels",
+    "href": "detection.html#résultats-réels",
+    "title": "10  Perception et détection",
+    "section": "10.3 Résultats réels",
+    "text": "10.3 Résultats réels\n\n\n\n\n\n\nNoteÀ mesurer\n\n\n\nAucun résultat réel n’est encore établi dans cette révision : ni mAP, ni performance par classe, ni débit GPU. Les tests d’orchestration avec un double de YOLO servent à vérifier le code, pas la qualité d’un détecteur.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Perception et détection</span>"
+    ]
+  },
+  {
+    "objectID": "detection.html#expériences-prévues",
+    "href": "detection.html#expériences-prévues",
+    "title": "10  Perception et détection",
+    "section": "10.4 Expériences prévues",
+    "text": "10.4 Expériences prévues\nLe jalon J2 du plan définira l’étude de résolution, les classes difficiles, les seuils et les augmentations. Les comparaisons conserveront un dataset identifié et des budgets explicites.\nLes sorties attendues sont : précision–rappel, matrice de confusion, AP par classe avec support, galerie d’erreurs et compromis qualité–latence. Toutes les figures devront référencer le checkpoint et les données évaluées.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Perception et détection</span>"
     ]
   },
   {
     "objectID": "rl.html",
     "href": "rl.html",
-    "title": "Reinforcement learning",
+    "title": "11  Décision et apprentissage",
     "section": "",
-    "text": "This part covers decision-making from unlabeled information: learning a policy that maps the perceived state to an action, with no labels telling us the right move — only experience and a reward signal.\n\n\n\n\n\n\nNoteWork in progress\n\n\n\nThe sections of this part will be added as the work progresses.",
+    "text": "11.1 La question étudiée\nL’agent reçoit une observation partielle et doit choisir une action sans étiquette de « bonne décision ». L’apprentissage par renforcement sera étudié après validation de la perception et de l’environnement.\nAucun entraînement RL réel n’a été réalisé dans cette version. Les dépendances et la trajectoire de recherche sont préparées ; l’environnement de jeu et les politiques restent à implémenter.",
     "crumbs": [
-      "Reinforcement learning",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Reinforcement learning</span>"
+      "Expérimenter",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Décision et apprentissage</span>"
+    ]
+  },
+  {
+    "objectID": "rl.html#les-références-à-construire",
+    "href": "rl.html#les-références-à-construire",
+    "title": "11  Décision et apprentissage",
+    "section": "11.2 Les références à construire",
+    "text": "11.2 Les références à construire\n\nImmobilité : contrôle minimal du protocole.\nHasard reproductible : effet des contraintes d’action.\nHeuristique : usage simple de l’observation.\nPolitique apprise : gain éventuel à budget comparable.\n\nLes quatre partagent le même contexte, les mêmes observations disponibles et la même évaluation.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Décision et apprentissage</span>"
+    ]
+  },
+  {
+    "objectID": "rl.html#environnement-et-récompense",
+    "href": "rl.html#environnement-et-récompense",
+    "title": "11  Décision et apprentissage",
+    "section": "11.3 Environnement et récompense",
+    "text": "11.3 Environnement et récompense\nLe contrat cible suit Gymnasium : initialisation reproductible, transition explicite et distinction entre fin naturelle et troncature temporelle. Une disparition du joueur ou un changement de pixels ne suffisent pas à définir une mort ou une récompense.\nLes événements devront être vérifiés contre des épisodes annotés. Les commandes simultanées, le maintien du mouvement et le relâchement des contacts sont des difficultés d’intégration à mesurer.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Décision et apprentissage</span>"
+    ]
+  },
+  {
+    "objectID": "rl.html#expérience-initiale",
+    "href": "rl.html#expérience-initiale",
+    "title": "11  Décision et apprentissage",
+    "section": "11.4 Expérience initiale",
+    "text": "11.4 Expérience initiale\nPPO est un candidat initial pour des actions factorisées. DQN nécessite une action discrète définie et validée. Le choix final dépendra de l’espace d’action retenu, du coût de collecte et de l’observabilité.\nL’expérience comprendra un pilote, un budget figé, plusieurs graines et une évaluation indépendante. Une courbe d’apprentissage unique ne suffira pas à conclure.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Décision et apprentissage</span>"
+    ]
+  },
+  {
+    "objectID": "rl.html#visualisations-attendues",
+    "href": "rl.html#visualisations-attendues",
+    "title": "11  Décision et apprentissage",
+    "section": "11.5 Visualisations attendues",
+    "text": "11.5 Visualisations attendues\nCourbes par graine, résultats finaux par politique, budget d’interactions, chronologies d’épisodes et ablations de l’observation ou de la récompense. Les intervalles seront calculés sur les unités appropriées, en tenant compte de la structure graine/épisode.\nVoir le protocole et les jalons J4–J6 du plan.",
+    "crumbs": [
+      "Expérimenter",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Décision et apprentissage</span>"
     ]
   },
   {
     "objectID": "pipeline.html",
     "href": "pipeline.html",
-    "title": "General pipeline",
+    "title": "12  Architecture et boucle expérimentale",
     "section": "",
-    "text": "The pipeline under study\nThis final part ties the two halves together — perception (detection and analysis) and decision (reinforcement learning) — into the full system. It comes last on purpose, once both problems are understood on their own.\nThe agent is organised along three stages that turn a frame into an action.\nflowchart LR\n    subgraph SIM[1. Capture]\n        A[Emulator] --&gt; B[Screen capture]\n    end\n    subgraph DET[2. Perception]\n        C[Object detection&lt;br/&gt;YOLOv11] --&gt; D[State restructuring]\n    end\n    subgraph AI[3. Decision]\n        E[RL policy]\n    end\n\n    B --&gt;|frame| C\n    D --&gt;|state| E\nAt run time the stages form a closed perception-action loop: each action changes the game, producing the next frame, and the change in frames is the reward signal that trains the policy.",
+    "text": "12.1 Une chaîne instrumentée\nflowchart LR\n  source[\"Image ou séquence&lt;br/&gt;capture / replay\"] --&gt; detector[\"Perception&lt;br/&gt;détections YOLO\"]\n  detector --&gt; observation[\"Observation&lt;br/&gt;géométrie + absences\"]\n  observation --&gt; policy[\"Politique&lt;br/&gt;baseline / RL\"]\n  policy --&gt; action[\"Exécution&lt;br/&gt;calibration ADB\"]\n  action --&gt; source\n  source --&gt; evidence[\"Journal horodaté&lt;br/&gt;données + événements\"]\n  observation --&gt; evidence\n  policy --&gt; evidence\n  evidence --&gt; figures[\"Analyse et figures&lt;br/&gt;rapport scientifique\"]\nLes flèches décrivent l’architecture cible. La boucle réelle n’est pas encore intégrée. Les journaux de détections, la normalisation, la provenance et la démonstration CPU sont implémentés.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>General pipeline</span>"
+      "Construire et conclure",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Architecture et boucle expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "pipeline.html#responsabilités",
+    "href": "pipeline.html#responsabilités",
+    "title": "12  Architecture et boucle expérimentale",
+    "section": "12.2 Responsabilités",
+    "text": "12.2 Responsabilités\n\n\n\n\n\n\n\n\nModule\nResponsabilité\nÉtat\n\n\n\n\ndata\nClasses, audit des annotations et empreintes\nImplémenté ; validation visuelle et groupes à compléter\n\n\ndetection\nEntraînement, inférence, rapport\nCode disponible ; expériences réelles à conduire\n\n\nstate\nObservation normalisée et replay de détections\nImplémenté ; mémoire et suivi à étudier\n\n\ncapture\nFrames live et enregistrement\nÀ implémenter\n\n\nresearch\nProvenance, statistiques, figures et rapport de démonstration\nImplémenté sur CPU\n\n\nEnvironnement/politiques/actions\nBoucle, baselines, récompense et RL\nÀ implémenter\n\n\ndocs\nMéthode, état des preuves et résultats\nRapport structuré ; résultats réels à ajouter\n\n\n\nLe détecteur et la politique ne doivent pas accéder directement aux commandes de l’émulateur. Les interfaces permettent d’examiner les observations et actions en relecture avant toute exécution live.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Architecture et boucle expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "pipeline.html#les-contrats-à-conserver",
+    "href": "pipeline.html#les-contrats-à-conserver",
+    "title": "12  Architecture et boucle expérimentale",
+    "section": "12.3 Les contrats à conserver",
+    "text": "12.3 Les contrats à conserver\n\nFrame : pixels, dimensions, source, horodatage monotone et contexte d’acquisition.\nDétection : mapping de classe versionné, score, boîte dans le repère image.\nObservation : géométrie normalisée, absences et ambiguïtés explicites.\nAction : intention indépendante de la calibration écran.\nTransition : observation, action, événement/récompense et fin/troncature.\nExpérience : configuration, données, code, environnement, statut et artefacts.\nFigure : données sources, unités, méthode et limites.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Architecture et boucle expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "pipeline.html#relecture-et-temps-réel",
+    "href": "pipeline.html#relecture-et-temps-réel",
+    "title": "12  Architecture et boucle expérimentale",
+    "section": "12.4 Relecture et temps réel",
+    "text": "12.4 Relecture et temps réel\nLa relecture sert à reproduire des erreurs et isoler les composants. Le temps réel ajoute des contraintes de synchronisation, de latence et de commandes persistantes. Ces deux modes partageront les observations, mais leurs résultats temporels seront présentés séparément.\nLes contrôles futurs couvriront capture figée, fenêtre perdue, observation trop ancienne, joueur absent/ambigu et arrêt utilisateur. Les décisions face à ces situations devront être visibles dans le journal.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Architecture et boucle expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "pipeline.html#terrain-et-état-partiel",
+    "href": "pipeline.html#terrain-et-état-partiel",
+    "title": "12  Architecture et boucle expérimentale",
+    "section": "12.5 Terrain et état partiel",
+    "text": "12.5 Terrain et état partiel\nLe dataset historique décrit surtout des entités. Il ne fournit pas automatiquement la géométrie des murs, buissons ou dangers. Il faudra comparer acquisition de carte, représentation manuelle et perception dédiée, selon le besoin réel des politiques.\nLa caméra mobile empêche d’assimiler des coordonnées écran à une position absolue sur la carte. Toute transformation vers un repère mondial devra être validée séparément.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Architecture et boucle expérimentale</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html",
+    "href": "progress.html",
+    "title": "13  Journal d’avancement",
+    "section": "",
+    "text": "13.1 Direction confirmée\nPriorité : recherche et visualisations scientifiques. Environnement de départ : CPU ; GPU NVIDIA non disponible actuellement et envisagé pour les entraînements ultérieurs.\nLe dépôt historique a été récupéré depuis main, commit 831beeb du 19 juin 2026. Le travail local est sur codex/research-foundation. L’historique local reste limité au dernier commit récupéré.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#livrables-de-cette-première-étape",
+    "href": "progress.html#livrables-de-cette-première-étape",
+    "title": "13  Journal d’avancement",
+    "section": "13.2 Livrables de cette première étape",
+    "text": "13.2 Livrables de cette première étape\n\nPlan de recherche, jalons, dépendances, définition de fin et critères de passage.\nRapport Quarto restructuré en français et atlas des figures attendues.\nDépendances séparées pour CPU, vision et RL ; diagnostic en lecture seule.\nAudit des labels YOLO et des doublons exacts, avec empreinte portable du dataset.\nObservation normalisée, absence/ambiguïté du joueur et replay de journaux.\nExpériences identifiées, configurations, environnement et artefacts hachés.\nDémonstration synthétique et microbenchmark réel de la conversion CPU seule.\nProtection contre l’écrasement des poids et séparation validation/test.\nTests de non-régression et CI CPU multiplateforme configurée.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#vérifié-localement",
+    "href": "progress.html#vérifié-localement",
+    "title": "13  Journal d’avancement",
+    "section": "13.3 Vérifié localement",
+    "text": "13.3 Vérifié localement\nLes 116 tests passent lors de la préparation du nouvel amorçage, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.\nLe rapport autonome et les figures sont inspectés visuellement, sur grand écran et sur mobile, sans débordement ni erreur JavaScript. Le livre Quarto et les workflows GitHub doivent être vérifiés dans leur environnement d’exécution ; aucune CI distante n’est déclarée passée avant lancement.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#pas-encore-établi",
+    "href": "progress.html#pas-encore-établi",
+    "title": "13  Journal d’avancement",
+    "section": "13.4 Pas encore établi",
+    "text": "13.4 Pas encore établi\n\n\n\n\n\n\n\nÉlément\nSituation\n\n\n\n\nDataset réel et version exacte\nVersion 21 importée : 2 551 images, 11 643 boîtes ; analyse descriptive réalisée\n\n\nPoids et anciens résultats\nNon retrouvés dans le dépôt\n\n\nQualité de détection\nAucune mesure réelle à annoncer\n\n\nCapture LDPlayer et commandes ADB\nÀ implémenter et calibrer\n\n\nPolitique et apprentissage RL\nÀ implémenter après les baselines\n\n\nMatériel CUDA et performances GPU\nDisponibilité et mesures à venir\n\n\nRésultats finaux\nNon produits",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#prochaine-action-utile",
+    "href": "progress.html#prochaine-action-utile",
+    "title": "13  Journal d’avancement",
+    "section": "13.5 Prochaine action utile",
+    "text": "13.5 Prochaine action utile\nPréparer un découpage dérivé par groupes d’acquisition : 208/254 images de validation ont un voisin d’apprentissage à dix secondes ou moins d’après les noms de fichiers. Le découpage public reste exploratoire. Il faudra ensuite un corpus indépendant adapté à Solo Showdown pour le test final.\nLe pilote CPU préparera le protocole ; le pilote sur NVIDIA déterminera le budget d’entraînement. Aucun entraînement de plusieurs mois n’est présenté comme lancé par la mise en place de ce socle.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#acquisition-et-première-analyse-réelles",
+    "href": "progress.html#acquisition-et-première-analyse-réelles",
+    "title": "13  Journal d’avancement",
+    "section": "13.6 Acquisition et première analyse réelles",
+    "text": "13.6 Acquisition et première analyse réelles\nLa version 21 « raw 4 » est téléchargée et importée. L’archive originale est conservée avec son empreinte ; les métadonnées et les effectifs concordent. Les 2 551 images se décodent, sans anomalie structurelle d’annotation ni doublon exact entre lots.\nLe rapport d’analyse présente les distributions, la galerie et le diagnostic temporel. Les observations montrent un fort déséquilibre de classes, des situations variées et un risque de corrélation entre les lots. Aucun entraînement YOLO ni RL réel n’a été lancé dans cette étape.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#préparation-du-travail-hébergé",
+    "href": "progress.html#préparation-du-travail-hébergé",
+    "title": "13  Journal d’avancement",
+    "section": "13.7 Préparation du travail hébergé",
+    "text": "13.7 Préparation du travail hébergé\nLe besoin confirmé est une exécution même lorsque le PC est éteint. Le guide d’autonomie décrit la configuration et les limites actuelles. Quatre tickets sont préparés dans .github/autonomy/backlog.json ; leur création directe par la connexion du chat a échoué avec une erreur de permission GitHub 403. Aucun ticket n’est déclaré publié.\nUn workflow manuel Hosted setup est préparé pour créer les tickets sans doublon et tester Telegram. Il ne lance pas de modèle. Les trois secrets GitHub sont déclarés configurés par Victor ; leur présence et leur fonctionnement sur le runner ne sont pas encore vérifiés. Le worker Codex planifié et les notifications régulières ne sont pas encore installés.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#correction-de-la-configuration-telegram-sous-windows",
+    "href": "progress.html#correction-de-la-configuration-telegram-sous-windows",
+    "title": "13  Journal d’avancement",
+    "section": "13.8 Correction de la configuration Telegram sous Windows",
+    "text": "13.8 Correction de la configuration Telegram sous Windows\nLa saisie masquée recevait le caractère Ctrl+V au lieu du jeton dans le terminal de Victor. Le script attend maintenant que le jeton soit copié depuis BotFather, puis le lit dans le presse-papiers Windows après validation par Entrée. Si une seule conversation privée est trouvée, son identifiant est copié pour le secret GitHub. Le format du jeton est vérifié avant toute requête et les erreurs sont présentées sans afficher le jeton ni une URL qui le contiendrait.\nLes 18 tests ciblés passent avec des entrées, réponses et accès au presse-papiers simulés ; Ruff et le format passent. Aucun jeton réel ni presse-papiers réel n’a été lu par ces vérifications. La connexion au bot reste à vérifier par Victor en exécutant le script corrigé.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#procédure-réutilisable-pour-les-clés",
+    "href": "progress.html#procédure-réutilisable-pour-les-clés",
+    "title": "13  Journal d’avancement",
+    "section": "13.9 Procédure réutilisable pour les clés",
+    "text": "13.9 Procédure réutilisable pour les clés\nLe skill de dépôt secret-handoff et les fichiers AGENTS.md du dépôt et du dossier de travail rendent persistante la procédure de configuration des clés. Ils imposent une destination explicite, les secrets GitHub pour les workflows, un parcours Windows sans collage dans le terminal et une vérification qui ne révèle pas le secret. Le skill distingue configuration déclarée, présence vérifiée et accès réellement testé.\nVictor confirme que le script Telegram corrigé fonctionne et indique que les secrets devraient être configurés. Ces déclarations ne constituent pas un test distant de GitHub Actions ni un envoi Telegram observé par l’agent. La publication GitHub reste refusée par la connexion du chat.\nL’installation du skill dans le dossier personnel a échoué au démarrage de l’outil d’exécution Windows, avec une erreur CET. Le skill est présent dans le dépôt ; scripts/install_secret_handoff_skill.py prépare une installation personnelle sans écraser un skill différent. Aucune valeur de clé n’est conservée dans ces instructions.\nLe skill personnel est désormais détecté dans le catalogue de Codex. Cette détection confirme sa découverte par l’application ; elle ne valide aucun accès à un service externe.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#première-exécution-sur-github",
+    "href": "progress.html#première-exécution-sur-github",
+    "title": "13  Journal d’avancement",
+    "section": "13.10 Première exécution sur GitHub",
+    "text": "13.10 Première exécution sur GitHub\nLe commit bced66a est publié sur codex/research-foundation. Les quatre jobs CPU de la première CI distante passent : Ubuntu et Windows, Python 3.11 et 3.12. Ils couvrent les tests, Ruff, le format, le diagnostic et la démonstration.\nLe job de documentation échoue avec Quarto 1.11.9 : l’option --fail-on-warnings transmise à Pandoc est inconnue. La commande est corrigée en --fail-if-warnings dans la CI et les instructions. La CI conservera le livre HTML comme artefact pour sa vérification. La réussite du rendu corrigé reste à confirmer après publication de ce correctif ; ni le worker planifié ni les notifications récurrentes ne sont actifs.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "progress.html#deuxième-exécution-et-amorçage-des-services",
+    "href": "progress.html#deuxième-exécution-et-amorçage-des-services",
+    "title": "13  Journal d’avancement",
+    "section": "13.11 Deuxième exécution et amorçage des services",
+    "text": "13.11 Deuxième exécution et amorçage des services\nLe second run confirme le succès des quatre jobs CPU et l’acceptation de l’option stricte. Le rendu échoue désormais sur l’interprétation des cartes HTML de l’accueil comme blocs Markdown. Les deux zones HTML sont isolées avec la syntaxe brute Quarto ; leur contenu est conservé. Un contrôle de source couvre les quinze chapitres, leurs blocs et 31 liens locaux, sans anomalie détectée. La compilation complète corrigée reste à confirmer sur GitHub.\nLa CI et la publication sont fixées à Quarto 1.11.9. Le prochain push de la branche de recherche déclenchera aussi un amorçage : tickets sans doublons, PR en brouillon, lecture de la liste des modèles OpenAI et premier message Telegram si des tickets sont créés. Aucun appel de génération, aucun worker de développement et aucune session récurrente ne sont activés par cet amorçage. Les opérations sont préparées, mais leurs résultats distants ne sont pas encore établis.\nLes 16 tests de l’amorçage vérifient la séparation des secrets, les requêtes sans génération et le masquage des erreurs. Les 116 tests du dépôt passent localement, ainsi que Ruff et le format. Une simulation des scripts GitHub crée quatre tickets puis zéro doublon, et une seule PR en brouillon. Aucun accès GitHub en écriture, aucune lecture d’une vraie clé et aucun message réel n’ont eu lieu pendant ces vérifications.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journal d’avancement</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html",
+    "href": "decisions.html",
+    "title": "14  Décisions de conception",
+    "section": "",
+    "text": "14.1 D001 — Recherche et lisibilité en priorité\nDécision, 23 novembre 2026. Le résultat final combine expériences reproductibles, système instrumenté et rapport scientifique visuel. Une performance compétitive n’est pas promise avant mesure.\nMotif. Direction explicitement retenue par Victor.\nConséquence. Les limites, échecs et baselines ont la même traçabilité que les meilleurs résultats.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html#d002-cpu-dabord-cuda-ensuite",
+    "href": "decisions.html#d002-cpu-dabord-cuda-ensuite",
+    "title": "14  Décisions de conception",
+    "section": "14.2 D002 — CPU d’abord, CUDA ensuite",
+    "text": "14.2 D002 — CPU d’abord, CUDA ensuite\nDécision. Les outils de données, observation, relecture et figures fonctionnent sans GPU ni Ultralytics. Vision lourde et RL sont des dépendances distinctes.\nMotif. Aucun GPU NVIDIA actuellement disponible.\nÀ réévaluer. Batch, résolution, modèle et budget après un pilote sur le matériel cible.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html#d003-conserver-yolo11n-comme-baseline-historique",
+    "href": "decisions.html#d003-conserver-yolo11n-comme-baseline-historique",
+    "title": "14  Décisions de conception",
+    "section": "14.3 D003 — Conserver YOLO11n comme baseline historique",
+    "text": "14.3 D003 — Conserver YOLO11n comme baseline historique\nDécision. Éviter un changement silencieux de famille de modèle. Une autre version ou architecture sera comparée explicitement.\nMotif. Préserver un point de référence et rendre les gains interprétables.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html#d004-partitions-explicites-source-préservée",
+    "href": "decisions.html#d004-partitions-explicites-source-préservée",
+    "title": "14  Décisions de conception",
+    "section": "14.4 D004 — Partitions explicites, source préservée",
+    "text": "14.4 D004 — Partitions explicites, source préservée\nDécision. Retirer le découpage automatique par déplacement de frames lors de l’entraînement. Écrire le YAML résolu dans le run et auditer les lots utilisés.\nMotif. Réduire les modifications implicites du dataset et préparer une séparation indépendante par session.\nLimite actuelle. L’audit ne détecte que les doublons exacts et ne prouve pas l’indépendance temporelle.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html#d005-pas-de-publication-implicite-des-poids",
+    "href": "decisions.html#d005-pas-de-publication-implicite-des-poids",
+    "title": "14  Décisions de conception",
+    "section": "14.5 D005 — Pas de publication implicite des poids",
+    "text": "14.5 D005 — Pas de publication implicite des poids\nDécision. Chaque run conserve ses poids. Publication explicite, sans écrasement. Le mode rapide ne peut publier ni évaluer le test.\nMotif. L’ancien mode rapide pouvait remplacer le modèle complet.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html#d006-une-démonstration-synthétique-reste-une-démonstration",
+    "href": "decisions.html#d006-une-démonstration-synthétique-reste-une-démonstration",
+    "title": "14  Décisions de conception",
+    "section": "14.6 D006 — Une démonstration synthétique reste une démonstration",
+    "text": "14.6 D006 — Une démonstration synthétique reste une démonstration\nDécision. Identifier son type dans les manifests, figures et légendes. Séparer les entrées synthétiques des durées CPU réellement mesurées.\nMotif. Pouvoir valider la chaîne de visualisation avant les données réelles sans fabriquer de résultats scientifiques.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html#d007-artefacts-locaux-et-livre-quarto",
+    "href": "decisions.html#d007-artefacts-locaux-et-livre-quarto",
+    "title": "14  Décisions de conception",
+    "section": "14.7 D007 — Artefacts locaux et livre Quarto",
+    "text": "14.7 D007 — Artefacts locaux et livre Quarto\nDécision. JSON/JSONL pour les preuves, SVG/PNG pour les figures, HTML autonome pour le premier rapport, Quarto pour la synthèse.\nMotif. Lisibilité hors ligne, inspection simple et continuité avec le dépôt existant.\nÀ réévaluer. Visualiseur interactif lorsque des séquences réelles rendent l’exploration utile.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "decisions.html#d008-algorithme-rl-après-le-contrat-daction",
+    "href": "decisions.html#d008-algorithme-rl-après-le-contrat-daction",
+    "title": "14  Décisions de conception",
+    "section": "14.8 D008 — Algorithme RL après le contrat d’action",
+    "text": "14.8 D008 — Algorithme RL après le contrat d’action\nDécision. PPO candidat initial ; alternatives selon action et observation. Aucune implémentation lourde avant les baselines et les événements vérifiés.\nMotif. L’espace d’action, la récompense et le coût de collecte structurent le choix davantage qu’une préférence théorique isolée.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Décisions de conception</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "15  Sources et lectures",
+    "section": "",
+    "text": "15.1 Références techniques primaires",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Sources et lectures</span>"
+    ]
+  },
+  {
+    "objectID": "references.html#références-techniques-primaires",
+    "href": "references.html#références-techniques-primaires",
+    "title": "15  Sources et lectures",
+    "section": "",
+    "text": "Ultralytics — entraînement : API, paramètres et contraintes d’exécution. Les exemples actuels peuvent porter sur une autre famille que la baseline YOLO11.\nUltralytics — validation : métriques, classes effectivement évaluées et paramètres.\nGymnasium — environnement personnalisé : contrat reset/step et initialisation reproductible.\nStable-Baselines3 — conseils expérimentaux : baselines, runs multiples et évaluation séparée.\nQuarto — livres et calculs Python : structure du rapport et séparation des calculs.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Sources et lectures</span>"
+    ]
+  },
+  {
+    "objectID": "references.html#évaluation-scientifique",
+    "href": "references.html#évaluation-scientifique",
+    "title": "15  Sources et lectures",
+    "section": "15.2 Évaluation scientifique",
+    "text": "15.2 Évaluation scientifique\nAgarwal, Schwarzer, Castro, Courville et Bellemare (2021), Deep Reinforcement Learning at the Edge of the Statistical Precipice. Référence pour la prise en compte de l’incertitude et des limites des comparaisons à peu de runs.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Sources et lectures</span>"
+    ]
+  },
+  {
+    "objectID": "references.html#dataset-retenu-pour-la-nouvelle-baseline",
+    "href": "references.html#dataset-retenu-pour-la-nouvelle-baseline",
+    "title": "15  Sources et lectures",
+    "section": "15.3 Dataset retenu pour la nouvelle baseline",
+    "text": "15.3 Dataset retenu pour la nouvelle baseline\nBloxxy — Brawl Stars Dataset, version 21. La licence et le mapping ont été vérifiés dans l’export importé. Les archives et empreintes sont conservées ; voir la fiche dataset et son analyse. Cette acquisition ne détermine pas la version utilisée dans les anciens essais non archivés.\nCes références ont été consultées lors de la préparation du socle. Les versions exactes installées dans les expériences sont consignées séparément.",
+    "crumbs": [
+      "Construire et conclure",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Sources et lectures</span>"
     ]
   }
 ]

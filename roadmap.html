@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Plan de recherche – BROWT</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./autonomy.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4b83e7093ad51207360b792a9fc4b170.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fbbe611d55de4febc02433f26efbd819.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4b83e7093ad51207360b792a9fc4b170.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer",
+    "search-label": "Recherche"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Aller au contenu principal</a><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          toggle.setAttribute("aria-checked", alternate ? "true" : "false");
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455).
+    // Not run on load: stylesheets are set before first paint there, and
+    // scrolling would undo the scroll to a URL fragment (#14973).
+    // The one pixel nudge keeps the reader where they were.
+    const refreshSafariScrollbar = () => {
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        const scrollY = window.scrollY;
+        window.scrollTo(0, scrollY > 0 ? scrollY - 1 : 1);
+        setTimeout(() => {
+          window.scrollTo(0, scrollY);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      refreshSafariScrollbar();
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" aria-label="Barre d'outils">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Fil d'Ariane"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./roadmap.html">Le projet</a></li><li class="breadcrumb-item"><a href="./roadmap.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Plan de recherche</span></a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Site web">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./assets/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">BROWT</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Victor11W/BROWT" title="Code source" class="quarto-navigation-tool px-1" aria-label="Code source"><i class="bi bi-github"></i></a>
+  <button type="button" role="switch" aria-checked="false" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Basculer le mode sombre" aria-label="Basculer le mode sombre"><i class="bi"></i></button>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Voir, comprendre, apprendre</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Le projet</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./roadmap.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Plan de recherche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Travail autonome et notifications</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./methodology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Méthode expérimentale</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./visual-atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Atlas des visualisations</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Expérimenter</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Démarrer sur CPU</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset public : source et acquisition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dataset-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Première analyse des données</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./observations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">De la détection à l’observation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./detection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Perception et détection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Décision et apprentissage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Construire et conclure</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Architecture et boucle expérimentale</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./progress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Journal d’avancement</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Décisions de conception</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Sources et lectures</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">Dans cette page</h2>
+   
+  <ul>
+  <li><a href="#intention-et-définition-de-fin" id="toc-intention-et-définition-de-fin" class="nav-link active" data-scroll-target="#intention-et-définition-de-fin"><span class="header-section-number">2.1</span> Intention et définition de fin</a></li>
+  <li><a href="#calendrier-et-dépendances" id="toc-calendrier-et-dépendances" class="nav-link" data-scroll-target="#calendrier-et-dépendances"><span class="header-section-number">2.2</span> Calendrier et dépendances</a></li>
+  <li><a href="#j0-installer-un-laboratoire-fiable" id="toc-j0-installer-un-laboratoire-fiable" class="nav-link" data-scroll-target="#j0-installer-un-laboratoire-fiable"><span class="header-section-number">2.3</span> J0 — Installer un laboratoire fiable</a></li>
+  <li><a href="#j1-construire-des-données-évaluables" id="toc-j1-construire-des-données-évaluables" class="nav-link" data-scroll-target="#j1-construire-des-données-évaluables"><span class="header-section-number">2.4</span> J1 — Construire des données évaluables</a></li>
+  <li><a href="#j2-établir-une-baseline-de-perception" id="toc-j2-établir-une-baseline-de-perception" class="nav-link" data-scroll-target="#j2-établir-une-baseline-de-perception"><span class="header-section-number">2.5</span> J2 — Établir une baseline de perception</a></li>
+  <li><a href="#j3-passer-des-détections-à-une-observation-temporelle" id="toc-j3-passer-des-détections-à-une-observation-temporelle" class="nav-link" data-scroll-target="#j3-passer-des-détections-à-une-observation-temporelle"><span class="header-section-number">2.6</span> J3 — Passer des détections à une observation temporelle</a></li>
+  <li><a href="#j4-définir-une-boucle-expérimentale-et-ses-baselines" id="toc-j4-définir-une-boucle-expérimentale-et-ses-baselines" class="nav-link" data-scroll-target="#j4-définir-une-boucle-expérimentale-et-ses-baselines"><span class="header-section-number">2.7</span> J4 — Définir une boucle expérimentale et ses baselines</a></li>
+  <li><a href="#j5-étudier-lapprentissage" id="toc-j5-étudier-lapprentissage" class="nav-link" data-scroll-target="#j5-étudier-lapprentissage"><span class="header-section-number">2.8</span> J5 — Étudier l’apprentissage</a></li>
+  <li><a href="#j6-intégrer-et-éprouver" id="toc-j6-intégrer-et-éprouver" class="nav-link" data-scroll-target="#j6-intégrer-et-éprouver"><span class="header-section-number">2.9</span> J6 — Intégrer et éprouver</a></li>
+  <li><a href="#j7-fermer-proprement-létude" id="toc-j7-fermer-proprement-létude" class="nav-link" data-scroll-target="#j7-fermer-proprement-létude"><span class="header-section-number">2.10</span> J7 — Fermer proprement l’étude</a></li>
+  <li><a href="#gestion-du-temps-du-calcul-et-des-inconnues" id="toc-gestion-du-temps-du-calcul-et-des-inconnues" class="nav-link" data-scroll-target="#gestion-du-temps-du-calcul-et-des-inconnues"><span class="header-section-number">2.11</span> Gestion du temps, du calcul et des inconnues</a></li>
+  <li><a href="#manière-de-travailler" id="toc-manière-de-travailler" class="nav-link" data-scroll-target="#manière-de-travailler"><span class="header-section-number">2.12</span> Manière de travailler</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Fil d'Ariane"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./roadmap.html">Le projet</a></li><li class="breadcrumb-item"><a href="./roadmap.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Plan de recherche</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Plan de recherche</span></h1>
+<p class="subtitle lead">24 semaines indicatives, huit jalons vérifiables</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="intention-et-définition-de-fin" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="intention-et-définition-de-fin"><span class="header-section-number">2.1</span> Intention et définition de fin</h2>
+<p><strong>Question centrale :</strong> avec quelles informations visuelles et quel budget de calcul un agent peut-il apprendre un comportement utile dans Brawl Stars, et comment expliquer ses succès et ses échecs ?</p>
+<p>La priorité retenue est la <strong>recherche et la visualisation scientifique</strong>. La performance du bot est un objet de mesure. Une conclusion négative étayée est un résultat scientifique ; elle ne remplace toutefois pas la validation des composants annoncés comme opérationnels.</p>
+<p>Le projet est considéré comme terminé lorsque :</p>
+<ol type="1">
+<li>une installation documentée permet de relire une séquence enregistrée et d’en reproduire les observations et les figures ;</li>
+<li>un dataset audité possède des partitions gelées, un historique de provenance et une fiche descriptive ;</li>
+<li>un détecteur est évalué sur des données indépendantes avec résultats globaux et par classe ;</li>
+<li>une chaîne capture → perception → observation → politique → action peut être démontrée sur le contexte expérimental défini ;</li>
+<li>des baselines et au moins une expérience RL sont comparées selon un protocole fixé, avec plusieurs graines et des limites d’interprétation ;</li>
+<li>les figures, tableaux, données dérivées, configurations, versions et poids nécessaires à la reproduction sont archivés ;</li>
+<li>le rapport final présente méthode, résultats, erreurs, limites, consommation de ressources et pistes suivantes ;</li>
+<li>les tests CPU et les vérifications de documentation passent, et les essais matériels sont consignés séparément.</li>
+</ol>
+<p>Les objectifs chiffrés de qualité, de latence et de jeu seront <strong>fixés après le pilote et avant les comparaisons finales</strong>. Aucun score arbitraire n’est présenté comme une exigence déjà justifiée.</p>
+</section>
+<section id="calendrier-et-dépendances" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="calendrier-et-dépendances"><span class="header-section-number">2.2</span> Calendrier et dépendances</h2>
+<div id="fig-research-roadmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-research-roadmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/figures/research-roadmap.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-research-roadmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Plan indicatif par semaines. Les durées représentent des budgets de travail et non un engagement calendaire. Les étapes GPU dépendent de la disponibilité d’une machine NVIDIA.
+</figcaption>
+</figure>
+</div>
+<p>Le travail commence sur CPU. L’absence actuelle de GPU ne bloque ni l’architecture, ni l’audit des données, ni les visualisations, ni les relectures enregistrées. Elle limite les entraînements lourds et les conclusions sur les performances CUDA.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Jalon</th>
+<th style="text-align: right;">Semaines</th>
+<th>Livrable principal</th>
+<th>Dépendance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>J0 · Fondations</td>
+<td style="text-align: right;">1–2</td>
+<td>Outils CPU, tests, provenance, rapport visuel et protocole</td>
+<td>Dépôt récupéré</td>
+</tr>
+<tr class="even">
+<td>J1 · Données</td>
+<td style="text-align: right;">3–5</td>
+<td>Dataset audité et partitions par session gelées</td>
+<td>J0 + données</td>
+</tr>
+<tr class="odd">
+<td>J2 · Perception</td>
+<td style="text-align: right;">6–8</td>
+<td>Baseline YOLO11n et analyse d’erreurs</td>
+<td>J1 + calcul adapté</td>
+</tr>
+<tr class="even">
+<td>J3 · Observation</td>
+<td style="text-align: right;">9–11</td>
+<td>Capture/replay, observation temporelle et mesures de latence</td>
+<td>J2, séquences réelles</td>
+</tr>
+<tr class="odd">
+<td>J4 · Boucle et baselines</td>
+<td style="text-align: right;">12–14</td>
+<td>Environnement expérimental, actions calibrées et politiques simples</td>
+<td>J3 + émulateur</td>
+</tr>
+<tr class="even">
+<td>J5 · Apprentissage</td>
+<td style="text-align: right;">15–19</td>
+<td>Comparaison RL avec plusieurs graines</td>
+<td>J4 + budget CUDA</td>
+</tr>
+<tr class="odd">
+<td>J6 · Robustesse</td>
+<td style="text-align: right;">20–22</td>
+<td>Évaluation hors distribution et boucle intégrée</td>
+<td>J5</td>
+</tr>
+<tr class="even">
+<td>J7 · Synthèse</td>
+<td style="text-align: right;">23–24</td>
+<td>Rapport final, démonstration et archive reproductible</td>
+<td>J0–J6</td>
+</tr>
+</tbody>
+</table>
+<p>Certaines tâches de documentation et d’analyse progressent en parallèle des expériences. Les jalons restent conditionnés à des preuves : on ne passe pas au RL pour compenser une perception défaillante.</p>
+</section>
+<section id="j0-installer-un-laboratoire-fiable" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="j0-installer-un-laboratoire-fiable"><span class="header-section-number">2.3</span> J0 — Installer un laboratoire fiable</h2>
+<p><strong>Travail.</strong> Séparer les dépendances CPU, vision et RL ; créer une commande de diagnostic ; définir les formats d’observation et d’expérience ; corriger les écrasements de poids ; distinguer validation et test ; ajouter tests et CI ; définir les conventions graphiques.</p>
+<p><strong>Livrables.</strong> CLI <code>browt</code>, <code>manifest.json</code>, audit d’annotations, relecture de détections, démonstration synthétique, premiers SVG/PNG, plan et journal.</p>
+<p><strong>Passage.</strong> Les tests de non-régression passent ; la démonstration est exécutable sans GPU, modèle ni émulateur ; chaque résultat est identifié comme observé ou synthétique ; aucun entraînement rapide ne peut remplacer un modèle publié.</p>
+<p><strong>État actuel.</strong> Socle implémenté localement. La CI distante et le rendu Quarto nécessitent encore leur validation dans un environnement équipé.</p>
+</section>
+<section id="j1-construire-des-données-évaluables" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="j1-construire-des-données-évaluables"><span class="header-section-number">2.4</span> J1 — Construire des données évaluables</h2>
+<p><strong>Travail.</strong></p>
+<ul>
+<li>Retrouver l’export Roboflow, sa version exacte, ses classes et sa licence ; conserver les fichiers sources en lecture seule dans le protocole.</li>
+<li>Établir un inventaire images/annotations, vérifier les boîtes, les images vides, les classes rares et un échantillon visuel par classe.</li>
+<li>Repérer les doublons exacts et les quasi-doublons ; rechercher les frames proches et les sessions communes.</li>
+<li>Identifier les parties, sessions, cartes, personnages et versions du jeu ; séparer les groupes avant de créer les lots.</li>
+<li>Réserver des sessions pour la validation et un test final verrouillé ; ne pas distribuer aléatoirement des frames voisines entre lots.</li>
+<li>Mesurer le décalage entre le dataset public et les captures cibles.</li>
+</ul>
+<p><strong>Livrables.</strong> Fiche dataset, manifeste de fichiers et empreintes, tableau d’effectifs, planches d’annotations, partitions versionnées et registre d’exclusions.</p>
+<p><strong>Passage.</strong> Aucun doublon exact entre lots ; chaque classe requise possède un support documenté ; les groupes d’acquisition sont connus ou la limite d’indépendance est explicitée ; le test est gelé avant le réglage du modèle. Si les groupes du dataset public sont introuvables, créer un petit lot indépendant acquis localement.</p>
+</section>
+<section id="j2-établir-une-baseline-de-perception" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="j2-établir-une-baseline-de-perception"><span class="header-section-number">2.5</span> J2 — Établir une baseline de perception</h2>
+<p><strong>Travail.</strong> Conserver YOLO11n comme baseline historique ; commencer par un test court puis une première expérience complète ; enregistrer graines, versions, augmentations, résolution et checkpoint ; comparer un seul facteur à la fois.</p>
+<p><strong>Expériences.</strong> Résolution, taille du modèle si le budget le permet, déséquilibre de classes, exemples difficiles et sélection du seuil de confiance sur validation.</p>
+<p><strong>Mesures.</strong> mAP@50–95, AP@50 par classe avec support, précision/rappel selon les seuils, faux positifs/faux négatifs, erreurs de localisation et vitesse après échauffement. Les classes absentes sont indiquées « non évaluées ».</p>
+<p><strong>Figures.</strong> Courbes précision–rappel, matrice de confusion explicitant sa normalisation, galerie de succès/échecs, qualité–latence et répartition des erreurs par situation.</p>
+<p><strong>Passage.</strong> Baseline reproductible sur validation, évaluation finale explicitement déclenchée, seuils d’usage documentés et goulots d’étranglement identifiés. Pilote à une graine puis cible de trois graines pour les comparaisons abordables ; adapter le nombre et l’incertitude au budget, sans faire passer un pilote pour une étude confirmatoire.</p>
+</section>
+<section id="j3-passer-des-détections-à-une-observation-temporelle" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="j3-passer-des-détections-à-une-observation-temporelle"><span class="header-section-number">2.6</span> J3 — Passer des détections à une observation temporelle</h2>
+<p><strong>Travail.</strong> Capturer ou relire des séquences horodatées ; conserver la géométrie de la fenêtre ; convertir pixels et coordonnées normalisées ; représenter explicitement absences et ambiguïtés ; étudier l’intérêt du suivi temporel et de la mémoire.</p>
+<p><strong>Écueils à traiter.</strong> Occlusions, faux « Me », caméra mobile, changements de résolution, terrain statique absent des annotations et état partiellement observable. Une absence de détection n’est pas une preuve de disparition de l’objet.</p>
+<p><strong>Livrables.</strong> Sources de frames replay/live, journal de sessions, observations versionnées, schéma des repères, visualiseur de séquences et métriques de stabilité.</p>
+<p><strong>Passage.</strong> Relecture déterministe d’un enregistrement réel ; absence/ambiguïté du joueur correctement propagée ; synchronisation et latences de chaque étape mesurées ; défaillances de perception visibles dans le rapport.</p>
+</section>
+<section id="j4-définir-une-boucle-expérimentale-et-ses-baselines" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="j4-définir-une-boucle-expérimentale-et-ses-baselines"><span class="header-section-number">2.7</span> J4 — Définir une boucle expérimentale et ses baselines</h2>
+<p><strong>Travail.</strong> Fixer personnage, carte, résolution et contexte d’essai ; calibrer les commandes ; séparer observation, décision et exécution ; vérifier les actions en mode simulation avant l’injection.</p>
+<p><strong>Actions candidates.</strong> Neuf mouvements discrets, dont l’immobilité, et une composante de tir. L’orientation, la simultanéité des contacts et le relâchement doivent être vérifiés sur l’émulateur : un simple swipe peut ne pas suffire à maintenir le joystick et tirer ensemble.</p>
+<p><strong>Baselines.</strong> Politique immobile, politique aléatoire reproductible, politique heuristique simple. Elles partagent exactement les observations, les contraintes d’action et le protocole d’évaluation des agents appris.</p>
+<p><strong>Récompense.</strong> Définir séparément score principal, signaux auxiliaires et pénalités ; valider visuellement les événements. La variation des pixels, seule, ne constitue pas une récompense fiable.</p>
+<p><strong>Livrables.</strong> Contrat Gymnasium, tests de transitions, journal observation/action/événement, calibration ADB et premiers épisodes annotés.</p>
+<p><strong>Passage.</strong> Débuts/fins d’épisode fiables ; distinction fin naturelle/limite de temps ; pas d’action persistante après arrêt ; métriques de référence disponibles et estimation du coût d’un épisode.</p>
+</section>
+<section id="j5-étudier-lapprentissage" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="j5-étudier-lapprentissage"><span class="header-section-number">2.8</span> J5 — Étudier l’apprentissage</h2>
+<p><strong>Travail.</strong> Geler une représentation initiale et une récompense ; vérifier d’abord l’apprentissage sur une tâche réduite ; comparer ensuite une baseline RL adaptée à l’espace d’action.</p>
+<p><strong>Choix prévus.</strong> PPO comme candidat initial pour l’action factorisée ; DQN seulement avec une action discrète correctement définie. Q-learning tabulaire reste une référence possible sur une abstraction très réduite. Ces choix seront réexaminés après J4, sans chercher à comparer tous les algorithmes.</p>
+<p><strong>Protocole.</strong> Séparer graines d’entraînement et sessions d’évaluation ; fixer un budget d’interactions et de calcul identique pour les comparaisons ; conserver les runs interrompus et les échecs ; évaluer une politique figée sur des épisodes indépendants.</p>
+<p><strong>Figures.</strong> Courbes par graine et agrégats justifiés, score par budget d’interactions, distribution des résultats finaux et chronologie d’épisodes représentatifs. Ne pas lisser au point de cacher les effondrements.</p>
+<p><strong>Passage.</strong> Au moins une expérience RL complète avec une baseline comparable ; plusieurs graines pour toute affirmation générale ; explication des écarts et limites de puissance statistique. Une absence d’amélioration entraîne une analyse, pas une retouche du test final.</p>
+</section>
+<section id="j6-intégrer-et-éprouver" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="j6-intégrer-et-éprouver"><span class="header-section-number">2.9</span> J6 — Intégrer et éprouver</h2>
+<p><strong>Travail.</strong> Évaluer cartes, situations, personnages ou sessions non vus selon une matrice définie ; analyser la propagation des erreurs ; vérifier dérive temporelle, perte de fenêtre, capture figée, joueur absent et interruptions.</p>
+<p><strong>Mesures.</strong> Score principal, réussite/survie selon le protocole, coût de calcul, latences p50/p95 de la boucle complète, taux de frames invalides et fréquence des arrêts.</p>
+<p><strong>Passage.</strong> Démonstration intégrée enregistrée ; conditions de validité explicites ; cas d’échec reproductibles ; comparaison finale sans changement opportuniste de métriques.</p>
+</section>
+<section id="j7-fermer-proprement-létude" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="j7-fermer-proprement-létude"><span class="header-section-number">2.10</span> J7 — Fermer proprement l’étude</h2>
+<p><strong>Travail.</strong> Reproduire une sélection d’expériences depuis un environnement propre ; figer les configurations et poids ; harmoniser légendes, unités et tableaux ; archiver données dérivées et scripts.</p>
+<p><strong>Livrables finaux.</strong></p>
+<ul>
+<li>Rapport scientifique HTML lisible et export des figures vectorielles.</li>
+<li>Vidéo courte expliquant perception, observation, décision et échecs.</li>
+<li>Fiches dataset et modèle ; versions, empreintes et procédure de reproduction.</li>
+<li>Résultats comparatifs avec incertitude et périmètre de généralisation.</li>
+<li>Guide d’installation CPU puis CUDA ; démonstration offline et démonstration intégrée.</li>
+<li>Liste explicite des limites et des travaux futurs, sans fonctionnalité annoncée comme réalisée sans preuve.</li>
+</ul>
+<p><strong>Passage final.</strong> Chaque conclusion renvoie à une expérience ; chaque figure renvoie à ses données ; les résultats sélectionnés sont reproductibles ; les limitations matérielles et expérimentales sont documentées.</p>
+</section>
+<section id="gestion-du-temps-du-calcul-et-des-inconnues" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="gestion-du-temps-du-calcul-et-des-inconnues"><span class="header-section-number">2.11</span> Gestion du temps, du calcul et des inconnues</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Incertitude</th>
+<th>Conséquence</th>
+<th>Réponse prévue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GPU NVIDIA indisponible</td>
+<td>Entraînements lourds retardés</td>
+<td>Développer et analyser sur CPU ; réaliser un pilote avant de dimensionner le calcul</td>
+</tr>
+<tr class="even">
+<td>Dataset/poids antérieurs introuvables</td>
+<td>Baseline à reconstruire</td>
+<td>Repartir d’un export identifié et tracer la nouvelle lignée</td>
+</tr>
+<tr class="odd">
+<td>Frames très corrélées</td>
+<td>Résultats surestimés</td>
+<td>Partitionner par session et évaluer sur acquisition indépendante</td>
+</tr>
+<tr class="even">
+<td>Jeu/émulateur instable</td>
+<td>Épisodes coûteux ou invalides</td>
+<td>Construire d’abord capture/replay et tests de transitions</td>
+</tr>
+<tr class="odd">
+<td>Récompense peu fiable</td>
+<td>Apprentissage trompeur</td>
+<td>Vérifier les événements et comparer à des épisodes annotés</td>
+</tr>
+<tr class="even">
+<td>Résultats RL très variables</td>
+<td>Comparaison fragile</td>
+<td>Plusieurs graines, intervalles adaptés et budget explicitement limité</td>
+</tr>
+<tr class="odd">
+<td>Périmètre trop large</td>
+<td>Analyse inachevée</td>
+<td>Un mode, un personnage et un contexte initial ; élargissement seulement après validation</td>
+</tr>
+</tbody>
+</table>
+<p>Le premier pilote mesure le temps par époque, la mémoire, la vitesse de collecte et le coût par épisode. Ces mesures déterminent le budget ; elles ne sont pas remplacées par une estimation inventée. Aucune ressource payante ou machine distante n’est engagée par ce plan.</p>
+</section>
+<section id="manière-de-travailler" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="manière-de-travailler"><span class="header-section-number">2.12</span> Manière de travailler</h2>
+<p>Le <a href="./progress.html">journal</a> indique le jalon courant, ses preuves, ses blocages et la prochaine action. Les <a href="./decisions.html">décisions</a> conservent le raisonnement des choix structurants. Le code, les expériences et le rapport évoluent ensemble.</p>
+<p>Une avancée scientifique se termine par une question traitée, un protocole exécutable, des données archivées, une figure expliquée et une limite identifiée. Les essais exploratoires restent distincts des résultats figés.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const toggle = window.document.createElement('button');
+      toggle.type = "button";
+      toggle.setAttribute("role", "switch");
+      toggle.setAttribute("aria-checked", "false");
+      toggle.classList.add('top-right');
+      toggle.classList.add('quarto-color-scheme-toggle');
+      toggle.setAttribute("aria-label", "Basculer le mode sombre");
+      toggle.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      toggle.appendChild(i);
+      // Put the toggle in a landmark of its own, so that landmark navigation
+      // can reach it.
+      //
+      // The container is always a fresh direct child of body, and the toggle is
+      // never moved into page furniture that the theme or the author controls.
+      // The toggle is positioned against the page, so any ancestor that
+      // establishes a containing block captures it: a positioned element or a
+      // grid for position: absolute, and transform, filter, will-change or
+      // contain for position: fixed. A direct child of body has none of these
+      // to inherit, and the shift when one appears is silent and visual.
+      //
+      // ARIA says a document should have at most one banner, and axe reports a
+      // duplicate whether or not the banners carry distinct labels. So use a
+      // header when the page has no banner yet, and a named region otherwise.
+      //
+      // A header is a banner wherever it sits, unless it is inside sectioning
+      // content, so this cannot just look at the children of body: a custom
+      // page layout wraps the title block header in a plain div. An explicit
+      // role="banner" always counts.
+      const sectioning = 'article, aside, main, nav, section, [role="article"], [role="complementary"], [role="main"], [role="navigation"], [role="region"]';
+      const hasBanner = Array.from(
+        window.document.querySelectorAll('header:not([role]), [role="banner"]')
+      ).some(function(el) {
+        return el.hasAttribute("role") || el.closest(sectioning) === null;
+      });
+      const container = window.document.createElement(hasBanner ? "div" : "header");
+      if (hasBanner) {
+        container.setAttribute("role", "region");
+        container.setAttribute("aria-label", "Basculer le mode sombre");
+      }
+      container.classList.add('quarto-color-scheme-toggle-container');
+      container.appendChild(toggle);
+      window.document.body.appendChild(container);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copié");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copié");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      const newWindowLabel = "(opens in a new tab)";
+      const newWindowNoteId = "quarto-ext-newwindow-label";
+      // Links reference one hidden label through aria-describedby, so the
+      // announcement never changes their accessible name.
+      var describeNewWindow = (link) => {
+        if (!window.document.getElementById(newWindowNoteId)) {
+          var newWindowNote = window.document.createElement("span");
+          newWindowNote.id = newWindowNoteId;
+          newWindowNote.hidden = true;
+          newWindowNote.textContent = newWindowLabel;
+          window.document.body.appendChild(newWindowNote);
+        }
+        var describedBy = (link.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean);
+        if (!describedBy.includes(newWindowNoteId)) {
+          describedBy.push(newWindowNoteId);
+          link.setAttribute("aria-describedby", describedBy.join(" "));
+        }
+      }
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            describeNewWindow(link);
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Code défilable","output":"Sortie défilable"};
+  </script>
+<nav class="page-navigation" aria-label="Page">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Voir, comprendre, apprendre">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Voir, comprendre, apprendre</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./autonomy.html" class="pagination-link" aria-label="Travail autonome et notifications">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Travail autonome et notifications</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
