@@ -1,148 +1,218 @@
 ---
 title: "Travail autonome et notifications"
-subtitle: "État du déploiement et procédure de configuration"
+subtitle: "Installation, preuves et limites de l'exécution hébergée"
 ---
 
-## État réel
+## État vérifié au 23 novembre 2026
 
-BROWT doit avancer quand le PC de Victor est éteint.
-Le socle CPU est publié sur `codex/research-foundation` et les quatre jobs CPU
-passent sur GitHub : Ubuntu et Windows, Python 3.11 et 3.12.
-Le rendu strict du livre reste à valider après correction des blocs HTML de
-l'accueil. La CI et la publication utilisent toutes deux Quarto 1.11.9.
+Le socle de recherche est intégré dans main par la [PR nº 6](https://github.com/Victor11W/BROWT/pull/6).
+La [CI de main](https://github.com/Victor11W/BROWT/actions/runs/45234044946)
+passe sur Ubuntu et Windows, Python 3.11 et 3.12, et rend le livre Quarto.
+La [publication du livre](https://github.com/Victor11W/BROWT/actions/runs/45234045002)
+et le déploiement Pages ont réussi.
 
-| Composant | Situation |
+| Composant | Preuve actuelle |
 |---|---|
-| Trois secrets GitHub | Déclarés configurés par Victor ; tests distants à effectuer |
-| Assistant Telegram local | Fonctionnement confirmé par Victor |
-| Tickets et PR d'amorçage | Création automatique préparée pour le prochain push |
-| Test d'authentification OpenAI | Lecture de la liste des modèles préparée ; aucune génération |
-| Test Telegram distant | Message de confirmation préparé |
-| Worker Codex qui développe | À implémenter |
-| Sessions planifiées et résumés réguliers | Inactifs |
-| GPU NVIDIA et LDPlayer | Environnement à préparer ultérieurement |
+| Tickets de départ | Quatre tickets publiés, nº 2 à 5 |
+| OpenAI | Liste des modèles lue avec succès ; inférence Codex et financement encore non testés |
+| Telegram | Envoi distant réussi et réception confirmée par Victor |
+| Worker | Contrôleur, workflow et tests locaux préparés ; déploiement et premier essai réel à effectuer |
+| Planification du modèle | Désactivée tant que les conditions d'activation ne sont pas réunies |
+| Dataset brut, GPU, émulateur | Archive encore locale ; NVIDIA et LDPlayer absents du runner |
 
-La connexion GitHub du chat refuse actuellement les écritures avec
-`403 Resource not accessible by integration`.
-Les workflows disposent de leur propre `GITHUB_TOKEN` : cette permission
-est distincte de celle du chat.
+Les résultats de l'amorçage sont dans [ce run](https://github.com/Victor11W/BROWT/actions/runs/45229580202).
+Un contrôle de lecture OpenAI ne démontre pas une génération ou un budget disponible.
+Les tests du contrôleur utilisent une API simulée et ne prouvent pas une exécution
+Codex réelle. Les résultats scientifiques restent distincts de ces essais techniques.
 
-## Ce que lance le prochain push
+## Cycle d'une session
 
-Le workflow `Hosted setup` se déclenche sur les pushes vers
-`codex/research-foundation`. Il reste aussi utilisable manuellement.
-
-```{mermaid}
+~~~{mermaid}
 flowchart TD
-    P["Push de la branche de recherche"] --> C["Research checks : CPU et livre"]
-    P --> T["Créer les tickets manquants"]
-    P --> R["Ouvrir une PR en brouillon"]
-    P --> A["Vérifier la lecture OpenAI"]
-    T --> N["Premier message Telegram"]
-```
+    S["Déclenchement manuel ou horaire"] --> E["Relire l'état et les tickets"]
+    E --> G{"Budget et activation validés ?"}
+    G -->|non| A["Aucun appel au modèle"]
+    G -->|oui| T["Réserver une session et choisir un ticket"]
+    T --> C["Codex : une petite étape, code et preuves"]
+    C --> V["Contrôleur séparé : valider les fichiers retournés"]
+    V --> P["Branche et PR"]
+    P --> I["Research checks sur la révision exacte"]
+    I -->|succès| M["Fusion si les règles GitHub l'autorisent"]
+    I -->|échec| R["Réparation bornée ou pause"]
+    M --> J["Mettre à jour le ticket et l'état"]
+    R --> J
+    J --> N["Bref message Telegram si utile"]
+~~~
 
-Les opérations sont séparées par job et par permission :
+Le workflow Autonomous research worker est versionné dans
+`.github/workflows/autonomous-worker.yml`. Le contrôleur est dans
+`.github/autonomy/worker.py` ; les consignes et le schéma de résultat sont voisins.
 
-- **Tickets :** importe les quatre objectifs de `.github/autonomy/backlog.json`.
-  Un marqueur stable et le titre évitent les doublons, y compris pour les
-  tickets déjà fermés.
-- **PR :** ouvre une PR en brouillon vers la branche par défaut si elle n'existe
-  pas déjà et si la branche contient des changements. Aucune fusion automatique
-  n'est réalisée par cet amorçage.
-- **OpenAI :** appelle seulement `GET /v1/models`, sans afficher la clé ni la
-  réponse détaillée. Une réussite valide cet accès de lecture ; elle ne prouve
-  ni une génération Codex réussie, ni des crédits compatibles, ni un budget.
-- **Telegram :** envoie un message de confirmation lorsque le push crée de
-  nouveaux tickets. Les pushes suivants n'envoient pas à nouveau ce message
-  si aucun ticket n'est créé. Un test manuel explicite reste possible.
+Le modèle travaille sur un runner sans droits d'écriture GitHub et sans secret
+Telegram. Il renvoie des fichiers texte complets dans un objet JSON. Un autre
+job, sur une machine fraîche, valide ces données et utilise l'API Git pour publier.
+Aucune commande issue du résultat n'est exécutée par le contrôleur.
+Codex est la dernière étape de son job, conformément aux
+[recommandations de l'action officielle](https://github.com/openai/codex-action/blob/main/docs/security.md).
 
-Cette étape ne lance aucun worker Codex et n'installe aucune planification.
+Les fichiers d'infrastructure, les consignes d'agents et les métadonnées gelées du
+dataset ne sont pas modifiables par ce worker. Une modification de ces fichiers
+nécessite une PR d'installation examinée séparément. Le format texte limite une
+session à douze fichiers et 60 Ko ; les tâches plus grandes sont découpées.
+Les figures scientifiques peuvent être reproduites par des scripts et exportées
+en SVG ; les images binaires ne transitent pas dans ce contrat de session.
 
-## Les trois secrets
+## Tickets et continuité
 
-Dans
-[Settings → Secrets and variables → Actions](https://github.com/Victor11W/BROWT/settings/secrets/actions),
-ouvrir l'onglet **Secrets**, puis **New repository secret**.
+Les tickets sont créés sans doublon grâce à des clés stables. Le contrôleur
+conserve les tickets fermés dans sa recherche de doublons. Il ne choisit que les
+tickets identifiés BROWT et écrits par le propriétaire ou GitHub Actions ; les
+issues publiques ordinaires ne lancent pas de session.
+Pour ajouter un ticket manuellement, le propriétaire peut utiliser le marqueur
+`<!-- browt-task:cle-stable -->` dans le corps et le label `browt:ready` ;
+la clé doit être stable et le ticket doit indiquer ses critères de fin.
 
-| Name exact | Valeur dans le champ Secret |
+| Statut | Utilisation |
 |---|---|
-| `OPENAI_API_KEY` | Clé API créée dans le projet OpenAI destiné au worker |
-| `TELEGRAM_BOT_TOKEN` | Jeton fourni par BotFather après `/newbot` |
-| `TELEGRAM_CHAT_ID` | Identifiant de la conversation destinée aux notifications |
+| `browt:ready` | Travail autorisé et réalisable sur le runner |
+| `browt:in-progress` | Une session ou une PR est en cours |
+| `browt:blocked` | Accès, matériel, décision ou preuve manquants |
+| `browt:state` | Issue technique contenant l'état durable du worker |
 
-Ne conserver aucune de ces valeurs dans le chat, le dépôt, un ticket ou les logs.
-Le skill `.agents/skills/secret-handoff/SKILL.md` et les consignes `AGENTS.md`
-conservent la procédure.
+Le premier ticket scientifique sélectionnable est le nº 3, consacré aux groupes
+d'acquisition. Le ticket de publication nº 2 n'est fermé qu'après vérification de
+la présence du socle dans main et du succès de sa CI. Le ticket d'autonomie nº 5
+attend un cycle réel réussi. La baseline nº 4 reste bloquée tant que son
+protocole, les données accessibles au runner et le calcul nécessaire manquent.
 
-Pour Telegram, créer le bot dans [@BotFather](https://t.me/BotFather), puis
-lui envoyer `/start` en conversation privée.
-Depuis le dépôt, lancer :
+Sans ticket prêt, une session de planification peut proposer au plus trois tâches.
+Elle ne se répète pas tant que le backlog suivi ne change pas. Les dépendances
+numériques sont vérifiées ; une tâche explicitement bloquée par une ressource
+ne devient pas prête simplement parce que ses autres dépendances sont closes.
 
-```text
-python scripts/telegram_setup.py
-```
+Une PR partielle fusionnée remet le ticket au statut prêt. Un ticket n'est fermé
+que si le worker déclare ses critères achevés et si la CI de sa révision passe.
+La CI vérifie le code et le rendu, pas la vérité de chaque conclusion scientifique :
+les mesures réelles, leurs entrées et leurs scripts doivent rester consultables.
+Un résultat absent n'est jamais remplacé par une métrique inventée.
 
-Sur Windows, le script attend que le jeton soit copié depuis BotFather, puis
-demande Entrée sans collage dans le terminal. Il lit le presse-papiers sans
-afficher ni enregistrer le jeton. Si une seule conversation privée est trouvée,
-son identifiant est copié pour être collé dans `TELEGRAM_CHAT_ID`.
-L'option `--manual` conserve une saisie masquée sans accès au presse-papiers.
+L'état est conservé dans une issue créée par le contrôleur, jamais dans le seul
+disque du runner. Il contient compteurs UTC, session réservée, PR, révision,
+CI, statut de la sonde et raisons de pause. Les jobs sont sérialisés. Après une
+interruption non finalisée, le worker se met en pause au lieu de répéter un appel
+potentiellement facturé. Les modifications non publiées d'un runner perdu ne
+sont pas récupérables ; le ticket et la réservation permettent de reprendre
+après examen du journal.
 
-## Vérifier l'amorçage
+## Installation et premier essai
 
-Après publication du correctif, ouvrir les exécutions
-[GitHub Actions](https://github.com/Victor11W/BROWT/actions).
+1. Publier puis fusionner la PR d'installation du worker, avec sa CI verte.
+   Le push vers codex/autonomous-worker prépare cette PR automatiquement.
+2. Vérifier les trois secrets de dépôt déjà configurés : `OPENAI_API_KEY`,
+   `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID`. Aucune valeur ne doit apparaître
+   dans le chat, un ticket, un commit ou un log.
+3. Dans Actions → Autonomous research worker → Run workflow, choisir main et
+   le mode inspect. Cela initialise les statuts et l'état, sans appel au modèle.
+4. Définir le financement API et un budget approuvé avant tout essai facturable.
+   Une fois cette décision prise, ajouter la variable de dépôt
+   `BROWT_API_BUDGET_CONFIRMED` avec la valeur true. Cette variable est une
+   autorisation, pas un plafond financier imposé par OpenAI.
+5. Lancer manuellement le mode probe. Il demande uniquement une réponse Codex,
+   sans changement de fichier. Un succès prouve l'inférence à cet instant ; une
+   erreur de crédits, modèle ou authentification provoque une pause.
+6. Lancer manuellement le mode work. Suivre le ticket, la PR, la CI explicitement
+   déclenchée sur la branche et la fusion. Ne pas activer la récurrence avant
+   d'avoir observé ce cycle complet. Le succès met verified à true dans l'état.
+7. Ajouter enfin `BROWT_AUTONOMY_ENABLED`=true dans les variables de dépôt.
+   Le modèle ne sera appelé aux horaires prévus que si la sonde et le premier
+   cycle sont aussi enregistrés comme réussis.
 
-1. Dans `Research checks`, vérifier les quatre jobs CPU et le rendu du livre.
-   Le livre réussi est conservé sept jours dans l'artefact `research-book`.
-2. Dans `Hosted setup`, vérifier la création des tickets, la PR et le contrôle
-   OpenAI. Le journal affiche uniquement les résultats nécessaires.
-3. Vérifier la réception du bref message dans Telegram. Un job passé signifie
-   que Telegram a confirmé l'envoi ; la réception doit être constatée.
-4. Pour un nouvel essai explicite, lancer `Hosted setup` manuellement avec
-   `test_telegram` coché. L'option `publish_tickets` peut être décochée.
+Les variables ordinaires se créent dans
+[Settings → Secrets and variables → Actions → Variables](https://github.com/Victor11W/BROWT/settings/variables/actions).
+Les clés restent dans l'onglet
+[Secrets](https://github.com/Victor11W/BROWT/settings/secrets/actions).
+La variable facultative `BROWT_CODEX_MODEL` choisit le modèle ; vide, elle laisse
+le choix par défaut à Codex. Le modèle doit être disponible pour la clé configurée.
 
-Une erreur de secret ou de permission doit être corrigée avant relance.
-Le workflow n'effectue pas de tentatives répétées sans limite.
+Les droits du connecteur GitHub du chat et ceux du GITHUB_TOKEN des workflows
+sont distincts. Le premier refuse actuellement les écritures. Cela ne démontre
+pas que le workflow manque de droits.
 
-## Travail restant pour le worker
+## CI, fusion et erreurs
 
-Le futur worker devra relire les tickets, la feuille de route et le journal,
-choisir une tâche réalisable, développer sur une branche `codex/`, exécuter
-les vérifications, publier une PR et mettre à jour les preuves.
+Une écriture faite avec GITHUB_TOKEN ne déclenche pas les mêmes événements qu'un
+push utilisateur. Le contrôleur appelle donc explicitement workflow_dispatch
+sur ci.yml. Il attend un run du bon dépôt, de la bonne branche et du SHA exact,
+puis vérifie à nouveau les fichiers et la cible de la PR avant fusion.
+La fusion utilise un SHA attendu et ne contourne aucune règle de branche.
+Après une fusion vérifiée du worker, le contrôleur déclenche explicitement
+Publish docs sur main pour actualiser le livre public. Le résultat de cette
+publication reste consultable dans son propre run.
+Voir les [règles GitHub sur les déclenchements](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow).
 
-Une tâche terminée exige du code publié et des vérifications adaptées.
-Un essai technique ou une simulation ne constitue pas un résultat scientifique.
-Les blocages de matériel ou d'accès doivent laisser un ticket ouvert avec une
-raison précise et permettre de choisir un autre travail réalisable.
+La CI de l'événement pull_request d'une PR créée par le bot peut rester en attente
+d'une approbation GitHub. Le run explicitement demandé est une vérification
+supplémentaire réelle, pas une approbation de ce bandeau. Si les règles du dépôt
+exigent une revue ou un autre contrôle, la fusion automatique s'arrête et le
+contrôleur signale la pause. Le premier cycle sert aussi à vérifier ce comportement.
 
-Le mode de fusion des PR, la reprise après interruption et la limitation des
-coûts doivent être installés et testés avant d'annoncer une livraison autonome.
-L'[action officielle Codex](https://github.com/openai/codex-action) est le moteur
-envisagé. Les jobs qui génèrent et testent du code doivent être séparés de ceux
-qui possèdent les droits d'écriture GitHub ou le jeton Telegram.
+Un échec de CI permet de reprendre la même PR depuis sa dernière révision.
+Après trois échecs distincts, la réparation se met en pause. Un changement externe
+de la PR ou de main provoque aussi une pause. Aucun force-push n'est utilisé.
+Une erreur de session Codex n'est pas relancée automatiquement.
 
-Les données brutes et les poids nécessitent un stockage persistant avec leurs
-empreintes ; un runner éphémère ne doit pas en être l'unique copie.
-L'archive actuelle reste locale.
+Après examen et correction de la cause, lancer le mode resume efface la pause
+et la réservation incomplète ; ce mode ne lance aucun modèle. Une nouvelle
+exécution work est nécessaire. Une PR dont la base a changé exige une revue
+et une remise en cohérence avant reprise ; resume ne la rebase pas. Après revue,
+fermer la PR devenue obsolète libère son suivi ; conserver son lien dans le
+ticket, remettre ce ticket au statut prêt si nécessaire, puis utiliser resume
+et un nouveau work permet de repartir du nouveau main.
 
-## Budget et cadence
+## Cadence, coût et messages
 
-Les captures du compte n'affichent pas de contrôle de dépense et indiquent
-qu'aucun plan de facturation API payant n'est activé.
-Le contrôle de lecture des modèles ne résout pas cette question.
-Il faudra vérifier le financement compatible avec le moteur choisi, fixer le
-budget effectif et valider une première exécution avant la planification.
+La cadence préparée est 07:17 et 19:17 UTC. GitHub peut retarder un déclenchement.
+Le contrôleur autorise au plus deux sessions de modèle par jour UTC, en comptant
+les sondes, la planification, les réparations et les sessions interrompues.
+L'étape Codex est limitée à douze minutes. Relancer le même run n'autorise pas une
+seconde session ; il faut un nouveau déclenchement. Ces bornes limitent le
+travail effectué, sans garantir un montant maximal en euros ou dollars.
 
-Un niveau de débit, une alerte de dépense ou un solde prépayé ne garantit pas,
-à lui seul, un plafond strict pour BROWT. Consulter la
-[documentation des limites de dépense](https://developers.openai.com/api/docs/guides/spend-limits)
-et l'état réellement disponible dans le compte.
+Les captures du compte indiquaient qu'aucun plan de facturation API payant n'était
+activé et n'affichaient pas de contrôle de dépense. Il reste à vérifier un financement
+compatible avec Codex avant l'essai. Des crédits liés à un abonnement ChatGPT
+peuvent avoir des restrictions : le [bénéfice de crédits API](https://help.openai.com/en/articles/20001626-api-credits-benefit-for-eligible-chatgpt-subscriptions)
+ne couvre pas les usages Codex par clé API. Ne pas confondre accès au chat,
+accès à la liste des modèles, génération et financement du worker.
 
-Point de départ proposé : deux sessions par jour et au plus deux résumés
-Telegram utiles par jour. Les changements inchangés ne doivent pas produire
-de notifications répétées. Cette cadence et sa limitation ne sont pas actives.
+Un niveau de débit ou une alerte ne constitue pas un plafond de dépense.
+Consulter les [limites de dépense OpenAI](https://developers.openai.com/api/docs/guides/spend-limits)
+et vérifier le contrôle effectivement disponible dans le compte.
+Le GPU et les services externes demandent un budget distinct.
 
-Les entraînements NVIDIA et les expériences LDPlayer nécessiteront ensuite
-un environnement adapté et un budget distinct. Le travail CPU peut être
-préparé avant leur disponibilité.
+Telegram reçoit au plus deux messages utiles par jour UTC, en français,
+en une ou deux lignes : avancée intégrée, tâches préparées ou blocage. Le worker
+ne répète pas la même notification. Une notification différée peut attendre
+le jour suivant lorsque le quota est épuisé. Pour éviter les doublons après
+interruption, l'envoi est réservé avant la requête : un envoi perdu à cet instant
+n'est pas répété automatiquement. Telegram reste un résumé ; GitHub conserve
+les preuves et les détails.
+
+Pour arrêter les nouvelles sessions horaires, passer `BROWT_AUTONOMY_ENABLED` à
+false. Pour suspendre aussi les appels manuels et les fusions automatiques,
+passer `BROWT_API_BUDGET_CONFIRMED` à false, puis annuler un run déjà lancé si
+nécessaire. La suppression d'une variable équivaut à false. Une variable ne peut
+pas annuler une requête déjà partie ; inspect reste disponible sans appel modèle.
+
+## Données et matériel
+
+L'archive Roboflow de 2 551 images demeure hors Git, sur le PC de Victor.
+Le runner peut développer et tester des outils sur fixtures, mais ne peut pas
+réévaluer ces images ou entraîner un détecteur dessus sans un accès supplémentaire.
+Un stockage persistant avec empreintes et un protocole de récupération seront
+nécessaires. Aucun transfert de données, achat de calcul ou service payant
+supplémentaire n'est installé implicitement par le worker.
+
+Les expériences NVIDIA et les essais LDPlayer nécessiteront ensuite une machine
+adaptée. Les tickets doivent rendre cette dépendance visible tout en permettant
+au travail CPU, aux analyses et aux visualisations reproductibles d'avancer.

@@ -49,7 +49,7 @@ Certaines tâches de documentation et d’analyse progressent en parallèle des 
 
 **Passage.** Les tests de non-régression passent ; la démonstration est exécutable sans GPU, modèle ni émulateur ; chaque résultat est identifié comme observé ou synthétique ; aucun entraînement rapide ne peut remplacer un modèle publié.
 
-**État actuel.** Socle implémenté localement. La CI distante et le rendu Quarto nécessitent encore leur validation dans un environnement équipé.
+**État actuel.** Socle intégré dans main par la PR nº 6. Les quatre jobs CPU distants et le rendu strict Quarto passent ; la publication Pages a réussi le 23 novembre 2026. Les expériences scientifiques et le matériel restent des jalons distincts.
 
 ## J1 — Construire des données évaluables
 
