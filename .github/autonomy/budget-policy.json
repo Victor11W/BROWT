@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "service": "OpenAI API",
-  "scope": "BROWT hosted Codex worker",
+  "scope": "BROWT hosted research agent through Responses API",
   "monthly_limit": {
     "amount": "10.00",
     "currency": "EUR"
@@ -9,5 +9,16 @@
   "approved_on": "2026-11-23",
   "approval_source": "Explicit user confirmation in Codex",
   "enforcement_status": "not_verified",
-  "note": "Records the authorized budget. This file does not measure usage or enforce a provider spending limit."
+  "note": "Records the authorized cash budget and declared credit source. It does not measure the provider balance or impose a provider spending cap. No purchase or recharge is performed by the worker.",
+  "monthly_limit_basis": "out-of-pocket spending",
+  "funding": {
+    "source": "eligible_promotional_api_credits",
+    "status": "declared_by_user",
+    "confirmed_on": "2026-11-23",
+    "eligible_inference": "not_tested",
+    "api_paid_plan": "not_started_confirmed_by_user",
+    "purchase": "not_required_before_eligible_probe",
+    "initial_eligible_probe_after_ci": true
+  },
+  "repository": "Victor11W/BROWT"
 }

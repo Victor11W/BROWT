@@ -20,7 +20,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: python -m pip install -e ".[research,dev]"
       - run: python -m ruff check .
-      - run: python -m ruff format --check src tests .github/autonomy/worker.py
+      - run: python -m ruff format --check src tests .github/autonomy
       - run: python -m pytest
       - run: python -m BROWT doctor --json
       - run: python -m BROWT demo --output runs/research --figures docs/assets/figures
@@ -44,3 +44,21 @@ jobs:
           path: docs/_book/
           if-no-files-found: error
           retention-days: 7
+  api_bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build the API source bundle without API calls
+        run: python .github/autonomy/responses_agent.py bundle-check
+      - name: Verify offline installation and tests on Debian
+        run: |
+          docker run --rm --network none \
+            -v "$PWD/runs/api-agent:/bundle:ro" \
+            -v "$PWD/.github/autonomy/check_bundle.py:/check.py:ro" \
+            python:3.11-slim-bookworm python /check.py

@@ -537,7 +537,7 @@ def test_notifications_are_short_deduplicated_and_reserved_before_send(monkeypat
     assert len(requests) == 1
 
 
-def test_workflow_separates_secrets_and_keeps_codex_last():
+def test_workflow_separates_secrets_and_isolates_api_execution():
     workflow = yaml.load(
         (ROOT / ".github/workflows/autonomous-worker.yml").read_text(encoding="utf-8"),
         Loader=yaml.BaseLoader,
@@ -547,10 +547,12 @@ def test_workflow_separates_secrets_and_keeps_codex_last():
     assert workflow["concurrency"]["cancel-in-progress"] == "false"
     agent = jobs["agent"]
     assert agent["permissions"] == {"contents": "read"}
-    assert agent["steps"][-1]["uses"] == "openai/codex-action@v1"
-    assert agent["steps"][-1]["with"]["permission-profile"] == ":workspace"
-    assert agent["steps"][-1]["with"]["safety-strategy"] == "drop-sudo"
-    assert "sandbox" not in agent["steps"][-1]["with"]
+    assert agent["steps"][-1]["id"] == "api"
+    assert agent["steps"][-1]["run"] == "python .github/autonomy/responses_agent.py run"
+    assert agent["steps"][-1]["env"]["OPENAI_API_KEY"] == "\u0024{{ secrets.OPENAI_API_KEY }}"
+    assert "codex-action" not in json.dumps(agent)
+    for step in agent["steps"][:-1]:
+        assert "secrets.OPENAI_API_KEY" not in json.dumps(step)
     assert "secrets.TELEGRAM" not in json.dumps(agent)
     assert "secrets.OPENAI" not in json.dumps({k: v for k, v in jobs.items() if k != "agent"})
     for name in ("prepare", "publish", "notify"):
@@ -828,3 +830,89 @@ def test_initialization_recovery_does_not_clear_other_or_billable_pauses(
     assert controller.prepare() is None
     assert controller.state["paused"] == pause
     assert controller.state["reservation"] == reservation
+
+
+def initial_probe_controller():
+    controller = make_controller(event="workflow_run", budget="")
+    controller.state["probe_ok"] = False
+    controller.event["workflow_run"] = {
+        "conclusion": "success",
+        "head_branch": "main",
+        "head_sha": MAIN_SHA,
+        "head_repository": {"full_name": controller.api.repo},
+        "path": ".github/workflows/ci.yml",
+    }
+    return controller
+
+
+def test_declared_credit_policy_allows_only_one_initial_probe_after_main_ci():
+    controller = initial_probe_controller()
+    task = controller.prepare()
+    assert task["mode"] == "probe" and task["task"] is None
+    assert controller.state["sessions"] == 1
+    minimal = json.dumps(
+        {"outcome": "probe", "summary": "API répond", "files": [], "evidence": [], "tickets": []}
+    )
+    controller.publish(minimal, "success")
+    assert controller.state["probe_ok"]
+    assert not controller.state["verified"]
+    assert controller.prepare() is None
+    assert controller.state["sessions"] == 1
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        lambda c: c.env.update(BROWT_API_BUDGET_CONFIRMED="false"),
+        lambda c: c.event["workflow_run"].update(head_sha="other-sha"),
+        lambda c: c.event["workflow_run"].update(head_branch="untrusted"),
+        lambda c: c.event["workflow_run"].update(head_repository={"full_name": "stranger/fork"}),
+        lambda c: c.event["workflow_run"].update(conclusion="failure"),
+        lambda c: c.event["workflow_run"].update(path=".github/workflows/other.yml"),
+        lambda c: c.state.update(paused="quota"),
+        lambda c: c.state.update(sessions=2),
+    ],
+)
+def test_initial_probe_fails_closed_for_other_events_pauses_and_explicit_disable(mutation):
+    controller = initial_probe_controller()
+    mutation(controller)
+    assert controller.prepare() is None
+    assert controller.state["reservation"] is None
+
+
+@pytest.mark.parametrize(
+    "funding",
+    [
+        {"initial_eligible_probe_after_ci": False},
+        {"api_paid_plan": "active"},
+        {"source": "another_source"},
+        {"status": "not_confirmed"},
+        None,
+    ],
+)
+def test_initial_probe_requires_the_explicit_credit_funding_policy(monkeypatch, funding):
+    policy = json.loads((ROOT / ".github/autonomy/budget-policy.json").read_text(encoding="utf-8"))
+    if funding is None:
+        policy.pop("funding")
+    else:
+        policy["funding"].update(funding)
+    monkeypatch.setattr(worker.Path, "read_text", lambda *args, **kwargs: json.dumps(policy))
+    controller = initial_probe_controller()
+    assert controller.prepare() is None
+    assert controller.state["sessions"] == 0
+
+
+def test_invalid_funding_policy_cannot_trigger_a_probe(monkeypatch):
+    monkeypatch.setattr(worker.Path, "read_text", lambda *args, **kwargs: "not JSON")
+    controller = initial_probe_controller()
+    assert controller.prepare() is None
+    assert controller.state["sessions"] == 0
+
+
+def test_initial_probe_authorization_does_not_transfer_to_a_fork(monkeypatch):
+    policy = json.loads((ROOT / ".github/autonomy/budget-policy.json").read_text(encoding="utf-8"))
+    policy["repository"] = "someone/another-repository"
+    monkeypatch.setattr(worker.Path, "read_text", lambda *args, **kwargs: json.dumps(policy))
+    controller = initial_probe_controller()
+    assert controller.prepare() is None
+    assert controller.state["sessions"] == 0

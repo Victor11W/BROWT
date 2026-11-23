@@ -12,7 +12,7 @@ Use Python 3.11 or 3.12 and an isolated environment:
 python -m pip install -e ".[research,dev]"
 python -m pytest
 python -m ruff check .
-python -m ruff format --check src tests .github/autonomy/worker.py
+python -m ruff format --check src tests .github/autonomy
 ```
 
 The CPU tools must remain usable without Ultralytics, CUDA or an emulator.

@@ -23,7 +23,7 @@ Le dépôt historique a été récupéré depuis `main`, commit `831beeb` du 19 
 
 ## Vérifié localement
 
-Les **191 tests passent** avec le contrôleur autonome, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.
+Les **254 tests passent** avec le contrôleur autonome et le moteur Responses, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.
 
 Le rapport autonome et les figures sont inspectés visuellement, sur grand écran et sur mobile, sans débordement ni erreur JavaScript. La CI du socle, le rendu strict du livre et sa publication passent désormais sur GitHub. Le livre publié n’a pas fait l’objet d’une nouvelle inspection visuelle complète ; les modifications du worker attendent leur propre CI distante.
 
@@ -174,3 +174,15 @@ secret ni réseau réel.
 Victor confirme que la facturation API n’est toujours pas activée. Le budget
 autorisé reste de 10 € par mois ; son contrôle effectif et le premier essai
 Codex réel restent à effectuer.
+
+## Moteur API compatible avec le financement déclaré
+
+Le contrôleur corrigé a réussi son [démarrage réel](https://github.com/Victor11W/BROWT/actions/runs/45243470554) sur main, commit `956c6ac`. Sa pause est levée et le ticket de publication nº 2 est fermé. Les jobs de génération et de publication de code restent ignorés ; aucune session de modèle n’a été réservée à cet instant.
+
+L’offre de crédits API est identifiée par Victor. Le moteur Codex initial étant exclu de cette offre, cette révision le remplace par Responses API, avec shell hébergé pour le travail de code. Seule la politique de financement est versionnée ; l’accès effectif avec cette clé reste à vérifier. Le plafond de dépenses réelles autorisé reste de 10 € par mois et aucun achat de crédits n’a été effectué par l’agent.
+
+Le code suivi et des wheels CPU sont regroupés avant tout appel au modèle. Le réseau du conteneur hébergé est désactivé ; il ne reçoit aucun secret. Le résultat JSON rejoint le contrôleur GitHub séparé et conserve les vérifications de fichiers, la CI du SHA exact, la fusion et Telegram. Le client borne les sorties et outils, demande une annulation sur timeout connu et nettoie uniquement les ressources API de sa session, avec expiration de secours.
+
+Une petite sonde unique sans conteneur est autorisée après validation CI du SHA exact de main, uniquement pour ce dépôt et avec la politique de crédits explicitement déclarée. Elle consomme une réservation quotidienne et ne lance aucune tâche scientifique. Une pause, un arrêt explicite ou une sonde déjà réussie empêchent sa répétition automatique. Les tâches et les horaires gardent leurs conditions d’activation et de recette.
+
+Les **254 tests locaux passent**, ainsi que Ruff, le format et les contrôles de source YAML/Quarto. Ils couvrent le client Responses simulé, les erreurs et annulations, l’isolation des ressources, une archive Git réelle excluant les fichiers non suivis et les garde-fous de la sonde. Un nouveau job CI doit encore vérifier le paquet de dépendances dans Debian/Python 3.11 sans réseau. Les générations réelles et le premier cycle de travail restent à valider après publication.
