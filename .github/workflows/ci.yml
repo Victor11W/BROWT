@@ -34,4 +34,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: quarto-dev/quarto-actions/setup@v2
-      - run: quarto render docs --fail-on-warnings
+      - run: quarto render docs --fail-if-warnings
+      - name: Preserve rendered book
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-book
+          path: docs/_book/
+          if-no-files-found: error
+          retention-days: 7

@@ -40,7 +40,7 @@ Generate figures with the versioned code:
 
 ```text
 python -m BROWT demo --output runs/research --figures docs/assets/figures
-quarto render docs --fail-on-warnings
+quarto render docs --fail-if-warnings
 ```
 
 The demonstration uses a synthetic geometry fixture. Its CPU conversion

@@ -83,7 +83,7 @@ sans écrasement. [Protocole détaillé](src/BROWT/detection/README.md).
 python -m pytest
 python -m ruff check .
 python -m ruff format --check src tests
-quarto render docs --fail-on-warnings
+quarto render docs --fail-if-warnings
 ```
 
 Les tests d’entraînement utilisent un double de YOLO et ne constituent pas une

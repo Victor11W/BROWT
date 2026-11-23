@@ -72,3 +72,9 @@ Victor confirme que le script Telegram corrigé fonctionne et indique que les se
 L’installation du skill dans le dossier personnel a échoué au démarrage de l’outil d’exécution Windows, avec une erreur CET. Le skill est présent dans le dépôt ; `scripts/install_secret_handoff_skill.py` prépare une installation personnelle sans écraser un skill différent. Aucune valeur de clé n’est conservée dans ces instructions.
 
 Le skill personnel est désormais détecté dans le catalogue de Codex. Cette détection confirme sa découverte par l’application ; elle ne valide aucun accès à un service externe.
+
+## Première exécution sur GitHub
+
+Le commit `bced66a` est publié sur `codex/research-foundation`. Les quatre jobs CPU de la [première CI distante](https://github.com/Victor11W/BROWT/actions/runs/45223132035) passent : Ubuntu et Windows, Python 3.11 et 3.12. Ils couvrent les tests, Ruff, le format, le diagnostic et la démonstration.
+
+Le job de documentation échoue avec Quarto 1.11.9 : l’option `--fail-on-warnings` transmise à Pandoc est inconnue. La commande est corrigée en `--fail-if-warnings` dans la CI et les instructions. La CI conservera le livre HTML comme artefact pour sa vérification. La réussite du rendu corrigé reste à confirmer après publication de ce correctif ; ni le worker planifié ni les notifications récurrentes ne sont actifs.
