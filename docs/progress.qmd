@@ -132,3 +132,13 @@ réel vérifié et variable d'activation. Ces limites de travail ne garantissent
 un plafond monétaire. Le financement API, le déploiement du worker et sa recette
 réelle restent à effectuer. Le dataset brut local, le GPU et l'émulateur ne sont
 pas rendus disponibles par cette installation.
+
+## Budget API confirmé
+
+Victor autorise le 23 novembre 2026 un maximum de **10 € par mois** pour
+l’API du worker. La décision est consignée dans
+`.github/autonomy/budget-policy.json` et dans le guide d’autonomie. Le blocage
+financier du fournisseur n’est pas vérifié ; le choix du montant ne prouve
+pas sa configuration. Aucun appel de génération n’a été lancé. Le worker
+reste local et sa publication, son financement compatible, le contrôle des
+dépenses et la recette hébergée restent à effectuer avant activation.

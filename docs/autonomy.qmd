@@ -113,8 +113,9 @@ après examen du journal.
    dans le chat, un ticket, un commit ou un log.
 3. Dans Actions → Autonomous research worker → Run workflow, choisir main et
    le mode inspect. Cela initialise les statuts et l'état, sans appel au modèle.
-4. Définir le financement API et un budget approuvé avant tout essai facturable.
-   Une fois cette décision prise, ajouter la variable de dépôt
+4. Le budget API approuvé est de **10 € par mois**. Vérifier le financement
+   compatible et le blocage effectif des dépenses avant tout essai facturable.
+   Une fois ces contrôles établis, ajouter la variable de dépôt
    `BROWT_API_BUDGET_CONFIRMED` avec la valeur true. Cette variable est une
    autorisation, pas un plafond financier imposé par OpenAI.
 5. Lancer manuellement le mode probe. Il demande uniquement une réponse Codex,
@@ -170,6 +171,20 @@ ticket, remettre ce ticket au statut prêt si nécessaire, puis utiliser resume
 et un nouveau work permet de repartir du nouveau main.
 
 ## Cadence, coût et messages
+
+Le budget autorisé par Victor le 23 novembre 2026 est de **10 € par mois pour
+l’API du worker BROWT**. Il est consigné dans
+`.github/autonomy/budget-policy.json`. Ce fichier conserve la décision ; il ne
+mesure pas les coûts et n’impose pas de plafond au fournisseur. Le contrôle
+financier reste à vérifier dans le compte avant de passer
+`BROWT_API_BUDGET_CONFIRMED` à true. Si le compte utilise une autre devise,
+la conversion et une marge doivent être prises en compte. Même un blocage de
+dépense OpenAI peut présenter un léger dépassement pendant sa propagation :
+le seuil technique doit donc rester en dessous du budget autorisé.
+
+Deux sessions quotidiennes sont un maximum ; le budget peut arrêter le travail
+plus tôt dans le mois. Aucun dépassement n’est autorisé par le choix de cette
+cadence.
 
 La cadence préparée est 07:17 et 19:17 UTC. GitHub peut retarder un déclenchement.
 Le contrôleur autorise au plus deux sessions de modèle par jour UTC, en comptant
