@@ -7,7 +7,7 @@ subtitle: "État des preuves au 23 novembre 2026"
 
 Priorité : **recherche et visualisations scientifiques**. Environnement de départ : CPU ; GPU NVIDIA non disponible actuellement et envisagé pour les entraînements ultérieurs.
 
-Le dépôt historique a été récupéré depuis `main`, commit `831beeb` du 19 juin 2026. Le travail local est sur `codex/research-foundation`. L’historique local reste limité au dernier commit récupéré.
+Le dépôt historique a été récupéré depuis `main`, commit `831beeb` du 19 juin 2026. Le socle de recherche est maintenant intégré dans `main` par la PR nº 6, révision de fusion `60ee62b`. Le worker est préparé sur `codex/autonomous-worker`.
 
 ## Livrables de cette première étape
 
@@ -23,9 +23,9 @@ Le dépôt historique a été récupéré depuis `main`, commit `831beeb` du 19 
 
 ## Vérifié localement
 
-Les **116 tests passent** lors de la préparation du nouvel amorçage, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.
+Les **191 tests passent** avec le contrôleur autonome, ainsi que Ruff et la vérification du format. Le diagnostic et les commandes de démonstration/relecture sont exécutés ; les empreintes des neuf artefacts scientifiques du rapport sont vérifiées. Les tests d’entraînement utilisent un double de YOLO et ne valident pas un apprentissage réel.
 
-Le rapport autonome et les figures sont inspectés visuellement, sur grand écran et sur mobile, sans débordement ni erreur JavaScript. Le livre Quarto et les workflows GitHub doivent être vérifiés dans leur environnement d’exécution ; aucune CI distante n’est déclarée passée avant lancement.
+Le rapport autonome et les figures sont inspectés visuellement, sur grand écran et sur mobile, sans débordement ni erreur JavaScript. La CI du socle, le rendu strict du livre et sa publication passent désormais sur GitHub. Le livre publié n’a pas fait l’objet d’une nouvelle inspection visuelle complète ; les modifications du worker attendent leur propre CI distante.
 
 ## Pas encore établi
 
@@ -86,3 +86,59 @@ Le [second run](https://github.com/Victor11W/BROWT/actions/runs/45224675887) con
 La CI et la publication sont fixées à Quarto 1.11.9. Le prochain push de la branche de recherche déclenchera aussi un amorçage : tickets sans doublons, PR en brouillon, lecture de la liste des modèles OpenAI et premier message Telegram si des tickets sont créés. Aucun appel de génération, aucun worker de développement et aucune session récurrente ne sont activés par cet amorçage. Les opérations sont préparées, mais leurs résultats distants ne sont pas encore établis.
 
 Les 16 tests de l’amorçage vérifient la séparation des secrets, les requêtes sans génération et le masquage des erreurs. Les 116 tests du dépôt passent localement, ainsi que Ruff et le format. Une simulation des scripts GitHub crée quatre tickets puis zéro doublon, et une seule PR en brouillon. Aucun accès GitHub en écriture, aucune lecture d’une vraie clé et aucun message réel n’ont eu lieu pendant ces vérifications.
+
+## Socle fusionné et services vérifiés
+
+La [PR nº 6](https://github.com/Victor11W/BROWT/pull/6) est fusionnée le 23 novembre 2026 dans main, commit 60ee62bb273f98f3fa01edbd6f6a597021738dbd.
+La [CI de cette révision](https://github.com/Victor11W/BROWT/actions/runs/45234044946)
+passe pour les quatre combinaisons CPU et pour le rendu Quarto. Le workflow
+[Publish docs](https://github.com/Victor11W/BROWT/actions/runs/45234045002) puis
+le déploiement Pages réussissent aussi. Cette preuve remplace les statuts en
+attente consignés dans les étapes historiques précédentes.
+
+L'[amorçage distant](https://github.com/Victor11W/BROWT/actions/runs/45229580202)
+a créé les tickets nº 2 à 5 et la PR nº 6. La lecture de la liste des modèles
+OpenAI a réussi. Telegram a confirmé l'envoi du message et Victor confirme sa
+réception. Aucune génération Codex ni disponibilité de crédits d'inférence
+n'est prouvée par ces opérations.
+
+## Worker préparé, activation encore en attente
+
+Cette révision ajoute un contrôleur hébergé qui réserve ses sessions dans une
+issue durable, sélectionne et crée des tickets sans doublon, reçoit les fichiers
+texte du modèle dans un job séparé et publie une PR. Il demande explicitement
+Research checks sur le SHA de la branche, vérifie le résultat et fusionne si les
+règles GitHub l'autorisent. Une étape partielle conserve le ticket ouvert ; les
+critères déclarés achevés ne permettent sa clôture qu'après validation CI.
+La publication du livre est demandée explicitement après fusion, car le push
+du jeton de workflow ne suffit pas à déclencher ce workflow.
+
+La reprise d'une PR en échec est bornée à trois échecs de CI. Une session modèle
+interrompue ou en erreur provoque une pause. Le contrôleur vérifie les changements
+concurrents et ne force pas les branches. Les fichiers d'infrastructure, les
+consignes et les métadonnées gelées du dataset restent hors de son périmètre
+d'écriture automatique. Le guide d'autonomie détaille les limites de reprise.
+
+Les 75 nouveaux tests utilisent des réponses GitHub/Telegram simulées. Ils
+vérifient les limites, les dépendances, le cycle complet de PR, la révision de CI,
+les modifications concurrentes, les erreurs et le masquage des secrets. Les
+191 tests du dépôt passent localement ; Ruff et le format passent également.
+Aucune clé réelle et aucun accès réseau facturable ne sont utilisés par ces tests.
+
+Deux sessions de modèle par jour UTC et deux messages Telegram utiles par jour
+sont préparés, avec douze minutes au plus pour l'étape Codex. Les appels horaires
+restent désactivés sans accord de budget, sonde d'inférence réussie, premier cycle
+réel vérifié et variable d'activation. Ces limites de travail ne garantissent pas
+un plafond monétaire. Le financement API, le déploiement du worker et sa recette
+réelle restent à effectuer. Le dataset brut local, le GPU et l'émulateur ne sont
+pas rendus disponibles par cette installation.
+
+## Budget API confirmé
+
+Victor autorise le 23 novembre 2026 un maximum de **10 € par mois** pour
+l’API du worker. La décision est consignée dans
+`.github/autonomy/budget-policy.json` et dans le guide d’autonomie. Le blocage
+financier du fournisseur n’est pas vérifié ; le choix du montant ne prouve
+pas sa configuration. Aucun appel de génération n’a été lancé. Le worker
+reste local et sa publication, son financement compatible, le contrôle des
+dépenses et la recette hébergée restent à effectuer avant activation.

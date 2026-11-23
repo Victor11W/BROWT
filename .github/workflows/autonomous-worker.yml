@@ -1,0 +1,159 @@
+name: Autonomous research worker
+run-name: BROWT · hosted research session
+on:
+  push:
+    branches: [codex/autonomous-worker]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: inspect is free; probe/work require an approved API budget; resume clears a pause
+        type: choice
+        options: [inspect, probe, work, resume]
+        default: inspect
+  schedule:
+    - cron: "17 7,19 * * *"
+  workflow_run:
+    workflows: [Research checks]
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: browt-autonomous-worker
+  cancel-in-progress: false
+jobs:
+  infrastructure_pr:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/codex/autonomous-worker'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Open the reviewed worker installation PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const {owner, repo} = context.repo;
+            const head = 'codex/autonomous-worker';
+            const base = context.payload.repository.default_branch;
+            const {data: prs} = await github.rest.pulls.list({
+              owner, repo, state: 'open', head: owner + ':' + head, base
+            });
+            if (prs.length) return;
+            const {data: pr} = await github.rest.pulls.create({
+              owner, repo, head, base, draft: false,
+              title: 'Installer le worker de recherche autonome et son état persistant',
+              body: [
+                'Le worker choisit et crée des tickets, propose des changements et vérifie leur CI avant fusion.',
+                'Les sessions de modèle, les écritures GitHub et Telegram utilisent des jobs distincts. La planification ne lance aucun modèle tant que le budget, la sonde API et un essai complet ne sont pas validés.',
+                'Cette PR installe le contrôleur ; elle ne prouve pas une exécution Codex réelle. Voir docs/autonomy.qmd pour la recette et les limites.'
+              ].join('\n\n')
+            });
+            await core.summary.addLink('Worker installation PR', pr.html_url).write();
+  prepare:
+    if: github.event_name != 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: write
+    outputs:
+      run_model: ${{ steps.control.outputs.run_model }}
+      source: ${{ steps.control.outputs.source }}
+      task: ${{ steps.control.outputs.task }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Select, reconcile and reserve a bounded session
+        id: control
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BROWT_API_BUDGET_CONFIRMED: ${{ vars.BROWT_API_BUDGET_CONFIRMED }}
+          BROWT_AUTONOMY_ENABLED: ${{ vars.BROWT_AUTONOMY_ENABLED }}
+        run: python .github/autonomy/worker.py prepare
+  agent:
+    needs: prepare
+    if: needs.prepare.outputs.run_model == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    permissions:
+      contents: read
+    outputs:
+      result: ${{ steps.codex.outputs.final-message }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.source }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU research dependencies
+        run: python -m pip install -e ".[research,dev]"
+      - name: Write the task as data
+        env:
+          TASK_JSON: ${{ needs.prepare.outputs.task }}
+        shell: python
+        run: |
+          import json, os
+          from pathlib import Path
+          task = json.loads(os.environ['TASK_JSON'])
+          Path('.worker-task.json').write_text(json.dumps(task, ensure_ascii=False), encoding='utf-8')
+      # Keep Codex last: no trusted command runs on the model's machine afterwards.
+      - name: Execute one bounded Codex session
+        id: codex
+        uses: openai/codex-action@v1
+        timeout-minutes: 12
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt-file: .github/autonomy/prompt.md
+          output-schema-file: .github/autonomy/result-schema.json
+          permission-profile: ":workspace"
+          safety-strategy: drop-sudo
+          model: ${{ vars.BROWT_CODEX_MODEL }}
+          effort: medium
+  publish:
+    needs: [prepare, agent]
+    if: always() && needs.prepare.outputs.run_model == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Validate the returned data and publish without executing it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BROWT_API_BUDGET_CONFIRMED: ${{ vars.BROWT_API_BUDGET_CONFIRMED }}
+          BROWT_AUTONOMY_ENABLED: ${{ vars.BROWT_AUTONOMY_ENABLED }}
+          MODEL_RESULT: ${{ needs.agent.outputs.result }}
+          AGENT_STATUS: ${{ needs.agent.result }}
+        run: python .github/autonomy/worker.py publish
+  notify:
+    needs: [prepare, agent, publish]
+    if: always() && github.event_name != 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Send at most one useful short update
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python .github/autonomy/worker.py notify

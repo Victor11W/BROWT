@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "service": "OpenAI API",
+  "scope": "BROWT hosted Codex worker",
+  "monthly_limit": {
+    "amount": "10.00",
+    "currency": "EUR"
+  },
+  "approved_on": "2026-11-23",
+  "approval_source": "Explicit user confirmation in Codex",
+  "enforcement_status": "not_verified",
+  "note": "Records the authorized budget. This file does not measure usage or enforce a provider spending limit."
+}
