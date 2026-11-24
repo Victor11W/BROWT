@@ -12,6 +12,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -819,6 +820,28 @@ class Controller:
             return
         run = max(matches, key=lambda r: r["id"])
         active["ci_url"] = run["html_url"]
+        # A CI callback can arrive just before its final job finishes. Inspect
+        # waits briefly for the authoritative complete run, without model calls.
+        if (
+            run["status"] != "completed"
+            and self.env["GITHUB_EVENT_NAME"] == "workflow_dispatch"
+            and (self.event.get("inputs") or {}).get("mode") == "inspect"
+        ):
+            run_id = run["id"]
+            for _ in range(6):
+                time.sleep(5)
+                latest = self.api.call("GET", f"/actions/runs/{run_id}")
+                if (
+                    latest.get("id") != run_id
+                    or latest.get("head_sha") != active["head"]
+                    or latest.get("head_branch") != active["branch"]
+                    or latest.get("event") != "workflow_dispatch"
+                    or latest.get("path") != ".github/workflows/ci.yml"
+                ):
+                    raise Stop("The CI callback no longer matches the tracked revision.")
+                run = latest
+                if run["status"] == "completed":
+                    break
         if run["status"] != "completed":
             return
         if run["conclusion"] != "success":

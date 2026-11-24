@@ -108,7 +108,7 @@ jobs:
         run: python .github/autonomy/worker.py prepare
   agent:
     needs: prepare
-    if: needs.prepare.outputs.run_model == 'true'
+    if: needs.prepare.outputs.run_model == 'true' && github.run_attempt == 1
     runs-on: ubuntu-latest
     timeout-minutes: 18
     permissions:

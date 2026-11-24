@@ -245,7 +245,11 @@ def base_request(task, root):
                 "\n\nHosted shell setup: the uploaded browt-session.zip is mounted in /mnt/data. "
                 "Find it there, extract it into a fresh /mnt/data/browt-session directory, then extract "
                 "source.zip into its repository subdirectory. task.json is the mission and wheels/ "
-                "contains Python 3.11 Linux dependencies. Work in repository/. First install the "
+                "contains Python 3.11 Linux dependencies. Work in repository/. Check python --version first. "
+                "If it is unsupported, use an available Python 3.11 interpreter; otherwise report the "
+                "runtime limitation and rely on CI for supported-runtime tests. Never bypass Requires-Python "
+                "or load binary wheels for a different Python ABI. Do not broaden project Python support "
+                "just to accommodate this container. With compatible Python, first install the "
                 "provided wheels with python -m pip install --no-index --find-links=../wheels setuptools wheel, "
                 "then python -m pip install --no-index --find-links=../wheels --no-build-isolation -e '.[research,dev]'. "
                 "Outbound network is disabled. No secret or GitHub write token exists inside this container. "
@@ -333,6 +337,8 @@ def execute(api, task, *, root=Path(".")):
 
 def main():
     command_name = sys.argv[1]
+    if command_name == "run" and os.environ.get("GITHUB_RUN_ATTEMPT", "1") != "1":
+        raise Stop("Start a new workflow dispatch; a model job cannot be rerun.")
     if command_name == "bundle-check":
         task = {"mode": "work", "purpose": "CI source bundle check; no API call"}
     else:

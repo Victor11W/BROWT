@@ -916,3 +916,83 @@ def test_initial_probe_authorization_does_not_transfer_to_a_fork(monkeypatch):
     controller = initial_probe_controller()
     assert controller.prepare() is None
     assert controller.state["sessions"] == 0
+
+
+def test_ci_callback_waits_for_its_own_completion_then_merges(monkeypatch):
+    controller = published()
+    successful_ci(controller)
+    completed = copy.deepcopy(controller.api.runs[0])
+    controller.api.runs[0]["status"] = "in_progress"
+    original_call = controller.api.call
+    calls = []
+
+    def callback(method, endpoint, data=None):
+        if endpoint == "/actions/runs/200":
+            calls.append(endpoint)
+            return completed
+        return original_call(method, endpoint, data)
+
+    controller.api.call = callback
+    controller.event["inputs"]["mode"] = "inspect"
+    sleeps = []
+    monkeypatch.setattr(worker.time, "sleep", sleeps.append)
+    controller.reconcile()
+    assert calls == ["/actions/runs/200"] and sleeps == [5]
+    assert controller.api.prs[20]["merged"]
+
+
+def test_ci_callback_wait_is_bounded_and_makes_no_model_call(monkeypatch):
+    controller = published()
+    successful_ci(controller)
+    controller.api.runs[0]["status"] = "in_progress"
+    original_call = controller.api.call
+
+    def callback(method, endpoint, data=None):
+        if endpoint == "/actions/runs/200":
+            return copy.deepcopy(controller.api.runs[0])
+        return original_call(method, endpoint, data)
+
+    controller.api.call = callback
+    controller.event["inputs"]["mode"] = "inspect"
+    sleeps = []
+    monkeypatch.setattr(worker.time, "sleep", sleeps.append)
+    controller.reconcile()
+    assert sleeps == [5] * 6
+    assert not controller.api.prs[20]["merged"]
+    assert controller.state["sessions"] == 1
+
+
+def test_ci_callback_rejects_a_different_revision(monkeypatch):
+    controller = published()
+    successful_ci(controller)
+    controller.api.runs[0]["status"] = "in_progress"
+    original_call = controller.api.call
+
+    def callback(method, endpoint, data=None):
+        if endpoint == "/actions/runs/200":
+            return {**controller.api.runs[0], "head_sha": "different"}
+        return original_call(method, endpoint, data)
+
+    controller.api.call = callback
+    controller.event["inputs"]["mode"] = "inspect"
+    monkeypatch.setattr(worker.time, "sleep", lambda _: None)
+    with pytest.raises(worker.Stop, match="no longer matches"):
+        controller.reconcile()
+    assert not controller.api.prs[20]["merged"]
+
+
+def test_ci_has_an_explicit_inspection_callback_separate_from_test_code():
+    workflow = yaml.load(
+        (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8"), Loader=yaml.BaseLoader
+    )
+    callback = workflow["jobs"]["return_to_worker"]
+    assert set(callback["needs"]) == {"cpu", "documentation", "api_bundle"}
+    assert "always()" in callback["if"] and "workflow_dispatch" in callback["if"]
+    assert "refs/heads/codex/agent-" in callback["if"]
+    assert callback["permissions"] == {"actions": "write"}
+    assert len(callback["steps"]) == 1
+    assert callback["steps"][0]["uses"] == "actions/github-script@v7"
+    script = callback["steps"][0]["with"]["script"]
+    assert "inputs: {mode: 'inspect'}" in script
+    assert "core.warning" in script
+    assert "secrets." not in json.dumps(callback)

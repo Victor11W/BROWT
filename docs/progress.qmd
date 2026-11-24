@@ -233,3 +233,48 @@ par une pause ou un saut d’horloge. Les hashes exacts ne détectent pas les
 quasi-doublons. La fixture ne démontre donc pas l’indépendance scientifique. Le
 futur corpus indépendant Solo Showdown reste hors de cette partition et devra
 être gelé séparément avant le réglage du modèle.
+
+## Première tâche hébergée et retour explicite de CI
+
+La PR nº 10 est fusionnée dans main, commit `d0dbde2`. La
+[CI du moteur Responses](https://github.com/Victor11W/BROWT/actions/runs/45251461687),
+son paquet hors réseau et la publication documentaire réussissent. La
+[sonde réelle](https://github.com/Victor11W/BROWT/actions/runs/45251635588)
+réserve une session et obtient une réponse : 260 tokens en entrée et 32 en
+sortie. Cela établit l’accès à la génération avec la clé existante ; le solde
+et l’origine exacte des crédits ne sont pas interrogés. Aucun achat n’a été fait.
+
+Victor confirme la variable de financement et lance le
+[premier travail réel](https://github.com/Victor11W/BROWT/actions/runs/45253329230).
+Le worker sélectionne le ticket nº 3, crée les sous-tâches nº 11 et 12 et ouvre
+la [PR nº 13](https://github.com/Victor11W/BROWT/pull/13), déclarée comme un
+progrès partiel. Son journal rapporte 44 058 tokens d’entrée et 17 619 de
+sortie. La [CI explicitement demandée](https://github.com/Victor11W/BROWT/actions/runs/45254307391)
+passe pour le SHA exact `8a9602c`. Le manifeste et sa comparaison graphique
+sur l’export réel restent à vérifier ; aucun entraînement n’est effectué.
+
+Le retour automatique workflow_run de cette CI n’a pas été observé après sa
+fin. Cette révision ajoute un job séparé qui demande explicitement le mode
+inspect, sans modèle ni clé API. Le contrôleur attend au plus trente secondes
+si le dernier job de CI se termine encore. Il conserve ses vérifications du
+SHA, de la branche, de la PR et de main avant toute fusion. Une panne du
+rappel laisse la PR ouverte pour une prochaine inspection. Le déploiement
+réel de ce nouveau rappel reste à vérifier.
+
+Un autre garde-fou refuse la relance du seul job modèle d’un run existant,
+avant lecture de la clé : une relance partielle ne doit pas contourner la
+réservation quotidienne effectuée par le job de préparation déjà terminé.
+Le premier conteneur ayant fourni Python 3.13.5, les consignes exigent aussi
+un interpréteur compatible ou le signalement de cette limite, sans contourner
+Requires-Python. Le support du projet reste Python 3.11 et 3.12.
+
+Les tests du rappel couvrent sa course avec la fin de CI, l’attente bornée et
+le rejet d’un autre SHA. La demande GitHub est simulée en succès et en panne,
+avec le même script que le YAML. Les **270 tests locaux passent**, ainsi que Ruff, le format et le contrôle de
+source YAML/Quarto. Le [mode inspect](https://github.com/Victor11W/BROWT/actions/runs/45257720435)
+a fusionné automatiquement la PR nº 13 dans main, commit `b3e25f5`, et enregistré
+verified=true sans nouvel appel au modèle. Le ticket nº 3 reste prêt et ouvert ;
+le ticket d’installation nº 5 est fermé. La publication documentaire après
+fusion réussit aussi. Ce premier cycle valide le contrôleur, tandis que le
+nouveau rappel de CI reste à déployer. Les horaires restent désactivés à ce
+stade ; les deux réservations du jour sont consommées.

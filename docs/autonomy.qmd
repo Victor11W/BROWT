@@ -80,8 +80,13 @@ conserve les empreintes de la source et des wheels.
 
 Le paquet est temporairement envoyé à OpenAI, puis monté dans un conteneur de
 1 Go avec réseau sortant désactivé. Les commandes du modèle s’exécutent dans ce
-conteneur, qui ne reçoit ni clé API ni jeton GitHub en écriture. Les dépendances
-s’installent hors réseau depuis les wheels. Quarto reste vérifié par la CI séparée.
+conteneur, qui ne reçoit ni clé API ni jeton GitHub en écriture. Les wheels sont destinées à Python 3.11. Le premier conteneur réel a fourni
+Python 3.13.5 : son installation et ses tests ne sont donc pas une preuve sur
+un environnement pris en charge. Le modèle doit vérifier la version, utiliser
+un Python compatible s’il existe et signaler la limite sinon, sans forcer
+Requires-Python ni changer les versions du projet pour ce seul motif. La CI
+séparée vérifie les quatre environnements pris en charge, le paquet hors réseau
+sous Python 3.11 et le rendu Quarto.
 Voir le [shell hébergé de Responses](https://developers.openai.com/api/docs/guides/tools-shell).
 
 Le client récupère uniquement le résultat final structuré et valide son contrat.
@@ -121,7 +126,10 @@ permettent une clôture automatique. La CI ne démontre pas la vérité d’une
 conclusion scientifique : les mesures et leurs entrées doivent rester consultables.
 
 Le contrôleur demande explicitement la CI sur la branche. Il attend le bon
-workflow, la bonne branche et le SHA exact, revérifie la PR, puis tente une fusion
+workflow, la bonne branche et le SHA exact. Un job séparé à la fin de la CI
+demande explicitement une inspection du contrôleur, sans modèle ni clé API.
+Cette inspection attend brièvement la fin du run ; le passage horaire reste
+un recours si la demande échoue. Le contrôleur revérifie la PR, puis tente une fusion
 verrouillée sur ce SHA. Il ne contourne aucune règle de branche et ne force aucun
 push. Après fusion, il demande explicitement Publish docs sur main.
 Les événements d’une PR créée par GITHUB_TOKEN peuvent demander une approbation
@@ -132,6 +140,9 @@ L’état persiste dans l’issue nº 8 : compteurs UTC, réservation, PR, révi
 sonde et raisons de pause. Les jobs sont sérialisés. Une interruption non
 finalisée provoque une pause, sans répétition d’un appel potentiellement facturé.
 Les fichiers non publiés d’un conteneur perdu ne sont pas récupérables.
+Les nouvelles tentatives d’un même run, y compris la relance du seul job de
+modèle, sont refusées avant l’accès à la clé. Utiliser une nouvelle exécution
+après examen de l’état et, si nécessaire, le mode resume.
 
 Une PR en échec peut être réparée depuis sa dernière révision. Trois échecs de CI,
 un changement externe de la PR ou de main, ou une erreur de session API provoquent
